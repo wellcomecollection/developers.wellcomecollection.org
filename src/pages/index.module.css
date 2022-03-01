@@ -1,0 +1,12 @@
+.heroContainer {
+  max-width: 780px;
+  text-align: left;
+}
+
+.heroTitle {
+  max-width: 700px;
+}
+
+.heroSubtitle {
+  max-width: 760px;
+}

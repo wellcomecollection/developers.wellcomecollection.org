@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="102" height="100" viewBox="0 0 102 100">
+    <g id="Group_3" data-name="Group 3" transform="translate(-248 -506)">
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="102" height="100" transform="translate(248 506)" fill="#1880bd"/>
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="46" height="46" transform="translate(253 510)" fill="#f0ede3"/>
+      <rect id="Rectangle_3" data-name="Rectangle 3" width="46" height="46" transform="translate(299 556)" fill="#f0ede3"/>
+      <text id="A" transform="translate(258 547)" fill="#1880bd" font-size="46" font-family="TimesNewRomanPSMT, Times New Roman"><tspan x="0" y="0">A</tspan></text>
+      <text id="L" transform="translate(310 547)" fill="#f0ede3" font-size="46" font-family="TimesNewRomanPSMT, Times New Roman"><tspan x="0" y="0">L</tspan></text>
+      <text id="O" transform="translate(305 594)" fill="#1880bd" font-size="46" font-family="TimesNewRomanPSMT, Times New Roman"><tspan x="0" y="0">O</tspan></text>
+      <text id="T" transform="translate(261 594)" fill="#f0ede3" font-size="46" font-family="TimesNewRomanPSMT, Times New Roman"><tspan x="0" y="0">T</tspan></text>
+    </g>
+  </svg>

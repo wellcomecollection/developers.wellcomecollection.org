@@ -1,0 +1,16 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+  background: var(--ifm-color-secondary);
+}
+
+html[data-theme='dark'] .features {
+  background: var(--ifm-color-dark);
+  color: var(--ifm-color-base);
+}
+  
+.featureSvg {
+  height: 120px;
+}

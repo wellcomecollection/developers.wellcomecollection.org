@@ -1,0 +1,88 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #007868;
+  --ifm-color-primary-dark: #006c5e;
+  --ifm-color-primary-darker: #006658;
+  --ifm-color-primary-darkest: #005449;
+  --ifm-color-primary-light: #008472;
+  --ifm-color-primary-lighter: #008a78;
+  --ifm-color-primary-lightest: #009c87;
+
+  --ifm-color-secondary: #f0ede3;
+
+  --ifm-color-success: #007868;
+  --ifm-color-info: #5cb8bf;
+  --ifm-color-warning: #ffce3c;
+  --ifm-color-danger: #e01b2f;
+
+  --ifm-color-white: #ffffff;
+  --ifm-color-black: #121212;
+
+  --ifm-color-gray-0: var(--ifm-color-white);
+  --ifm-color-gray-100: #f8f9fa;
+  --ifm-color-gray-200: #e9ecef;
+  --ifm-color-gray-300: #e8e8e8;
+  --ifm-color-gray-400: #d9d6ce;
+  --ifm-color-gray-500: #bcbab5;
+  --ifm-color-gray-600: #8f8f8f;
+  --ifm-color-gray-700: #6b6b6b;
+  --ifm-color-gray-800: #323232;
+  --ifm-color-gray-900: #1f1f1f;
+  --ifm-color-gray-1000: var(--ifm-color-black);
+
+  --ifm-code-font-size: 95%;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+html[data-theme='dark'] {
+  --ifm-color-primary: #5cb8bf;
+  --ifm-color-primary-dark: #48afb7;
+  --ifm-color-primary-darker: #44a5ad;
+  --ifm-color-primary-darkest: #38888e;
+  --ifm-color-primary-light: #70c1c7;
+  --ifm-color-primary-lighter: #7ac5cb;
+  --ifm-color-primary-lightest: #99d3d7;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* fonts */
+
+@font-face {
+  font-family: 'Wellcome Bold Web';
+  src: url('/fonts/wellcome-bold.woff2') format('woff2'), url('/fonts/wellcome-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+h1 { font-family: 'Wellcome Bold Web', 'Wellcome Bold Web Subset', 'Arial Black', sans-serif; }
+
+/* infima components */
+
+.footer--dark {
+  --ifm-footer-background-color: var(--ifm-color-black);
+  --ifm-footer-link-color: var(--ifm-color-white);
+}
+
+.footer--dark a {
+  color: var(--ifm-color-white);
+}
+
+.footer--dark a:hover {
+  color: var(--ifm-link-color);
+}
