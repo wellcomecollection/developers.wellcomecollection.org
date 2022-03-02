@@ -33,3 +33,10 @@ Please note that if you require a full harvest of the catalogue, you should use 
 ## About our collections
 
 Find out more about [what's in our collections](https://wellcomecollection.org/pages/YE99nRAAACMAb7YE).
+
+
+## Data model
+
+
+
+
