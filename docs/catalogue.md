@@ -37,6 +37,79 @@ Find out more about [what's in our collections](https://wellcomecollection.org/p
 
 ## Data model
 
+```mermaid
+flowchart TB
+    Work -->|partOf| Work
+    Work -->|items| Item
+    Work -->|images| Image
+    Item & Image -->|locations| Location
+```
+
+## Work types and hierarchy
+
+```mermaid
+classDiagram
+    Work <-- Collection
+    Work <-- Section
+    Work <-- Series
+```
+
+```mermaid
+flowchart LR
+    Work -->|partOf| Series
+    Series -->|partOf| Section
+    Section -->|partOf| Collection
+```
 
 
+## Items and locations
 
+```mermaid
+classDiagram
+    Location <-- PhysicalLocation
+    Location <-- DigitalLocation
+```
+
+```mermaid
+erDiagram
+    Item ||--|{ Locations : locations
+```
+
+## Contributor and concepts
+
+```mermaid
+classDiagram
+    Concept <-- Place
+    Concept <-- Period
+    Concept <-- Agent
+    Agent   <-- Person
+    Agent   <-- Organisation
+    Agent   <-- Meeting
+```
+
+```mermaid
+flowchart TB
+    Work -->|contributors| Contributor
+    Contributor -->|agent| Agent
+    Contributor -->|role| ContributionRole
+    Work -->|subjects| Subject
+    Work -->|genres| Genre
+    Subject & Genre -->|concepts| Concept
+```
+
+```mermaid
+classDiagram
+    Concept <-- Place
+    Concept <-- Period
+    Concept <-- Agent
+    Agent   <-- Person
+    Agent   <-- Organisation
+    Agent   <-- Meeting
+    Work "1" *-- "*" Contributor : contributors
+    Contributor "1" o-- "1" Agent : agent
+    Contributor "1" *-- "1" ContributionRole : role
+    Work "1" *-- "*" Subject : subjects
+    Subject "1" o-- "*" Concept : concepts
+    Work "1" *-- "*" Genre : genres
+    Genre "1" o-- "*" Concept : concepts
+```
