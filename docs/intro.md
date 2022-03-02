@@ -26,8 +26,10 @@ Help your user know if your project will help them. Useful information can inclu
 
 Give your users next steps from the Overview. For example:
 
-* [Getting Started](/docs/getting-started/): Get started with $project
-* [Examples](/docs/examples/): Check out some example code!
+* [Catalogue API](/docs/catalogue): Learn about the Catalogue API
+* [IIIF APIs](/docs/iiif): Learn about our IIIF APIs
+* [API Reference](/docs/api): View full API documentation
+
 
 ## About our collections
 

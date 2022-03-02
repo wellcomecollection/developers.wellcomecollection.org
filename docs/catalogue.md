@@ -28,7 +28,7 @@ If you spot a feature that undocumented but publically available this will most 
 
 If you have an idea for a feature, or something is not working as expected, [do get hold of us](mailto:digital@wellcomecollection.org).
 
-Please note that if you require a full harvest of the catalogue, you should use the [daily snapshot](/datasets) instead of the API.
+Please note that if you require a full harvest of the catalogue, you should use the [daily snapshot](datasets.md) instead of the API.
 
 ## About our collections
 
