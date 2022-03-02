@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="117.524" height="101.149" viewBox="0 0 117.524 101.149">
+    <g id="Group_2" data-name="Group 2" transform="translate(-402.382 -226.544)">
+      <path id="Path_2" data-name="Path 2" d="M415.633,344.9l20.892,7.618V295.921l-20.892-7.785Z" transform="translate(-5.947 -26.129)" fill="none" stroke="#707070" stroke-width="1"/>
+      <path id="Path_3" data-name="Path 3" d="M415.633,344.9l20.892,7.618V295.921l-20.892-7.785Z" transform="translate(-5.947 -26.129)" fill="#0475a4" stroke="#0475a4" stroke-width="1"/>
+      <path id="Path_4" data-name="Path 4" d="M415.633,344.9l20.892,7.618V295.921l-20.892-7.785Z" transform="translate(49.038 -26.129)" fill="#0475a4" stroke="#0475a4" stroke-width="1"/>
+      <path id="Path_5" data-name="Path 5" d="M436.525,344.9l-20.892,7.618V295.921l20.892-7.785Z" transform="translate(21.603 -26.129)" fill="#ee2635" stroke="#ee2635" stroke-width="1"/>
+      <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(402.382 242.099) rotate(-40)" fill="#0475a4" stroke="#0475a4" stroke-width="1">
+        <ellipse cx="10.473" cy="15.158" rx="10.473" ry="15.158" stroke="none"/>
+        <ellipse cx="10.473" cy="15.158" rx="9.973" ry="14.658" fill="none"/>
+      </g>
+      <g id="Ellipse_3" data-name="Ellipse 3" transform="translate(457.408 242.099) rotate(-40)" fill="#0475a4" stroke="#0475a4" stroke-width="1">
+        <ellipse cx="10.473" cy="15.158" rx="10.473" ry="15.158" stroke="none"/>
+        <ellipse cx="10.473" cy="15.158" rx="9.973" ry="14.658" fill="none"/>
+      </g>
+      <g id="Ellipse_4" data-name="Ellipse 4" transform="translate(445.94 265.323) rotate(-140)" fill="#ee2635" stroke="#ee2635" stroke-width="1">
+        <ellipse cx="10.473" cy="15.158" rx="10.473" ry="15.158" stroke="none"/>
+        <ellipse cx="10.473" cy="15.158" rx="9.973" ry="14.658" fill="none"/>
+      </g>
+      <path id="Path_6" data-name="Path 6" d="M560.344,326.974l20.855-7.73V278.935l7.607-2.76V258.613l-7.607,2.731v-9.978s.661-3.93,2.563-4.849,5.044,0,5.044,0v-19.44s-11.126.7-17.8,6.666a28.219,28.219,0,0,0-10.388,17.936l-.179,2.047Z" transform="translate(-69.4 0)" fill="#ee2635" stroke="#ee2635" stroke-width="1"/>
+    </g>
+  </svg>
