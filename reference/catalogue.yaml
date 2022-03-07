@@ -13,7 +13,7 @@ paths:
         - Works
       summary: /works
       description: Returns a paginated list of works
-      operationId: getWorks
+      operationId: get-works
       parameters:
         - name: include
           in: query
@@ -56,7 +56,7 @@ paths:
               - Section
         - name: aggregations
           in: query
-          description: What aggregated data in correlation to the results should we return.
+          description: What aggregated data in correlation to the results should we return
           schema:
             type: string
             enum:
@@ -70,42 +70,42 @@ paths:
               - availabilities
         - name: languages
           in: query
-          description: Filter the work by language.
+          description: Filter the work by language
           schema:
             type: string
         - name: genres.label
           in: query
-          description: Filter the work by genre.
+          description: Filter the work by genre
           schema:
             type: string
         - name: subjects.label
           in: query
-          description: Filter the work by subject.
+          description: Filter the work by subject
           schema:
             type: string
         - name: contributors.agent.label
           in: query
-          description: Filter the work by contributor.
+          description: Filter the work by contributor
           schema:
             type: string
         - name: identifiers
           in: query
-          description: Filter the work by identifiers.
+          description: Filter the work by identifiers
           schema:
             type: string
         - name: partOf
           in: query
-          description: Filter the work by partOf relation.
+          description: Filter the work by partOf relation
           schema:
             type: string
         - name: availabilities
           in: query
-          description: Filter the work by availabilities.
+          description: Filter the work by availabilities
           schema:
             type: string
         - name: items.locations.accessConditions.status
           in: query
-          description: Filter the work by access status.
+          description: Filter the work by access status
           schema:
             type: string
             enum:
@@ -120,7 +120,7 @@ paths:
               - permission-required
         - name: items.locations.license
           in: query
-          description: Filter the work by license.
+          description: Filter the work by license
           schema:
             type: string
             enum:
@@ -144,7 +144,7 @@ paths:
               - production.dates
         - name: sortOrder
           in: query
-          description: The order that the results should be returned in.
+          description: The order that the results should be returned in
           schema:
             type: string
             enum:
@@ -152,78 +152,52 @@ paths:
               - desc
         - name: production.dates.to
           in: query
-          description: |-
-            Return all works with a production date before and including this date.
-
-            Can be used in conjunction with `production.dates.from` to create a range.
+          description: Return all works with a production date before and including this date
           schema:
             type: string
+            format: date
         - name: production.dates.from
           in: query
-          description: |-
-            Return all works with a production date after and including this date.
-
-            Can be used in conjunction with `production.dates.to` to create a range.
+          description: Return all works with a production date after and including this date
           schema:
             type: string
+            format: date
         - name: query
           in: query
-          description: 'Full-text search query, which will OR supplied terms by default.\n\nThe following special characters can be used to change the search behaviour:\n\n- \" wraps a number of tokens to signify a phrase for searching\n\nTo search for any of these special characters, they should be escaped with \.'
+          description: Full-text search query
           schema:
             type: string
-        - name: page
-          in: query
-          description: The page to return from the result list
-          schema:
-            minimum: 1
-            type: integer
-            format: int64
-            default: 1
-        - name: pageSize
-          in: query
-          description: The number of works to return per page
-          schema:
-            maximum: 100
-            minimum: 1
-            type: integer
-            format: int64
-            default: 10
-        - name: _queryType
-          in: query
-          description: Which query should we use search the works? Used predominantly for internal testing of relevancy. Considered Unstable.
-          schema:
-            type: string
-            enum:
-              - MultiMatcher
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
       responses:
         '200':
           description: The works
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/WorkResultList'
         '400':
           description: Bad Request Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '410':
           description: Gone Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '500':
           description: Internal Server Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   '/works/{id}':
@@ -232,14 +206,8 @@ paths:
         - Works
       summary: '/works/{id}'
       description: Returns a single work
-      operationId: getWork
+      operationId: get-work
       parameters:
-        - name: id
-          in: path
-          description: The work to return
-          required: true
-          schema:
-            type: string
         - name: include
           in: query
           description: A comma-separated list of extra fields to include
@@ -264,40 +232,47 @@ paths:
         '200':
           description: The work
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Work'
         '400':
           description: Bad Request Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '410':
           description: Gone Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '500':
           description: Internal Server Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        description: The work to return
+        required: true
   /images:
     get:
       tags:
         - Images
       summary: /images
       description: Returns a paginated list of images
-      operationId: getImages
+      operationId: get-images
       parameters:
         - name: query
           in: query
@@ -306,7 +281,7 @@ paths:
             type: string
         - name: locations.license
           in: query
-          description: Filter the images by license.
+          description: Filter the images by license
           schema:
             type: string
             enum:
@@ -333,7 +308,7 @@ paths:
             type: string
         - name: colors
           in: query
-          description: Filter the images by colors.
+          description: Filter the images by colors
           schema:
             type: string
         - name: include
@@ -347,59 +322,44 @@ paths:
               - source.genres
         - name: aggregations
           in: query
-          description: What aggregated data in correlation to the results should we return.
+          description: What aggregated data in correlation to the results should we return
           schema:
             type: string
             enum:
               - locations.license
               - source.contributors.agent.label
               - source.genres.label
-        - name: page
-          in: query
-          description: The page to return from the result list
-          schema:
-            minimum: 1
-            type: integer
-            format: int64
-            default: 1
-        - name: pageSize
-          in: query
-          description: The number of images to return per page
-          schema:
-            maximum: 100
-            minimum: 1
-            type: integer
-            format: int64
-            default: 10
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
       responses:
         '200':
           description: The images
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ImageResultList'
         '400':
           description: Bad Request Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '410':
           description: Gone Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '500':
           description: Internal Server Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   '/images/{id}':
@@ -408,14 +368,8 @@ paths:
         - Images
       summary: '/images/{id}'
       description: Returns a single image
-      operationId: getImage
+      operationId: get-image
       parameters:
-        - name: id
-          in: path
-          description: The image to return
-          required: true
-          schema:
-            type: string
         - name: include
           in: query
           description: A comma-separated list of extra fields to include
@@ -432,33 +386,40 @@ paths:
         '200':
           description: The image
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Image'
         '400':
           description: Bad Request Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Not Found Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '410':
           description: Gone Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '500':
           description: Internal Server Error
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: The image to return
 components:
   schemas:
     AccessCondition:
@@ -477,6 +438,20 @@ components:
         type:
           type: string
           default: AccessCondition
+      examples:
+        - method:
+            id: online-request
+            label: Online request
+            type: AccessMethod
+          status:
+            id: string
+            label: string
+            type: AccessStatus
+          terms: string
+          note: string
+          type: AccessCondition
+      x-tags:
+        - Models
     AccessMethod:
       title: AccessMethod
       type: object
@@ -504,6 +479,8 @@ components:
         - id: online-request
           label: Online request
           type: AccessMethod
+      x-tags:
+        - Models
     AccessStatus:
       title: AccessStatus
       type: object
@@ -1208,6 +1185,31 @@ components:
           type: string
         aggregations:
           - $ref: '#/components/schemas/WorkAggregations'
+  parameters:
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: The page to return from the result list
+    pageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+        minimum: 1
+        maximum: 100
+      description: The number of results to return per page
 tags:
   - name: Images
   - name: Works
+x-tagGroups:
+  - name: APIs
+    tags:
+      - Works
+      - Images
