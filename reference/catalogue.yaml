@@ -1206,10 +1206,123 @@ components:
         maximum: 100
       description: The number of results to return per page
 tags:
-  - name: Images
   - name: Works
+  - name: Images
+  - name: AccessCondition
+    description: <SchemaDefinition schemaRef="#/components/schemas/AccessCondition" />
+  - name: AccessMethod
+    description: <SchemaDefinition schemaRef="#/components/schemas/AccessMethod" />
+  - name: AccessStatus
+    description: <SchemaDefinition schemaRef="#/components/schemas/AccessStatus" />
+  - name: Agent
+    description: <SchemaDefinition schemaRef="#/components/schemas/Agent" />
+  - name: Aggregation
+    description: <SchemaDefinition schemaRef="#/components/schemas/Aggregation" />
+  - name: AggregationBucket
+    description: <SchemaDefinition schemaRef="#/components/schemas/AggregationBucket" />
+  - name: Availability
+    description: <SchemaDefinition schemaRef="#/components/schemas/Availability" />
+  - name: Concept
+    description: <SchemaDefinition schemaRef="#/components/schemas/Concept" />
+  - name: ContributionRole
+    description: <SchemaDefinition schemaRef="#/components/schemas/ContributionRole" />
+  - name: Contributor
+    description: <SchemaDefinition schemaRef="#/components/schemas/Contributor" />
+  - name: DigitalLocation
+    description: <SchemaDefinition schemaRef="#/components/schemas/DigitalLocation" />
+  - name: Error
+    description: <SchemaDefinition schemaRef="#/components/schemas/Error" />
+  - name: Format
+    description: <SchemaDefinition schemaRef="#/components/schemas/Format" />
+  - name: Genre
+    description: <SchemaDefinition schemaRef="#/components/schemas/Genre" />
+  - name: Holdings
+    description: <SchemaDefinition schemaRef="#/components/schemas/Holdings" />
+  - name: Identifier
+    description: <SchemaDefinition schemaRef="#/components/schemas/Identifier" />
+  - name: IdentifierType
+    description: <SchemaDefinition schemaRef="#/components/schemas/IdentifierType" />
+  - name: Image
+    description: <SchemaDefinition schemaRef="#/components/schemas/Image" />
+  - name: ImageAggregations
+    description: <SchemaDefinition schemaRef="#/components/schemas/ImageAggregations" />
+  - name: ImageResultList
+    description: <SchemaDefinition schemaRef="#/components/schemas/ImageResultList" />
+  - name: Item
+    description: <SchemaDefinition schemaRef="#/components/schemas/Item" />
+  - name: ItemStatus
+    description: <SchemaDefinition schemaRef="#/components/schemas/ItemStatus" />
+  - name: Language
+    description: <SchemaDefinition schemaRef="#/components/schemas/Language" />
+  - name: License
+    description: <SchemaDefinition schemaRef="#/components/schemas/License" />
+  - name: LocationType
+    description: <SchemaDefinition schemaRef="#/components/schemas/LocationType" />
+  - name: Note
+    description: <SchemaDefinition schemaRef="#/components/schemas/Note" />
+  - name: NoteType
+    description: <SchemaDefinition schemaRef="#/components/schemas/NoteType" />
+  - name: Period
+    description: <SchemaDefinition schemaRef="#/components/schemas/Period" />
+  - name: PhysicalLocation
+    description: <SchemaDefinition schemaRef="#/components/schemas/PhysicalLocation" />
+  - name: Place
+    description: <SchemaDefinition schemaRef="#/components/schemas/Place" />
+  - name: ProductionEvent
+    description: <SchemaDefinition schemaRef="#/components/schemas/ProductionEvent" />
+  - name: RelatedImage
+    description: <SchemaDefinition schemaRef="#/components/schemas/RelatedImage" />
+  - name: RelatedWork
+    description: <SchemaDefinition schemaRef="#/components/schemas/RelatedWork" />
+  - name: Subject
+    description: <SchemaDefinition schemaRef="#/components/schemas/Subject" />
+  - name: Work
+    description: <SchemaDefinition schemaRef="#/components/schemas/Work" />
+  - name: WorkAggregations
+    description: <SchemaDefinition schemaRef="#/components/schemas/WorkAggregations" />
+  - name: WorkResultList
+    description: <SchemaDefinition schemaRef="#/components/schemas/WorkResultList" />
 x-tagGroups:
   - name: APIs
     tags:
       - Works
       - Images
+  - name: Models
+    tags:
+      - AccessCondition
+      - AccessMethod
+      - AccessStatus
+      - Agent
+      - Aggregation
+      - AggregationBucket
+      - Availability
+      - Concept
+      - ContributionRole
+      - Contributor
+      - DigitalLocation
+      - Error
+      - Format
+      - Genre
+      - Holdings
+      - Identifier
+      - IdentifierType
+      - Image
+      - ImageAggregations
+      - ImageResultList
+      - Item
+      - ItemStatus
+      - Language
+      - License
+      - LocationType
+      - Note
+      - NoteType
+      - Period
+      - PhysicalLocation
+      - Place
+      - ProductionEvent
+      - RelatedImage
+      - RelatedWork
+      - Subject
+      - Work
+      - WorkAggregations
+      - WorkResultList
