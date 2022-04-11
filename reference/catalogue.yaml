@@ -93,6 +93,16 @@ paths:
           description: Filter the work by identifiers.
           schema:
             type: string
+        - name: items
+          in: query
+          description: Filter for works with items with a given canonical ID.
+          schema:
+            type: string
+        - name: items.identifiers
+          in: query
+          description: Filter for works with items with a given identifier.
+          schema:
+            type: string
         - name: partOf
           in: query
           description: Filter the work by partOf relation.
