@@ -1,0 +1,4 @@
+steps:
+  - command: .buildkite/scripts/deploy_to_github.sh
+    # if: build.branch == "main"
+    label: "deploy changes to GitHub"
