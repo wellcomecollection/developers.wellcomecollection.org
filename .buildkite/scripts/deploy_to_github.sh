@@ -18,6 +18,7 @@ if [[ "$CI" == "true" ]]
 then
   git config --global user.email "wellcomedigitalplatform@wellcome.ac.uk"
   git config --global user.name "Buildkite on behalf of Wellcome Collection"
+  # Stop git complaining about the repo being owned by a different account
   git config --global --add safe.directory $ROOT
 fi
 
@@ -30,6 +31,10 @@ docker run --rm --tty \
   --workdir "$ROOT" \
   "$DEPLOY_IMAGE" yarn
 
+# Buildkite has already added the weco-bot SSH key to its ssh-agent,
+# so we use the agent from the host as per:
+# https://www.jamesridgway.co.uk/sharing-an-ssh-agent-between-a-host-machine-and-a-docker-container/
+# We also use the .ssh config dir from the host so we get the github.com fingerprint in our known_hosts
 docker run --rm --tty \
   --volume "$ROOT:$ROOT" \
   --volume ~/.gitconfig:/root/.gitconfig \
