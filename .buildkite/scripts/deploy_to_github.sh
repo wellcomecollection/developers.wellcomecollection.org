@@ -18,6 +18,7 @@ if [[ "$CI" == "true" ]]
 then
   git config --global user.email "wellcomedigitalplatform@wellcome.ac.uk"
   git config --global user.name "Buildkite on behalf of Wellcome Collection"
+  git config --global --add safe.directory $ROOT
 fi
 
 docker build \
@@ -32,6 +33,7 @@ docker run --rm --tty \
 docker run --rm --tty \
   --volume "$ROOT:$ROOT" \
   --volume ~/.gitconfig:/root/.gitconfig \
+  --volume ~/.ssh:/root/.ssh
   --volume $SSH_AUTH_SOCK:/ssh-agent \
   --env SSH_AUTH_SOCK=/ssh-agent \
   --workdir "$ROOT" \
