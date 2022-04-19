@@ -26,5 +26,5 @@ docker run --rm --tty \
   --volume ~/.ssh:/root/.ssh \
   --volume ~/.gitconfig:/root/.gitconfig \
   --workdir "$ROOT" \
-  --env SSH=true \
+  --env USE_SSH=true \
   "$DEPLOY_IMAGE" yarn deploy
