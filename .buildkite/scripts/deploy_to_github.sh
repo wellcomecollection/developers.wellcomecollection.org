@@ -12,6 +12,9 @@ set -o verbose
 ROOT=$(git rev-parse --show-toplevel)
 DEPLOY_IMAGE="node_with_git"
 
+git config --global user.email "wellcomedigitalplatform@wellcome.ac.uk"
+git config --global user.name "Buildkite on behalf of Wellcome Collection"
+
 docker build \
   --tag "$DEPLOY_IMAGE" \
   --file "$ROOT/.buildkite/scripts/deploy.Dockerfile" .
