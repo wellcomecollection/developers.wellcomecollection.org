@@ -33,7 +33,7 @@ docker run --rm --tty \
   --volume "$ROOT:$ROOT" \
   --volume ~/.gitconfig:/root/.gitconfig \
   --volume $SSH_AUTH_SOCK:/ssh-agent \
-  --env SSH_AUTH_SOCK=/ssh-agent
+  --env SSH_AUTH_SOCK=/ssh-agent \
   --workdir "$ROOT" \
   --env USE_SSH=true \
   "$DEPLOY_IMAGE" yarn deploy
