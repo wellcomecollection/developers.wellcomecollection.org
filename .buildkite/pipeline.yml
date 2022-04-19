@@ -1,4 +1,10 @@
 steps:
-  - command: .buildkite/scripts/deploy_to_github.sh
-    # if: build.branch == "main"
+  - command: .buildkite/scripts/build_html.sh
+    if: build.branch != "main"
+    label: "build HTML"
+
+  - command:
+      .buildkite/scripts/build_html.sh
+      .buildkite/scripts/deploy_to_github.sh
+    if: build.branch == "main"
     label: "deploy changes to GitHub"
