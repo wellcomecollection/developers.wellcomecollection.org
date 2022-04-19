@@ -33,7 +33,7 @@ docker run --rm --tty \
 docker run --rm --tty \
   --volume "$ROOT:$ROOT" \
   --volume ~/.gitconfig:/root/.gitconfig \
-  --volume ~/.ssh:/root/.ssh
+  --volume ~/.ssh:/root/.ssh \
   --volume $SSH_AUTH_SOCK:/ssh-agent \
   --env SSH_AUTH_SOCK=/ssh-agent \
   --workdir "$ROOT" \
