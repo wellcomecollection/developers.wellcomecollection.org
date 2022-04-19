@@ -18,6 +18,11 @@ docker build \
 
 docker run --rm --tty \
   --volume "$ROOT:$ROOT" \
+  --workdir "$ROOT" \
+  "$DEPLOY_IMAGE" yarn
+
+docker run --rm --tty \
+  --volume "$ROOT:$ROOT" \
   --volume ~/.ssh:/root/.ssh \
   --volume ~/.gitconfig:/root/.gitconfig \
   --workdir "$ROOT" \
