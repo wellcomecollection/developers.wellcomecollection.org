@@ -12,8 +12,13 @@ set -o verbose
 ROOT=$(git rev-parse --show-toplevel)
 DEPLOY_IMAGE="node_with_git"
 
-git config --global user.email "wellcomedigitalplatform@wellcome.ac.uk"
-git config --global user.name "Buildkite on behalf of Wellcome Collection"
+# If we don't set up our Git config, the "deploy" command further
+# down will fail and prompt us to run these commands.
+if [[ "$CI" == "true" ]]
+then
+  git config --global user.email "wellcomedigitalplatform@wellcome.ac.uk"
+  git config --global user.name "Buildkite on behalf of Wellcome Collection"
+fi
 
 docker build \
   --tag "$DEPLOY_IMAGE" \
