@@ -108,6 +108,11 @@ paths:
           description: Filter the work by partOf relation.
           schema:
             type: string
+        - name: partOf.title
+          in: query
+          description: Filter the work by the title of a partOf relation.
+          schema:
+            type: string
         - name: availabilities
           in: query
           description: Filter the work by availabilities.
