@@ -1,10 +1,10 @@
-import React from 'react';
-import clsx from 'clsx';
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import React from 'react';
+import clsx from 'clsx';
 import styles from './index.module.css';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 function HomepageHeader({description}) {
   const {siteConfig} = useDocusaurusContext();
@@ -14,11 +14,6 @@ function HomepageHeader({description}) {
         <h1 className={clsx('hero__title', styles.heroTitle)}>{siteConfig.tagline}</h1>
         <p className={clsx('hero__subtitle', styles.heroSubtitle)}>{description}</p>
         <div>
-          <Link
-            className={clsx('button button--primary button--lg margin-vert--md margin-right--md', styles.button)}
-            to="docs">
-            Get Started
-          </Link>
           <Link
             className={clsx('button button--primary button--outline button--lg', styles.button)}
             to="docs/api">
