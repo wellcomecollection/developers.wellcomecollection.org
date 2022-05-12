@@ -11,7 +11,9 @@ We are working to expand the Catalogue API to include more detailed information 
 
 ## How do I use it?
 
-You can just get started! There’s no sign up or authentication required, but you might want to browse the documentation, which shows how you make requests. The best place to begin is to search for a work, then explore how things are connected from there.\n\nThere are some licensing restrictions, as different parts of the data may have different licenses. If it's data that has been created by us, it’s [CC0](https://creativecommons.org/publicdomain/zero/1.0/); if it’s not created by us, then it isn’t. We are working to make data licensing clear on a per work basis; in the meantime, if this is a concern, [please get in touch](mailto:digital@wellcomecollction.org).
+You can just get started! There’s no sign up or authentication required, but you might want to browse the documentation, which shows how you make requests. The best place to begin is to search for a work, then explore how things are connected from there with the help of the [API Reference](/api/catalogue).
+
+There are some licensing restrictions, as different parts of the data may have different licenses. If it's data that has been created by us, it’s [CC0](https://creativecommons.org/publicdomain/zero/1.0/); if it’s not created by us, then it isn’t. We are working to make data licensing clear on a per-work basis; in the meantime, if this is a concern, [please get in touch](mailto:digital@wellcomecollection.org).
 
 ## What can I do with it?
 
