@@ -1224,5 +1224,5 @@ components:
         aggregations:
           - $ref: '#/components/schemas/WorkAggregations'
 tags:
-  - name: Images
   - name: Works
+  - name: Images
