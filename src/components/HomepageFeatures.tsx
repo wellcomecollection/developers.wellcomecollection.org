@@ -7,12 +7,14 @@ type FeatureItem = {
   title: string;
   image: string;
   description: JSX.Element;
+  link: string;
 };
 
-const FeatureList: FeatureItem[] = [
+const features: FeatureItem[] = [
   {
     title: 'Catalogue API',
     image: 'images/index/catalogue.svg',
+    link: '/docs/catalogue',
     description: (
       <>
         Search our collections for visual culture, books, journals, archives, manuscripts and objects.
@@ -22,26 +24,18 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'IIIF APIs',
     image: 'images/index/iiif.svg',
+    link: '/docs/iiif',
     description: (
       <>
         Access digitised items using standard International Image Interoperability Framework (IIIF) APIs.
       </>
     ),
-  },
-  {
-    title: 'Text API',
-    image: 'images/index/alto.svg',
-    description: (
-      <>
-        Download the contents of digitised printed books, as raw text or structured ALTO XML.
-      </>
-    ),
-  },
+  }
 ];
 
-function Feature({title, image, description}: FeatureItem) {
+function Feature({title, image, description, link}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <a className={clsx('col')} href={link}>
       <div className="text--center">
         <img
           className={styles.featureSvg}
@@ -53,7 +47,7 @@ function Feature({title, image, description}: FeatureItem) {
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -65,8 +59,8 @@ export default function HomepageFeatures(): JSX.Element {
             <h2>We provide the following open APIs for accessing our collections</h2>
           </div>
         <div className="row padding-vert--lg">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+          {features.map(props => (
+            <Feature key={props.link} {...props} />
           ))}
         </div>
       </div>

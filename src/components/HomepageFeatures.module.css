@@ -10,7 +10,7 @@ html[data-theme='dark'] .features {
   background: var(--ifm-color-dark);
   color: var(--ifm-color-base);
 }
-  
+
 .featureSvg {
   height: 120px;
 }
