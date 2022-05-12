@@ -46,6 +46,7 @@ const config = {
             spec: "reference/iiif.yaml",
             layout: { title: "IIIF APIs" },
           },
+          // This is currently disabled until the documentation can be improved
           {
             routePath: "api/text",
             spec: "reference/text.yaml",
@@ -86,10 +87,11 @@ const config = {
                 to: "api/iiif",
                 label: "IIIF",
               },
-              {
-                to: "api/text",
-                label: "Text",
-              },
+              // Hidden pending improved docs
+              // {
+              //   to: "api/text",
+              //   label: "Text",
+              // },
             ],
           },
           {
