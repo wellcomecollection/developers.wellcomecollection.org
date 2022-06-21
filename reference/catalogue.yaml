@@ -356,6 +356,11 @@ paths:
           description: Filter the images by the source works' genres
           schema:
             type: string
+        - name: source.subjects.label
+          in: query
+          description: Filter the images by the source works' subjects
+          schema:
+            type: string
         - name: colors
           in: query
           description: Filter the images by colors.
@@ -370,6 +375,7 @@ paths:
               - source.contributors
               - source.languages
               - source.genres
+              - source.subjects
         - name: aggregations
           in: query
           description: What aggregated data in correlation to the results should we return.
@@ -379,6 +385,7 @@ paths:
               - locations.license
               - source.contributors.agent.label
               - source.genres.label
+              - source.subjects.label
         - name: page
           in: query
           description: The page to return from the result list
@@ -453,6 +460,7 @@ paths:
               - source.contributors
               - source.languages
               - source.genres
+              - source.subjects
       responses:
         '200':
           description: The image
