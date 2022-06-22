@@ -365,6 +365,7 @@ paths:
               - source.contributors
               - source.languages
               - source.genres
+              - source.subjects
         - name: aggregations
           in: query
           description: What aggregated data in correlation to the results should we return.
@@ -374,6 +375,7 @@ paths:
               - locations.license
               - source.contributors.agent.label
               - source.genres.label
+              - source.subjects.label
         - name: page
           in: query
           description: The page to return from the result list
