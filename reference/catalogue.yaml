@@ -762,6 +762,10 @@ components:
           description: The locations which provide access to the image
           items:
             $ref: '#/components/schemas/DigitalLocation'
+        aspectRatio:
+          type: number
+          format: float
+          description: Calculated aspect ratio of the image
         source:
           description: The entity from which an image was sourced
           $ref: '#/components/schemas/Work'
