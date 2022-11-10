@@ -482,6 +482,99 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
+  /concepts:
+    get:
+      tags:
+        - Concepts
+      summary: /concepts
+      description: Returns a paginated list of concepts
+      operationId: getConcepts
+      parameters:
+        - name: query
+          in: query
+          description: Full-text search query
+          schema:
+            type: string
+        - name: identifiers.identifierType.id
+          in: query
+          description: Filter the concepts by IdentifierType ID
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page to return from the result list
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+            default: 1
+        - name: pageSize
+          in: query
+          description: The number of concepts to return per page
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int64
+            default: 10
+      responses:
+        '200':
+          description: The concepts
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConceptResultList'
+        '400':
+          description: Bad Request Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /concepts/{id}:
+    get:
+      tags:
+        - Concepts
+      summary: '/concepts/{id}'
+      description: Returns a single concept
+      operationId: getConcept
+      parameters:
+        - name: id
+          in: path
+          description: The concept to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The concept
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Concept'
+        '400':
+          description: Bad Request Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     AccessCondition:
@@ -608,6 +701,30 @@ components:
           items:
             $ref: '#/components/schemas/Identifier'
         type:
+          type: string
+    ConceptResultList:
+      title: ConceptResultList
+      type: object
+      description: A paginated list of concepts.
+      properties:
+        type:
+          type: string
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Concept'
+        prevPage:
+          type: string
+        nextPage:
           type: string
     ContributionRole:
       title: ContributionRole
@@ -1240,3 +1357,4 @@ components:
 tags:
   - name: Works
   - name: Images
+  - name: Concepts
