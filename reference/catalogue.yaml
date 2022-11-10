@@ -690,18 +690,30 @@ components:
     Concept:
       title: Concept
       type: object
-      description: 'What are the actual available types here? - Concept, Period, Place'
       properties:
         id:
           type: string
         label:
           type: string
+        alternativeLabels:
+          type: array
+          items:
+            type: string
+            description: An alternative label for the concept.
         identifiers:
           type: array
           items:
             $ref: '#/components/schemas/Identifier'
         type:
           type: string
+          enum:
+            - Concept
+            - Meeting
+            - Organisation
+            - Period
+            - Person
+            - Place
+            - Subject
     ConceptResultList:
       title: ConceptResultList
       type: object
