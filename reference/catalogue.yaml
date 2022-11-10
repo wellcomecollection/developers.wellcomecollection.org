@@ -697,9 +697,9 @@ components:
           type: string
         alternativeLabels:
           type: array
+          description: Alternative labels for the concept.
           items:
             type: string
-            description: An alternative label for the concept.
         identifiers:
           type: array
           items:
