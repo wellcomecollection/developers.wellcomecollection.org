@@ -1,13 +1,13 @@
 /*!
-  Copyright (c) 2018 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
 */
 
 /*!
  * Redocusaurus
- * https://rohit-gohri.github.io/redocusaurus/
- * (c) 2021 Rohit Gohri
+ * https://redocusaurus.vercel.app/
+ * (c) 2022 Rohit Gohri
  * Released under the MIT License
  */
 
@@ -17,13 +17,6 @@
  * Copyright Oleg Korsunsky | http://wd.dizaina.net/
  *
  * MIT License
- */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
  */
 
 /*!
@@ -88,11 +81,9 @@
  * Licensed under MIT
  */
 
-/*! @license DOMPurify 2.3.5 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.5/LICENSE */
+/*! @license DOMPurify 2.4.0 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.0/LICENSE */
 
-/*! https://mths.be/punycode v1.3.2 by @mathias */
-
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+/*! For license information please see redoc.browser.lib.js.LICENSE.txt */
 
 /*!***************************************************
 * mark.js v8.11.1
@@ -100,3 +91,18 @@
 * Copyright (c) 2014–2018, Julian Kühnel
 * Released under the MIT license https://git.io/vwTVl
 *****************************************************/
+
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ *
+ * @license MIT <https://opensource.org/licenses/MIT>
+ * @author Lea Verou <https://lea.verou.me>
+ * @namespace
+ * @public
+ */
+
+/**
+ * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 2.3.9
+ * Copyright (C) 2020 Oliver Nightingale
+ * @license MIT
+ */
