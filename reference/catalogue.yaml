@@ -495,7 +495,7 @@ paths:
           description: Full-text search query
           schema:
             type: string
-        - name: identifiers.identifierType.id
+        - name: identifiers.identifierType
           in: query
           description: Filter the concepts by IdentifierType ID
           schema:
