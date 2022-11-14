@@ -690,6 +690,8 @@ components:
     Concept:
       title: Concept
       type: object
+      description: |
+        Concepts are the units of thought — ideas, meanings, or (categories of) objects and events — which underlie many knowledge organization systems. As such, concepts exist in the mind as abstract entities which are independent of the terms used to label them.
       properties:
         id:
           type: string
