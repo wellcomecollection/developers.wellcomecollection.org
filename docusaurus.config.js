@@ -37,18 +37,18 @@ const config = {
       {
         specs: [
           {
-            routePath: "api/catalogue",
+            route: "api/catalogue",
             spec: "reference/catalogue.yaml",
             layout: { title: "Catalogue API" },
           },
           {
-            routePath: "api/iiif",
+            route: "api/iiif",
             spec: "reference/iiif.yaml",
             layout: { title: "IIIF APIs" },
           },
           // This is currently disabled until the documentation can be improved
           {
-            routePath: "api/text",
+            route: "api/text",
             spec: "reference/text.yaml",
             layout: { title: "Text API" },
           },
