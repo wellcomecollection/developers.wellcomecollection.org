@@ -1162,6 +1162,19 @@ components:
         duration:
           type: integer
           description: 'The playing time for audiovisual works, in seconds.'
+        currentFrequency:
+          type: string
+          description: 'The current stated publication frequency, e.g. of a serial or journal.'
+        formerFrequency:
+          type: array
+          items:
+            type: string
+            description: 'The former publication frequency, e.g. of a serial or journal.'
+        designation:
+          type: array
+          items:
+            type: string
+            description: 'Beginning/ending date(s) of an item and/or the sequential designations used on each part.'
         images:
           type: array
           items:
