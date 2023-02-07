@@ -9,10 +9,10 @@ We have two datasets available for download for use in your research.
 
 This dataset provides a daily snapshot of the catalogue that describes our museum and library collections. Downloads are line-delimited JSON, with each line providing one resource in the same serialisation format as the [Catalogue API](catalogue.md).
 
-| Description | Size  | Download                                                        |
-|-------------|-------|-----------------------------------------------------------------|
-| Works       | 1.5GB | https://data.wellcomecollection.org/catalogue/v2/works.json.gz  |
-| Images      | 32MB  | https://data.wellcomecollection.org/catalogue/v2/images.json.gz |
+| Description | Size  | Download                                                                          |
+|-------------|-------|-----------------------------------------------------------------------------------|
+| Works       | 1.5GB | [works.json.gz](https://data.wellcomecollection.org/catalogue/v2/works.json.gz)   |
+| Images      | 32MB  | [images.json.gz](https://data.wellcomecollection.org/catalogue/v2/images.json.gz) |
 
 
 ## London MOH reports
