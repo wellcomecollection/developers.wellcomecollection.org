@@ -25,7 +25,7 @@ const getResourceData = async (
     const contentLength = resp.headers.get("Content-Length");
     const size =
       contentLength !== null
-        ? formatBytes(parseInt(contentLength), 2)
+        ? formatBytes(parseInt(contentLength), 3)
         : undefined;
     const lastModifiedHeader = resp.headers.get("Last-Modified");
     const lastModified =
