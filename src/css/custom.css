@@ -86,3 +86,14 @@ h1 { font-family: 'Wellcome Bold Web', 'Wellcome Bold Web Subset', 'Arial Black'
 .footer--dark a:hover {
   color: var(--ifm-link-color);
 }
+
+/* resources tables */
+table span.last-updated {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--ifm-color-gray-600);
+}
+
+table span.last-updated time {
+  border-bottom: 1px dotted var(--ifm-color-gray-700);
+}
