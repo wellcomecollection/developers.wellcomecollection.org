@@ -78,6 +78,11 @@ paths:
           description: Filter the work by genre.
           schema:
             type: string
+        - name: genres.concepts.id
+          in: query
+          description: Filter the work by canonical ID of genre.
+          schema:
+            type: string
         - name: subjects.label
           in: query
           description: Filter the works by subject label (e.g. <a href="https://api.wellcomecollection.org/catalogue/v2/works?include=subjects&subjects.label=World%20history%20-%20Early%20works%20to%201800">World history - Early works to 1800</a>).
