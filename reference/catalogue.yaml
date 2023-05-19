@@ -203,13 +203,6 @@ paths:
             type: integer
             format: int64
             default: 10
-        - name: _queryType
-          in: query
-          description: Which query should we use search the works? Used predominantly for internal testing of relevancy. Considered Unstable.
-          schema:
-            type: string
-            enum:
-              - MultiMatcher
       responses:
         '200':
           description: The works
