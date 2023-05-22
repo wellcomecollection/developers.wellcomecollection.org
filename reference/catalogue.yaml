@@ -344,6 +344,38 @@ paths:
           description: Filter the images by the source works' subjects
           schema:
             type: string
+        - name: sort
+          in: query
+          description: Which field to sort the results on
+          schema:
+            type: string
+            enum:
+              - source.production.dates
+        - name: sortOrder
+          in: query
+          description: The order that the results should be returned in.
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: source.production.dates.to
+          in: query
+          description: |-
+            Return all images with a production date before and including this date.
+
+            Can be used in conjunction with `production.dates.from` to create a range.
+          schema:
+            type: string
+        - name: source.production.dates.from
+          in: query
+          description: |-
+            Return all images with a production date after and including this date.
+
+            Can be used in conjunction with `production.dates.to` to create a range.
+          schema:
+            type: string
+
         - name: colors
           in: query
           description: Filter the images by colors.
