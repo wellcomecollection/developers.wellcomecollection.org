@@ -78,6 +78,11 @@ paths:
           description: Filter the work by genre.
           schema:
             type: string
+        - name: genres.concepts.id
+          in: query
+          description: Filter the work by canonical ID of genre.
+          schema:
+            type: string
         - name: subjects.label
           in: query
           description: >-
