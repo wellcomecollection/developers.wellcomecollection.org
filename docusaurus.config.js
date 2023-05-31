@@ -161,7 +161,7 @@ const config = {
             items: [
               {
                 label: "Jobs",
-                href: "https://wellcome.ac.uk/jobs"
+                href: "https://wellcome.org/jobs"
               },
               {
                 label: "Privacy",
