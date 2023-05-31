@@ -197,12 +197,7 @@ paths:
             type: string
         - name: query
           in: query
-          description: >-
-            Full-text search query, which will OR supplied terms by
-            default.<br/><br/>The following special characters can be used to
-            change the search behaviour:<br/><br/>- \" wraps a number of tokens
-            to signify a phrase for searching<br/><br/>To search for any of
-            these special characters, they should be escaped with \.
+          description: Full-text search query
           schema:
             type: string
         - name: page
