@@ -25,12 +25,12 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          remarkPlugins: [require("mdx-mermaid")],
+          remarkPlugins: [require("mdx-mermaid")]
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
-        },
-      }),
+          customCss: require.resolve("./src/css/custom.css")
+        }
+      })
     ],
     [
       "redocusaurus",
@@ -39,25 +39,30 @@ const config = {
           {
             route: "api/catalogue",
             spec: "reference/catalogue.yaml",
-            layout: { title: "Catalogue API" },
+            layout: { title: "Catalogue API" }
           },
           {
             route: "api/iiif",
             spec: "reference/iiif.yaml",
-            layout: { title: "IIIF APIs" },
+            layout: { title: "IIIF APIs" }
+          },
+          {
+            route: "api/content",
+            spec: "reference/content.yaml",
+            layout: { title: "Content API" }
           },
           // This is currently disabled until the documentation can be improved
           {
             route: "api/text",
             spec: "reference/text.yaml",
-            layout: { title: "Text API" },
-          },
+            layout: { title: "Text API" }
+          }
         ],
         theme: {
-          primaryColor: "#007868",
-        },
-      },
-    ],
+          primaryColor: "#007868"
+        }
+      }
+    ]
   ],
 
   themeConfig:
@@ -70,7 +75,7 @@ const config = {
         logo: {
           alt: "Wellcome Collection",
           src: "images/wellcome-collection-black.svg",
-          srcDark: "images/wellcome-collection-white.svg",
+          srcDark: "images/wellcome-collection-white.svg"
         },
         items: [
           {
@@ -81,25 +86,29 @@ const config = {
             items: [
               {
                 to: "api/catalogue",
-                label: "Catalogue",
+                label: "Catalogue"
               },
               {
                 to: "api/iiif",
-                label: "IIIF",
+                label: "IIIF"
               },
+              {
+                to: "api/content",
+                label: "Content"
+              }
               // Hidden pending improved docs
               // {
               //   to: "api/text",
               //   label: "Text",
               // },
-            ],
+            ]
           },
           {
             href: "https://github.com/wellcomecollection",
             position: "right",
-            label: "GitHub",
-          },
-        ],
+            label: "GitHub"
+          }
+        ]
       },
       footer: {
         style: "dark",
@@ -109,71 +118,71 @@ const config = {
             items: [
               {
                 label: "API Reference",
-                to: "docs/api",
-              },
-            ],
+                to: "docs/api"
+              }
+            ]
           },
           {
             title: "Get Involved",
             items: [
               {
                 label: "Stacks",
-                href: "https://stacks.wellcomecollection.org",
+                href: "https://stacks.wellcomecollection.org"
               },
               {
                 label: "Roadmap",
-                href: "https://roadmap.wellcomecollection.org",
+                href: "https://roadmap.wellcomecollection.org"
               },
               {
                 label: "GitHub",
-                href: "https://github.com/wellcomecollection",
-              },
-            ],
+                href: "https://github.com/wellcomecollection"
+              }
+            ]
           },
           {
             title: "Contact Us",
             items: [
               {
                 label: "Twitter",
-                href: "https://twitter.com/ExploreWellcome",
+                href: "https://twitter.com/ExploreWellcome"
               },
               {
                 label: "Facebook",
-                href: "https://www.facebook.com/wellcomecollection",
+                href: "https://www.facebook.com/wellcomecollection"
               },
               {
                 label: "Email",
-                href: "mailto:digital@wellcomecollection.org",
-              },
-            ],
+                href: "mailto:digital@wellcomecollection.org"
+              }
+            ]
           },
           {
             title: "More",
             items: [
               {
                 label: "Jobs",
-                href: "https://wellcome.ac.uk/jobs",
+                href: "https://wellcome.org/jobs"
               },
               {
                 label: "Privacy",
-                href: "https://wellcome.org/who-we-are/privacy-and-terms",
+                href: "https://wellcome.org/who-we-are/privacy-and-terms"
               },
               {
                 label: "Wellcome Collection",
-                href: "https://wellcomecollection.org",
-              },
-            ],
-          },
+                href: "https://wellcomecollection.org"
+              }
+            ]
+          }
         ],
-        copyright: `Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International Licence</a>.`,
+        copyright: `Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International Licence</a>.`
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
+        darkTheme: darkCodeTheme
+      }
     }),
 
-  plugins: [],
+  plugins: []
 };
 
 module.exports = config;
