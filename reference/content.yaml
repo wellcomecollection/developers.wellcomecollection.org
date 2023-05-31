@@ -30,7 +30,7 @@ paths:
             type: string
         - name: contributors.contributor
           in: query
-          description: Filter the articles by contributor agent.
+          description: Filter the articles by contributor.
         - name: sort
           in: query
           description: Which field to sort the results on
