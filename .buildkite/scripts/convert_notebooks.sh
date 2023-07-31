@@ -29,21 +29,34 @@ title: Examples
 ---
 
 # Examples
+EOF
+
+# cat the introduction.md file into index.md
+cat "$root/notebooks/introduction.md" >> "$root/docs/examples/index.md"
+
+# write a table of contents in index.md
+
+cat << EOF >> "$root/docs/examples/index.md"
+
+## Table of contents
 
 EOF
 
-# write a table of contents in index.md
+# loop through the files in the examples folder
+
 for file in "$root/docs/examples"/*.md; do
   if [[ "$file" != "$root/docs/examples/index.md" ]]; then
     filename=$(basename -- "$file")
     filename="${filename%.*}"
+    # get the index of the file
+    index="${filename%%-*}"
     # remove numbers from the start of the filename
     filename="${filename#[0-9]*-}"
     # replace hyphens with spaces
     title="${filename//-/ }"
     # capitalise first letter of the title
     title="$(tr '[:lower:]' '[:upper:]' <<< ${title:0:1})${title:1}"
-    echo "- [$title](/docs/examples/$filename)" >> "$root/docs/examples/index.md"
+    echo "$index. [$title](/docs/examples/$filename)" >> "$root/docs/examples/index.md"
   fi
 done
 
