@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdevelopers=self.webpackChunkdevelopers||[]).push([[351],{7831:e=>{e.exports=JSON.parse('{"title":"IIIF APIs"}')}}]);
