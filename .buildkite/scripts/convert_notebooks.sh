@@ -9,14 +9,14 @@ set -o verbose
 root=$(git rev-parse --show-toplevel)
 
 # delete everything in the docs/exaples folder
-rm -rf "$root/docs/examples"/*.md
+rm -rf $root/docs/examples/*.md
 
 # strip output from notebooks
 docker run --rm --tty \
   --volume "$root:$root" \
   --workdir "$root" \
     jupyter/scipy-notebook \
-    jupyter nbconvert --clear-output --inplace notebooks/*.ipynb
+    jupyter nbconvert --clear-output --inplace $root/notebooks/*.ipynb
 
 # convert notebooks to markdown
 docker run --rm --tty \
@@ -27,7 +27,7 @@ docker run --rm --tty \
     --to markdown \
     --template .buildkite/scripts/mdoutput \
     --output-dir "$root/docs/examples" \
-    "$root/notebooks"/*.ipynb
+    $root/notebooks/*.ipynb
 
 # create an index.md file for the examples folder with a table of contents
 cat << EOF > "$root/docs/examples/index.md"
@@ -49,7 +49,7 @@ cat << EOF >> "$root/docs/examples/index.md"
 EOF
 
 # loop through the files in the examples folder
-for file in "$root/docs/examples"/*.md; do
+for file in $root/docs/examples/*.md; do
   if [[ "$file" != "$root/docs/examples/index.md" ]]; then
     filename=$(basename -- "$file")
     filename="${filename%.*}"
@@ -69,7 +69,7 @@ done
 # add a link to github and colab for each notebook
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-for file in "$root/notebooks"/*.ipynb; do
+for file in $root/notebooks/*.ipynb; do
   filename=$(basename -- "$file")
 
   github_path="wellcomecollection/developers.wellcomecollection.org/tree/$GIT_BRANCH/notebooks/$filename"
