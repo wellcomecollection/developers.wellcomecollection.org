@@ -40,7 +40,7 @@
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --ifm-color-primary: #5cb8bf;
   --ifm-color-primary-dark: #48afb7;
   --ifm-color-primary-darker: #44a5ad;
@@ -57,20 +57,24 @@ html[data-theme='dark'] {
   padding: 0 var(--ifm-pre-padding);
 }
 
-html[data-theme='dark'] .docusaurus-highlight-code-line {
+html[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* fonts */
 
 @font-face {
-  font-family: 'Wellcome Bold Web';
-  src: url('/fonts/wellcome-bold.woff2') format('woff2'), url('/fonts/wellcome-bold.woff') format('woff');
+  font-family: "Wellcome Bold Web";
+  src: url("/fonts/wellcome-bold.woff2") format("woff2"),
+    url("/fonts/wellcome-bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
 
-h1 { font-family: 'Wellcome Bold Web', 'Wellcome Bold Web Subset', 'Arial Black', sans-serif; }
+h1 {
+  font-family: "Wellcome Bold Web", "Wellcome Bold Web Subset", "Arial Black",
+    sans-serif;
+}
 
 /* infima components */
 
