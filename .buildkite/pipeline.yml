@@ -1,4 +1,8 @@
 steps:
+  - command: .buildkite/scripts/convert_notebooks.sh
+    if: build.branch != "main"
+    label: "convert notebooks from .ipynb to .md"
+
   - command: .buildkite/scripts/build_html.sh
     if: build.branch != "main"
     label: "build HTML"
