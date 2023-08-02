@@ -11,16 +11,11 @@ root=$(git rev-parse --show-toplevel)
 # delete everything in the docs/exaples folder
 rm -rf $root/docs/examples/*.md
 
-docker run --rm --tty \
-  --volume "$root:$root" \
-  --workdir "$root" \
-    jupyter/scipy-notebook \
-    ls -l
-
 # strip output from notebooks
 docker run --rm --tty \
   --volume "$root:$root" \
   --workdir "$root" \
+  --user root \
     jupyter/scipy-notebook \
     jupyter nbconvert --clear-output --inplace $root/notebooks/*.ipynb
 
@@ -28,6 +23,7 @@ docker run --rm --tty \
 docker run --rm --tty \
   --volume "$root:$root" \
   --workdir "$root" \
+  --user root \
     jupyter/scipy-notebook \
     jupyter nbconvert \
     --to markdown \
