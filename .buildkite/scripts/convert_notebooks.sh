@@ -11,6 +11,12 @@ root=$(git rev-parse --show-toplevel)
 # delete everything in the docs/exaples folder
 rm -rf $root/docs/examples/*.md
 
+docker run --rm --tty \
+  --volume "$root:$root" \
+  --workdir "$root" \
+    jupyter/scipy-notebook \
+    ls -l
+
 # strip output from notebooks
 docker run --rm --tty \
   --volume "$root:$root" \
