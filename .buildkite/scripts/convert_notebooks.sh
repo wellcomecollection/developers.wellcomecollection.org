@@ -81,7 +81,7 @@ for file in $root/notebooks/*.ipynb; do
   line="\n[View on GitHub]($github_url) | [Run in Google Colab]($colab_url)"
   path="$root/docs/examples/${filename%.*}.md"
   # insert the line at the second line of the file
-  awk -v line="$line" 'NR==2{print line}1' "$path" > tmp && mv tmp "$path"
+  awk -v line="$line" 'NR==2{print line}1' "$path" > tmp && mv -f tmp "$path"
 done
 
 # commit any changes back to the branch
