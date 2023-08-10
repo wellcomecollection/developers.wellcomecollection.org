@@ -139,17 +139,25 @@ work["title"]
 
 You'll notice that the works in the snapshot include _all_ of the fields which were available in the default API response, _and_ all of the optional fields too. The snapshots include the complete set of information we have about our works, and are a great way to get a complete picture of the collection.
 
-## Wrapping up
-
-Let's delete the snapshot we've downloaded, and wrap up all of the logic we've established so far into a single cell which we can copy and reuse in later notebooks.
-
 
 ```python
 unzipped_path.unlink()
 ```
 
 
+## Wrapping up
+
+Let's delete the snapshot we've downloaded, and wrap up all of the logic we've established so far into a single cell which we can copy and reuse in later notebooks.
+
+
 ```python
+import requests
+import json
+from pathlib import Path
+from tqdm.auto import tqdm
+import gzip
+import io
+
 snapshot_url = "https://data.wellcomecollection.org/catalogue/v2/works.json.gz"
 
 data_dir = Path("./data").resolve()
@@ -187,6 +195,12 @@ if not unzipped_path.exists():
     
         unzip_progress_bar.close()
     zipped_path.unlink()
+```
+
+We can check the location of the unzipped file.
+
+```python
+print(unzipped_path)
 ```
 
 ## Exercises
