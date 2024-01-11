@@ -130,10 +130,6 @@ const config = {
                 href: "https://stacks.wellcomecollection.org"
               },
               {
-                label: "Roadmap",
-                href: "https://roadmap.wellcomecollection.org"
-              },
-              {
                 label: "GitHub",
                 href: "https://github.com/wellcomecollection"
               }
