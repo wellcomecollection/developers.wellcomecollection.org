@@ -26,5 +26,4 @@ jobs:
         - name: Build HTML
           run: yarn && yarn build
         - name: Deploy GitHub pages
-          if: ${{ github.ref == 'refs/heads/main' }}
           run: yarn deploy
