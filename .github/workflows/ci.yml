@@ -29,4 +29,6 @@ jobs:
         - name: Build HTML
           run: yarn && yarn build
         - name: Deploy GitHub pages
+          env:
+            GIT_USER: weco-bot
           run: yarn deploy
