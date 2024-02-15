@@ -85,13 +85,10 @@ done
 
 # commit any changes back to the branch
 if [[ `git status --porcelain` ]]; then
-  git config user.name "GitHub on behalf of Wellcome Collection"
-  git config user.email "wellcomedigitalplatform@wellcome.ac.uk"
-
   git add --verbose --update
   git commit -m "Convert notebooks"
-
   git push
+  
   exit 1;
 else
   echo "No changes from notebook conversion"
