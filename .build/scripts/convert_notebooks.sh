@@ -4,7 +4,6 @@
 
 set -o errexit
 set -o nounset
-set -o verbose
 
 root=$(git rev-parse --show-toplevel)
 
@@ -27,7 +26,7 @@ docker run --rm --tty \
     jupyter/scipy-notebook \
     jupyter nbconvert \
     --to markdown \
-    --template .buildkite/scripts/mdoutput \
+    --template .build/scripts/mdoutput \
     --output-dir "$root/docs/examples" \
     $root/notebooks/*.ipynb
 
@@ -86,17 +85,10 @@ done
 
 # commit any changes back to the branch
 if [[ `git status --porcelain` ]]; then
-  git config user.name "Buildkite on behalf of Wellcome Collection"
-  git config user.email "wellcomedigitalplatform@wellcome.ac.uk"
-
-  git remote add ssh-origin $BUILDKITE_REPO || true
-  git fetch ssh-origin
-  git checkout --track ssh-origin/$BUILDKITE_BRANCH || true
-
   git add --verbose --update
   git commit -m "Convert notebooks"
-
-  git push ssh-origin HEAD:$BUILDKITE_BRANCH
+  git push
+  
   exit 1;
 else
   echo "No changes from notebook conversion"
