@@ -4,7 +4,6 @@
 
 set -o errexit
 set -o nounset
-set -o verbose
 
 root=$(git rev-parse --show-toplevel)
 
