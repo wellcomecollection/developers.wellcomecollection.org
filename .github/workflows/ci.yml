@@ -23,3 +23,5 @@ jobs:
             node-version-file: ".nvmrc"
         - name: Convert Notebooks
           run: .build/scripts/convert_notebooks.sh
+        - name: Build HTML
+          run: yarn && yarn build
