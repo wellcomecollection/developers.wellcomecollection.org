@@ -21,3 +21,5 @@ jobs:
             cache: "yarn"
             cache-dependency-path: "yarn.lock"
             node-version-file: ".nvmrc"
+        - name: Convert Notebooks
+          run: .build/scripts/convert_notebooks.sh
