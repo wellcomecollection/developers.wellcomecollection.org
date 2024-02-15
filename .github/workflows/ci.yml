@@ -28,7 +28,10 @@ jobs:
           run: .build/scripts/convert_notebooks.sh
         - name: Build HTML
           run: yarn && yarn build
-        - name: Deploy GitHub pages
-          env:
-            GIT_USER: weco-bot
-          run: yarn deploy
+        - name: Deploy to GitHub Pages
+          # if: ${{ github.ref == 'refs/heads/main' }}
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            # Build output to publish to the `gh-pages` branch:
+            publish_dir: ./build
