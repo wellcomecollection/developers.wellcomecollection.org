@@ -85,20 +85,16 @@ for file in $root/notebooks/*.ipynb; do
 done
 
 # commit any changes back to the branch
-# if [[ `git status --porcelain` ]]; then
-#   git config user.name "Buildkite on behalf of Wellcome Collection"
-#   git config user.email "wellcomedigitalplatform@wellcome.ac.uk"
+if [[ `git status --porcelain` ]]; then
+  git config user.name "GitHub on behalf of Wellcome Collection"
+  git config user.email "wellcomedigitalplatform@wellcome.ac.uk"
 
-#   git remote add ssh-origin $BUILDKITE_REPO || true
-#   git fetch ssh-origin
-#   git checkout --track ssh-origin/$BUILDKITE_BRANCH || true
+  git add --verbose --update
+  git commit -m "Convert notebooks"
 
-#   git add --verbose --update
-#   git commit -m "Convert notebooks"
-
-#   git push ssh-origin HEAD:$BUILDKITE_BRANCH
-#   exit 1;
-# else
-#   echo "No changes from notebook conversion"
-#   exit 0;
-# fi
+  git push
+  exit 1;
+else
+  echo "No changes from notebook conversion"
+  exit 0;
+fi
