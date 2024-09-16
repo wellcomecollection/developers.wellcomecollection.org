@@ -27,7 +27,7 @@ docker run --rm --tty \
     jupyter/scipy-notebook \
     jupyter nbconvert \
     --to markdown \
-    --template scripts/mdoutput \
+    --template "$root/scripts/mdoutput" \
     --output-dir "$root/docs/examples" \
     $root/notebooks/*.ipynb
 
