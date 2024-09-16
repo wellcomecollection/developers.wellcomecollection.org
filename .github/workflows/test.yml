@@ -1,0 +1,27 @@
+name: "Test deployment"
+on:
+    pull_request:
+      branches:
+        - main
+
+jobs:
+  build:
+    name: Build documentation
+    permissions:
+        id-token: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Convert Notebooks
+      run: scripts/convert_notebooks.sh
+    - name: Install Node
+    # https://github.com/actions/setup-node?tab=readme-ov-file#usage
+    # The node-version input is optional. If not supplied, the node version from PATH will be used.
+    # However, it is recommended to always specify Node.js version and don't rely on the system one.
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    - name: Build website
+      run: yarn build
