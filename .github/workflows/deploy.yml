@@ -10,3 +10,9 @@ jobs:
     - uses: actions/checkout@v4
     - name: Convert Notebooks
       run: scripts/convert_notebooks.sh
+    - name: Commit report
+      run: |
+        git config --global user.name 'WeCo bot'
+        git config --global user.email '53337611+weco-bot@users.noreply.github.com'
+        git commit -am "Update notebooks"
+        git push
