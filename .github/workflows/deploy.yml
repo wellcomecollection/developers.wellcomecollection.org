@@ -13,9 +13,22 @@ jobs:
     - uses: actions/checkout@v4
     - name: Convert Notebooks
       run: scripts/convert_notebooks.sh
-    - name: Commit report
+    - name: Commit update
       run: |
         git config --global user.name 'WeCo bot'
         git config --global user.email '53337611+weco-bot@users.noreply.github.com'
         git commit -am "Update notebooks" || exit 0
         git push
+  build-html:
+    name: Build HTML
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Node
+    # https://github.com/actions/setup-node?tab=readme-ov-file#usage
+    # The node-version input is optional. If not supplied, the node version from PATH will be used.
+    # However, it is recommended to always specify Node.js version and don't rely on the system one.
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: yarn build
+      run: yarn && yarn build
