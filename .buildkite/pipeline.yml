@@ -1,13 +1,12 @@
 steps:
-  - command: .buildkite/scripts/convert_notebooks.sh
-    if: build.branch != "main"
-    label: "convert notebooks from .ipynb to .md"
+  - command: true
+    label: "Take no action"
 
-  - command: .buildkite/scripts/build_html.sh
-    if: build.branch != "main"
-    label: "build HTML"
+  # - command: .buildkite/scripts/build_html.sh
+  #   if: build.branch != "main"
+  #   label: "build HTML"
 
-  - commands:
-      - .buildkite/scripts/deploy_to_github.sh
-    if: build.branch == "main"
-    label: "deploy changes to GitHub"
+  # - commands:
+  #     - .buildkite/scripts/deploy_to_github.sh
+  #   if: build.branch == "main"
+  #   label: "deploy changes to GitHub"
