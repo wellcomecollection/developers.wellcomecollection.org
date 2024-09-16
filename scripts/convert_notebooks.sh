@@ -73,7 +73,7 @@ GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 for file in $root/notebooks/*.ipynb; do
   filename=$(basename -- "$file")
 
-  github_path="wellcomecollection/developers.wellcomecollection.org/tree/$GIT_BRANCH/notebooks/$filename"
+  github_path="wellcomecollection/developers.wellcomecollection.org/blob/$GIT_BRANCH/notebooks/$filename"
   github_url="https://github.com/$github_path"
   colab_url="https://colab.research.google.com/github/$github_path"
 
