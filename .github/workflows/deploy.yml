@@ -1,0 +1,12 @@
+name: "Deploy"
+on:
+  push:
+
+jobs:
+  build-notebooks:
+    name: Build Notebooks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Convert Notebooks
+      run: scripts/convert_notebooks.sh
