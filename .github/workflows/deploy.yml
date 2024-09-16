@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   deploy-docusaurus:
-    name: Build Notebooks
+    name: Deploy documentation
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -28,3 +28,5 @@ jobs:
         node-version: 20
     - name: yarn build
       run: yarn && yarn build
+    - name: yarn deploy
+      run: yarn deploy
