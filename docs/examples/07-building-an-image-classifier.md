@@ -1,6 +1,6 @@
 # 7. Building an image classifier
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/tree/HEAD/notebooks/07-building-an-image-classifier.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/tree/HEAD/notebooks/07-building-an-image-classifier.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/rk/gha-build/notebooks/07-building-an-image-classifier.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/rk/gha-build/notebooks/07-building-an-image-classifier.ipynb)
 
 This notebook is going to race through some high-level concepts in machine learning (specifically, fine-tuning a convolutional neural network). However, our focus will remain on demonstrating the practical uses of the Wellcome Collection API. As such, some important ML topics will be covered in less detail than they deserve, and some will be skipped entirely.
 If you're not already familiar with the basics of ML but want to learn more, I'd recommend exploring [Practical Deep Learning for Coders](https://course.fast.ai/) by fast.ai. It describes itself as:

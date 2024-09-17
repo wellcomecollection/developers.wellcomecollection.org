@@ -27,7 +27,7 @@ docker run --rm --tty \
     jupyter/scipy-notebook \
     jupyter nbconvert \
     --to markdown \
-    --template .buildkite/scripts/mdoutput \
+    --template "$root/scripts/mdoutput" \
     --output-dir "$root/docs/examples" \
     $root/notebooks/*.ipynb
 
@@ -67,14 +67,13 @@ for file in $root/docs/examples/*.md; do
   fi
 done
 
-
 # add a link to github and colab for each notebook
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 for file in $root/notebooks/*.ipynb; do
   filename=$(basename -- "$file")
 
-  github_path="wellcomecollection/developers.wellcomecollection.org/tree/$GIT_BRANCH/notebooks/$filename"
+  github_path="wellcomecollection/developers.wellcomecollection.org/blob/$GIT_BRANCH/notebooks/$filename"
   github_url="https://github.com/$github_path"
   colab_url="https://colab.research.google.com/github/$github_path"
 
@@ -83,22 +82,3 @@ for file in $root/notebooks/*.ipynb; do
   # insert the line at the second line of the file
   awk -v line="$line" 'NR==2{print line}1' "$path" > tmp && mv -f tmp "$path"
 done
-
-# commit any changes back to the branch
-if [[ `git status --porcelain` ]]; then
-  git config user.name "Buildkite on behalf of Wellcome Collection"
-  git config user.email "wellcomedigitalplatform@wellcome.ac.uk"
-
-  git remote add ssh-origin $BUILDKITE_REPO || true
-  git fetch ssh-origin
-  git checkout --track ssh-origin/$BUILDKITE_BRANCH || true
-
-  git add --verbose --update
-  git commit -m "Convert notebooks"
-
-  git push ssh-origin HEAD:$BUILDKITE_BRANCH
-  exit 1;
-else
-  echo "No changes from notebook conversion"
-  exit 0;
-fi
