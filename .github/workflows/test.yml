@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        ref: ${{ github.ref_name }}
+        ref: ${{ github.event.pull_request.head.ref }}
     - name: Convert Notebooks
       run: scripts/convert_notebooks.sh
     - name: Commit update
