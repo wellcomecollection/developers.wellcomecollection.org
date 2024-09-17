@@ -1,6 +1,6 @@
 # 3. Connecting the APIs together
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/rk/gha-build/notebooks/03-connecting-the-apis-together.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/rk/gha-build/notebooks/03-connecting-the-apis-together.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/03-connecting-the-apis-together.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/03-connecting-the-apis-together.ipynb)
 
 So far, we've only looked at the `/works` API, but Wellcome Collection has a few more which we can make use of. As well as `/works`, we can also use `/images` and `/concepts`. 
 
