@@ -1,6 +1,6 @@
 # 5. Working with snapshots of the API
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/05-working-with-snapshots-of-the-api.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/05-working-with-snapshots-of-the-api.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/webpack-5.94.0/notebooks/05-working-with-snapshots-of-the-api.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/webpack-5.94.0/notebooks/05-working-with-snapshots-of-the-api.ipynb)
 
 As we saw at the end of the last notebook, the API limits its responses to 10,000 total results - after that point, users are directed to work with the snapshots. For example, making a request to <https://api.wellcomecollection.org/catalogue/v2/works?pageSize=100&page=101> gives us:
 
