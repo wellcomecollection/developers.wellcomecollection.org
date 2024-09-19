@@ -1,6 +1,6 @@
 # 6. Visualising the collections on a map
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/06-visualising-the-collection-on-a-map.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/06-visualising-the-collection-on-a-map.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/webpack-5.94.0/notebooks/06-visualising-the-collection-on-a-map.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/webpack-5.94.0/notebooks/06-visualising-the-collection-on-a-map.ipynb)
 
 In this notebook, we're going to use a secondary API to visualise the geographical extent of the collection on a map. 
 
