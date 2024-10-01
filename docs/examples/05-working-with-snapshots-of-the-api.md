@@ -2,7 +2,7 @@
 
 [View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/upgrade-everything/notebooks/05-working-with-snapshots-of-the-api.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/upgrade-everything/notebooks/05-working-with-snapshots-of-the-api.ipynb)
 
-As we saw at the end of the last notebook, the API limits its responses to 10,000 total results - after that point, users are directed to work with the snapshots. For example, making a request to <https://api.wellcomecollection.org/catalogue/v2/works?pageSize=100&page=101> gives us:
+As we saw at the end of the last notebook, the API limits its responses to 10,000 total results - after that point, users are directed to work with the snapshots. For example, making a request to [https://api.wellcomecollection.org/catalogue/v2/works?pageSize=100&page=101](https://api.wellcomecollection.org/catalogue/v2/works?pageSize=100&page=101) gives us:
 
 ```json
 {
@@ -28,7 +28,7 @@ import gzip
 import io
 ```
 
-The urls for the snapshots can be found at <https://developers.wellcomecollection.org/docs/datasets>. We're going to work with the `works` snapshot, but all of the logic which follows should be extendable to the images snapshot on that page too!
+The urls for the snapshots can be found at [https://developers.wellcomecollection.org/docs/datasets](https://developers.wellcomecollection.org/docs/datasets). We're going to work with the `works` snapshot, but all of the logic which follows should be extendable to the images snapshot on that page too!
 
 Let's start by establishing the url for the compressed snapshot file, and the path where the data is going to be saved.
 
