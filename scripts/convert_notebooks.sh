@@ -8,7 +8,7 @@ set -o verbose
 
 root=$(git rev-parse --show-toplevel)
 
-# delete everything in the docs/exaples folder
+# delete everything in the docs/examples folder
 rm -rf $root/docs/examples/*.md
 
 # strip output from notebooks
