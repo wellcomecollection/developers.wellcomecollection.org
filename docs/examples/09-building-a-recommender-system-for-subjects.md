@@ -1,6 +1,6 @@
 # 9. Building a recommender system for subjects
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/09-building-a-recommender-system-for-subjects.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/09-building-a-recommender-system-for-subjects.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/http-proxy-middleware-2.0.7/notebooks/09-building-a-recommender-system-for-subjects.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/http-proxy-middleware-2.0.7/notebooks/09-building-a-recommender-system-for-subjects.ipynb)
 
 Finally, we'll consider building a recommender system using data from Wellcome Collection. Thes machine learning models work slightly differently to the ones we've seen so far. Rather than being trained to predict a single value, they're trained to predict a whole matrix of interactions between two kinds of entity.
 
