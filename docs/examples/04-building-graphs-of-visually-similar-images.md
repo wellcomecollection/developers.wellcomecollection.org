@@ -1,6 +1,6 @@
 # 4. Building graphs of visually similar images
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/json5-2.2.3/notebooks/04-building-graphs-of-visually-similar-images.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/json5-2.2.3/notebooks/04-building-graphs-of-visually-similar-images.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/04-building-graphs-of-visually-similar-images.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/04-building-graphs-of-visually-similar-images.ipynb)
 
 In the last notebook, we introduced the ability to fetch visually similar images using the `/images` API.
 
