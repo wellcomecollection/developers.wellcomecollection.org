@@ -6,7 +6,7 @@ In this notebook, we're going to use a secondary API to visualise the geographic
 
 The collection contains place names in the `production` field, which describes the time, place, and agents involved in the creation of the work. If we can turn those place names into coordinates, we can visualise the geographical extent of the collection on a map.
 
-We'll use the API at <https://geocode.maps.co/> to handle the complicated geocoding for us.
+We'll use the API at [https://geocode.maps.co/](https://geocode.maps.co/) to handle the complicated geocoding for us.
 
 
 ```python
