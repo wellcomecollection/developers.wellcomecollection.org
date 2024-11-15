@@ -201,6 +201,9 @@ components:
         id:
           type: string
           description: The identifier of the article
+        uid:
+          type: string
+          description: The human-readable identifier of the article
         title:
           type: string
           description: The title of the article
