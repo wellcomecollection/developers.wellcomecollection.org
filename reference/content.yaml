@@ -163,6 +163,122 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
+  /events:  
+    get:
+      tags:
+        - Events
+      summary: /events
+      description: Returns a paginated list of events
+      operationId: getEvents
+      parameters:
+        - name: aggregations
+          in: query
+          description: What aggregated data in relation to the results should we return.
+          schema:
+            type: string
+            enum:
+              - audience
+              - interpretation
+              - format
+              - isAvailableOnline
+              - location
+        - name: audience
+          in: query
+          description: Filter the events by audience.
+          schema:
+            type: string
+        - name: interpretation
+          in: query
+          description: Filter the events by interpretation.
+          schema:
+            type: string
+        - name: format
+          in: query
+          description: Filter the events by format.
+          schema:
+            type: string
+        - name: isAvailableOnline
+          in: query
+          description: Filter the events by catch-up events.
+          schema:
+            type: string
+            enum:
+              - true
+        - name: location
+          in: query
+          description: Filter the articles by location.
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Which field to sort the results on
+          schema:
+            type: string
+            enum:
+              - times.startDateTime
+              - relevance
+        - name: sortOrder
+          in: query
+          description: The order that the results should be returned in.
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: query
+          in: query
+          description: 'Full-text search query'
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page to return from the result list
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+            default: 1
+        - name: pageSize
+          in: query
+          description: The number of events to return per page
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int64
+            default: 10
+      responses:
+        '200':
+          description: The events
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResultList'
+        '400':
+          description: Bad Request Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '410':
+          description: Gone Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  # '/events/{id}':
 components:
   schemas:
     Aggregation:
@@ -310,6 +426,97 @@ components:
           description: The specific error
         type:
           type: string
+    Event:
+      title: Event
+      description: A Wellcome Collection event (on location or online)
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the event
+        uid:
+          type: string
+          description: The human-readable identifier of the event
+        title:
+          type: string
+          description: The title of the event
+        image:
+          $ref: '#/components/schemas/Image'
+        format:
+          title: EventFormat
+          type: object
+          description: The format of an event (eg discussion)
+          properties:
+            id:
+              type: string
+              description: The identifier of the format
+            label:
+              type: string
+              description: The short label of the format
+            type:
+              type: EventFormat
+        locations:
+          $ref: '#/components/schemas/EventLocations'
+        interpretations:
+          type: array
+          items:
+            title: EventInterpretation
+            type: object
+            description: Which accessibility features the event offers
+            properties:
+              id:
+                type: string
+                description: The identifier of the format
+              label:
+                type: string
+                description: The short label of the format
+              type:
+                type: EventInterpretation
+        audiences:
+          type: array
+          description: Which audiences the event is for
+          items:
+            type: object
+            title: EventAudience
+            properties:
+              id:
+                type: string
+                description: The identifier of the audience
+              label:
+                type: string
+                description: The short label of the audience
+              type:
+                type: EventAudience
+        series:
+          type: array
+          description: Which series the event is part of
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The identifier of the series
+              title: 
+                type: string
+                description: The title of the series
+              contributors:
+                type: array<string>
+        isAvailableOnline:
+          type: boolean
+          description: Whether or not it is a catch-up event
+        type:
+          type: string
+      required:
+        - id
+        - title
+        - format
+        - times
+        - locations
+        - interpretations
+        - audiences
+        - series
+        - isAvailableOnline
+        - type
     Image:
       title: Image
       description: Information regarding the location, dimensions, alt-text, and copyright of an image
@@ -343,6 +550,51 @@ components:
         - dimensions
         - type
         - url
+    EventLocations:
+      type: object
+      description: Where the event takes place
+      properties:
+        isOnline:
+          type: boolean
+          description: Whether or not the event takes place online
+        attendance:
+          type: array
+          description: The general location (e.g. in our building or online)
+          items:
+            type: object
+            title: Attendance
+            properties:
+              id:
+                type: string
+                description: The identifier of the place
+                enum:
+                  - in-our-building
+                  - online
+              label:
+                type: string
+                description: The short label of the place
+                enum: 
+                  - In our building
+                  - Online
+              type:
+                type: EventAttendance
+        places:
+          type: array
+          description: The physical location of the event
+          items:
+            title: Place
+            type: object
+            properties:
+              id:
+                type: string
+                description: The identifier of the place
+              label:
+                type: string
+                description: The short label of the place
+              type:
+                type: EventPlace
+        type:
+          type: EventLocations
     ArticleAggregations:
       title: ArticleAggregations
       type: object
@@ -380,5 +632,49 @@ components:
           type: string
         aggregations:
           - $ref: '#/components/schemas/ArticleAggregations'
+    EventAggregations:
+      title: EventAggregations
+      type: object
+      description: A map containing the requested aggregations.
+      properties:
+        audience:
+          $ref: '#/components/schemas/Aggregation'
+        interpretation:
+          $ref: '#/components/schemas/Aggregation'
+        format:
+          $ref: '#/components/schemas/Aggregation'
+        isAvailableOnline:
+          $ref: '#/components/schemas/Aggregation'
+        location:
+          $ref: '#/components/schemas/Aggregation'
+        type:
+          type: string
+    EventResultList:
+      title: EventResultList
+      type: object
+      description: A paginated list of events.
+      properties:
+        type:
+          type: string
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        prevPage:
+          type: string
+        nextPage:
+          type: string
+        aggregations:
+          - $ref: '#/components/schemas/EventAggregations'
 tags:
   - name: Articles
+  - name: Events
