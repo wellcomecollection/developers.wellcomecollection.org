@@ -88,41 +88,18 @@ paths:
             format: int64
             default: 10
       responses:
-        '200':
+        "200":
           description: The articles
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/ArticleResultList'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/articles/{id}':
+                $ref: "../schemas/lists/article-list.yaml#/ArticleResultList"
+        $ref: "../schemas/responses/errors.yaml#/Errors"
+  "/articles/{id}":
     get:
       tags:
         - Articles
-      summary: '/articles/{id}'
+      summary: "/articles/{id}"
       description: Returns a single article
       operationId: getArticle
       parameters:
@@ -133,37 +110,14 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The article
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Article'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  /events:  
+                $ref: "../schemas/docs/article.yaml#/Article"
+        $ref: "../schemas/responses/errors.yaml#/Errors"
+  /events:
     get:
       tags:
         - Events
@@ -227,7 +181,7 @@ paths:
               - desc
         - name: query
           in: query
-          description: 'Full-text search query'
+          description: "Full-text search query"
           schema:
             type: string
         - name: page
@@ -248,41 +202,18 @@ paths:
             format: int64
             default: 10
       responses:
-        '200':
+        "200":
           description: The events
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/EventResultList'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/events/{id}':
+                $ref: "../schemas/lists/event-list.yaml#/EventResultList"
+        $ref: "../schemas/responses/errors.yaml#/Errors"
+  "/events/{id}":
     get:
       tags:
         - Events
-      summary: '/events/{id}'
+      summary: "/events/{id}"
       description: Returns a single event
       operationId: getEvent
       parameters:
@@ -293,32 +224,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The event
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Event'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
+                $ref: "../schemas/docs/event.yaml#/Event"
+        $ref: "../schemas/responses/errors.yaml#/Errors"
           content:
             '*/*':
               schema:
