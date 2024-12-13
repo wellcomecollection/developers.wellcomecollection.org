@@ -1,0 +1,175 @@
+Aggregation:
+  title: Aggregation
+  type: object
+  description: An aggregation over the results.
+  properties:
+    buckets:
+      type: array
+      items:
+        $ref: "#/components/schemas/AggregationBucket"
+    type:
+      type: string
+AggregationBucket:
+  title: AggregationBucket
+  type: object
+  description: An individual bucket within an aggregation.
+  properties:
+    data:
+      discriminator:
+        propertyName: type
+      oneOf:
+        - $ref: "#/components/schemas/ContributorAgent"
+        - $ref: "#/components/schemas/ArticleFormat"
+    count:
+      type: integer
+      description: The count of how often this data occurs in this set of results.
+      format: int32
+    type:
+      type: string
+ArticleFormat:
+  title: ArticleFormat
+  type: object
+  description: The format of an article (eg article, comic)
+  properties:
+    id:
+      type: string
+      description: The identifier of the format
+    label:
+      type: string
+      description: The short label of the format
+    type:
+      type: string
+Contributor:
+  title: Contributor
+  type: object
+  properties:
+    contributor:
+      $ref: "#/components/schemas/ContributorAgent"
+    role:
+      $ref: "#/components/schemas/ContributorRole"
+ContributorRole:
+  title: ContributorRole
+  type: object
+  description: A role of a contributor (eg. author, editor)
+  properties:
+    id:
+      type: string
+      description: The identifier of the contributor role
+    label:
+      type: string
+      description: The short label of the contributor role
+    type:
+      type: string
+ContributorAgent:
+  title: Contributor
+  type: object
+  description: A contributor
+  properties:
+    id:
+      type: string
+      description: The identifier of the contributor
+    label:
+      type: string
+      description: The name or other short label of the contributor
+    type:
+      type: enum
+      oneOf:
+        - "Person"
+        - "Organisation"
+Dimensions:
+  type: object
+  properties:
+    width:
+      type: integer
+    height:
+      type: integer
+Image:
+  title: Image
+  description: Information regarding the location, dimensions, alt-text, and copyright of an image
+  type: object
+  properties:
+    dimensions:
+      description: The intrinsic dimensions of an image
+      $ref: "#/components/schemas/Dimensions"
+    alt:
+      type: string
+      description: Alternative text to display in place of the image if it cannot be rendered
+    copyright:
+      type: string
+      description: Copyright information about the image, including the copyright holder
+    url:
+      type: string
+      format: uri
+      description: The URL of the image
+    "32:15":
+      description: Dimensions of the image for 32:15 aspect ratio
+      $ref: "#/components/schemas/Dimensions"
+    "16:9":
+      description: Dimensions of the image for 16:9 aspect ratio
+      $ref: "#/components/schemas/Dimensions"
+    square:
+      description: Dimensions of the image for a square aspect ratio
+      $ref: "#/components/schemas/Dimensions"
+    type:
+      type: string
+  required:
+    - dimensions
+    - type
+    - url
+EventLocations:
+  type: object
+  description: Where the event takes place
+  properties:
+    isOnline:
+      type: boolean
+      description: Whether or not the event takes place online
+    attendance:
+      type: array
+      description: The general location (e.g. in our building or online)
+      items:
+        type: object
+        title: Attendance
+        properties:
+          id:
+            type: string
+            description: The identifier of the place
+            enum:
+              - in-our-building
+              - online
+          label:
+            type: string
+            description: The short label of the place
+            enum:
+              - In our building
+              - Online
+          type:
+            type: EventAttendance
+    places:
+      type: array
+      description: The physical location of the event
+      items:
+        title: Place
+        type: object
+        properties:
+          id:
+            type: string
+            description: The identifier of the place
+          label:
+            type: string
+            description: The short label of the place
+          type:
+            type: EventPlace
+    type:
+      type: EventLocations
+ArticleAggregations:
+  title: ArticleAggregations
+  type: object
+  description: A map containing the requested aggregations.
+  properties:
+    format:
+      $ref: "#/components/schemas/Aggregation"
+    contributors.contributor:
+      $ref: "#/components/schemas/Aggregation"
+    type:
+      type: string
+EventAggregations:
