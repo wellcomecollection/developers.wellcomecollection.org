@@ -1,0 +1,39 @@
+Article:
+  title: Article
+  description: A piece of editorial content
+  type: object
+  properties:
+    id:
+      type: string
+      description: The identifier of the article
+    uid:
+      type: string
+      description: The human-readable identifier of the article
+    title:
+      type: string
+      description: The title of the article
+    publicationDate:
+      type: string
+      format: date-time
+      description: The date on which the article was published
+    contributors:
+      type: array
+      description: Relates an article to its author, editor, and any other contributors
+      items:
+        $ref: "#/components/schemas/Contributor"
+    format:
+      $ref: "#/components/schemas/ArticleFormat"
+    caption:
+      type: string
+      description: A short description of the article's content
+    image:
+      $ref: "#/components/schemas/Image"
+    type:
+      type: string
+  required:
+    - id
+    - title
+    - publicationDate
+    - contributors
+    - format
+    - type
