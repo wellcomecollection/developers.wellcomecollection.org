@@ -20,14 +20,14 @@ Article:
       type: array
       description: Relates an article to its author, editor, and any other contributors
       items:
-        $ref: "#/components/schemas/Contributor"
+        $ref: "../components.yaml#/Contributor"
     format:
-      $ref: "#/components/schemas/ArticleFormat"
+      $ref: "../components.yaml#/ArticleFormat"
     caption:
       type: string
       description: A short description of the article's content
     image:
-      $ref: "#/components/schemas/Image"
+      $ref: "../components.yaml#/Image"
     type:
       type: string
   required:
