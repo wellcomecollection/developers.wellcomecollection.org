@@ -1,0 +1,91 @@
+Event:
+  title: Event
+  description: A Wellcome Collection event (on location or online)
+  type: object
+  properties:
+    id:
+      type: string
+      description: The identifier of the event
+    uid:
+      type: string
+      description: The human-readable identifier of the event
+    title:
+      type: string
+      description: The title of the event
+    image:
+      $ref: "#/components/schemas/Image"
+    format:
+      title: EventFormat
+      type: object
+      description: The format of an event (eg discussion)
+      properties:
+        id:
+          type: string
+          description: The identifier of the format
+        label:
+          type: string
+          description: The short label of the format
+        type:
+          type: EventFormat
+    locations:
+      $ref: "#/components/schemas/EventLocations"
+    interpretations:
+      type: array
+      items:
+        title: EventInterpretation
+        type: object
+        description: Which accessibility features the event offers
+        properties:
+          id:
+            type: string
+            description: The identifier of the format
+          label:
+            type: string
+            description: The short label of the format
+          type:
+            type: EventInterpretation
+    audiences:
+      type: array
+      description: Which audiences the event is for
+      items:
+        type: object
+        title: EventAudience
+        properties:
+          id:
+            type: string
+            description: The identifier of the audience
+          label:
+            type: string
+            description: The short label of the audience
+          type:
+            type: EventAudience
+    series:
+      type: array
+      description: Which series the event is part of
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            description: The identifier of the series
+          title:
+            type: string
+            description: The title of the series
+          contributors:
+            type: array<string>
+    isAvailableOnline:
+      type: boolean
+      description: Whether or not it is a catch-up event
+    type:
+      type: string
+  required:
+    - id
+    - title
+    - format
+    - times
+    - locations
+    - interpretations
+    - audiences
+    - series
+    - isAvailableOnline
+    - type
