@@ -1,0 +1,25 @@
+Exhibition Hightlight Tour (audio):
+  title: Exhibition Hightlight Tour (audio)
+  description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+  type: object
+  properties:
+    type:
+      type: string
+      description:
+    id:
+      type: string
+      description: The identifier of the exhibition hightlight tour
+    uid:
+      type: string
+      description: The human-readable identifier of the exhibition hightlight tour
+    title:
+      type: string
+      description: The title of the exhibition hightlight tour
+    description:
+      type: string
+      description: A short description of the exhibition hightlight tour's content
+  required:
+    - type
+    - uid
+    - title
+    - description

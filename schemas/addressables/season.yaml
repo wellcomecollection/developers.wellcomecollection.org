@@ -1,0 +1,25 @@
+Season:
+  title: Season
+  description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+  type: object
+  properties:
+    type:
+      type: string
+      description:
+    id:
+      type: string
+      description: The identifier of the season
+    uid:
+      type: string
+      description: The human-readable identifier of the season
+    title:
+      type: string
+      description: The title of the season
+    description:
+      type: string
+      description: A short description of the season's content
+  required:
+    - type
+    - uid
+    - title
+    - description

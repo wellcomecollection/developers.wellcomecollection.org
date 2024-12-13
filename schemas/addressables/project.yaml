@@ -1,0 +1,28 @@
+Project:
+  title: Project
+  description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+  type: object
+  properties:
+    type:
+      type: string
+      description:
+    id:
+      type: string
+      description: The identifier of the project
+    uid:
+      type: string
+      description: The human-readable identifier of the project
+    title:
+      type: string
+      description: The title of the project
+    format:
+      type: string
+      description: The short label of the format
+    description:
+      type: string
+      description: A short description of the project's content
+  required:
+    - type
+    - uid
+    - title
+    - description

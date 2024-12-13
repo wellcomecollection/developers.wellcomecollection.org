@@ -1,0 +1,38 @@
+Event:
+  title: Event
+  description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+  type: object
+  properties:
+    type:
+      type: string
+      description:
+    id:
+      type: string
+      description: The identifier of the event
+    uid:
+      type: string
+      description: The human-readable identifier of the event
+    title:
+      type: string
+      description: The title of the event
+    description:
+      type: string
+      description: A short description of the event's content
+    format:
+      type: string
+      description: The short label of the format
+    times:
+      type: object
+      properties:
+        start:
+          type: date-time
+          description: The date and time of the start of the event
+        end:
+          type: date-time
+          description: The date and time of the end of the event
+  required:
+    - type
+    - uid
+    - title
+    - description
+    - times

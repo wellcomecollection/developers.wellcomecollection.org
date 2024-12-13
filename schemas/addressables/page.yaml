@@ -1,0 +1,28 @@
+Page:
+  title: Page
+  description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+  type: object
+  properties:
+    type:
+      type: string
+      description:
+    id:
+      type: string
+      description: The identifier of the page
+    uid:
+      type: string
+      description: The human-readable identifier of the page
+    title:
+      type: string
+      description: The title of the page
+    description:
+      type: string
+      description: A short description of the page's content
+    tags:
+      type: array<string>
+      description: A list of document tags
+  required:
+    - type
+    - uid
+    - title
+    - description

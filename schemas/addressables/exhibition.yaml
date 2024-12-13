@@ -1,0 +1,38 @@
+Exhibition:
+  title: Exhibition
+  description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+  type: object
+  properties:
+    type:
+      type: string
+      description:
+    id:
+      type: string
+      description: The identifier of the exhibition
+    uid:
+      type: string
+      description: The human-readable identifier of the exhibition
+    title:
+      type: string
+      description: The title of the exhibition
+    description:
+      type: string
+      description: A short description of the exhibition's content
+    format:
+      type: string
+      description: The short label of the format
+    times:
+      type: object
+      properties:
+        start:
+          type: date-time
+          description: The date and time of the start of the exhibition
+        end:
+          type: date-time
+          description: The date and time of the end of the exhibition
+  required:
+    - type
+    - uid
+    - title
+    - description
+    - times

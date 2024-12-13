@@ -1,0 +1,25 @@
+Exhibition Text:
+  title: Exhibition Text
+  description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+  type: object
+  properties:
+    type:
+      type: string
+      description:
+    id:
+      type: string
+      description: The identifier of the exhibition text
+    uid:
+      type: string
+      description: The human-readable identifier of the exhibition text
+    title:
+      type: string
+      description: The title of the exhibition text
+    description:
+      type: string
+      description: A short description of the exhibition text's content
+  required:
+    - type
+    - uid
+    - title
+    - description
