@@ -1,0 +1,26 @@
+ArticleResultList:
+  title: ArticleResultList
+  type: object
+  description: A paginated list of articles.
+  properties:
+    type:
+      type: string
+    pageSize:
+      type: integer
+      format: int32
+    totalPages:
+      type: integer
+      format: int32
+    totalResults:
+      type: integer
+      format: int32
+    prevPage:
+      type: string
+    nextPage:
+      type: string
+    results:
+      type: array
+      items:
+        $ref: "#/components/schemas/Article"
+    aggregations:
+      - $ref: "#/components/schemas/ArticleAggregations"
