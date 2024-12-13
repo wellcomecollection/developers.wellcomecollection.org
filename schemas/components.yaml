@@ -6,7 +6,7 @@ Aggregation:
     buckets:
       type: array
       items:
-        $ref: "#/components/schemas/AggregationBucket"
+        $ref: "#/AggregationBucket"
     type:
       type: string
 AggregationBucket:
@@ -18,8 +18,8 @@ AggregationBucket:
       discriminator:
         propertyName: type
       oneOf:
-        - $ref: "#/components/schemas/ContributorAgent"
-        - $ref: "#/components/schemas/ArticleFormat"
+        - $ref: "#/ContributorAgent"
+        - $ref: "#/ArticleFormat"
     count:
       type: integer
       description: The count of how often this data occurs in this set of results.
@@ -44,9 +44,9 @@ Contributor:
   type: object
   properties:
     contributor:
-      $ref: "#/components/schemas/ContributorAgent"
+      $ref: "#/ContributorAgent"
     role:
-      $ref: "#/components/schemas/ContributorRole"
+      $ref: "#/ContributorRole"
 ContributorRole:
   title: ContributorRole
   type: object
@@ -90,7 +90,7 @@ Image:
   properties:
     dimensions:
       description: The intrinsic dimensions of an image
-      $ref: "#/components/schemas/Dimensions"
+      $ref: "#/Dimensions"
     alt:
       type: string
       description: Alternative text to display in place of the image if it cannot be rendered
@@ -103,13 +103,13 @@ Image:
       description: The URL of the image
     "32:15":
       description: Dimensions of the image for 32:15 aspect ratio
-      $ref: "#/components/schemas/Dimensions"
+      $ref: "#/Dimensions"
     "16:9":
       description: Dimensions of the image for 16:9 aspect ratio
-      $ref: "#/components/schemas/Dimensions"
+      $ref: "#/Dimensions"
     square:
       description: Dimensions of the image for a square aspect ratio
-      $ref: "#/components/schemas/Dimensions"
+      $ref: "#/Dimensions"
     type:
       type: string
   required:
@@ -167,9 +167,9 @@ ArticleAggregations:
   description: A map containing the requested aggregations.
   properties:
     format:
-      $ref: "#/components/schemas/Aggregation"
+      $ref: "#/Aggregation"
     contributors.contributor:
-      $ref: "#/components/schemas/Aggregation"
+      $ref: "#/Aggregation"
     type:
       type: string
 EventAggregations:
