@@ -13,7 +13,7 @@ Event:
       type: string
       description: The title of the event
     image:
-      $ref: "#/components/schemas/Image"
+      $ref: "../components.yaml#/Image"
     format:
       title: EventFormat
       type: object
@@ -28,7 +28,7 @@ Event:
         type:
           type: EventFormat
     locations:
-      $ref: "#/components/schemas/EventLocations"
+      $ref: "../components.yaml#/EventLocations"
     interpretations:
       type: array
       items:
