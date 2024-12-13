@@ -1,0 +1,36 @@
+AllResultsList:
+  title: AllResultList
+  type: object
+  description: A paginated list of TODO
+  properties:
+    type:
+      type: string
+    pageSize:
+      type: integer
+      format: int32
+    totalPages:
+      type: integer
+      format: int32
+    totalResults:
+      type: integer
+      format: int32
+    prevPage:
+      type: string
+    nextPage:
+      type: string
+    results:
+      type: array
+      items:
+        anyOf: one or more TODO
+        oneOf: valid against one TODO maybe create a AddressableGeneric, which is shared by most?
+          - $ref: "../addressables/article.yaml#/Article"
+          - $ref: "../addressables/book.yaml#/Book"
+          - $ref: "../addressables/event.yaml#/Event"
+          - $ref: "../addressables/event.yaml#/Exhibition"
+          - $ref: "../addressables/exhibition-text.yaml#/ExhibitionText"
+          - $ref: "../addressables/exhibition-highlight-tour-bsl.yaml#/ExhibitionHighlightTour(BSL)"
+          - $ref: "../addressables/exhibition-highlight-tour-audio.yaml#/ExhibitionHightlightTour(audio)"
+          - $ref: "../addressables/page.yaml#/Page"
+          - $ref: "../addressables/project.yaml#/Project"
+          - $ref: "../addressables/season.yaml#/Season"
+          - $ref: "../addressables/visual-story.yaml#/VisualStory"
