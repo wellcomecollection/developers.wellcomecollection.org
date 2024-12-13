@@ -5,7 +5,7 @@ info:
   version: v0
   contact: {}
 servers:
-  - url: 'https://api.wellcomecollection.org/content/v0'
+  - url: "https://api.wellcomecollection.org/content/v0"
 paths:
   /articles:
     get:
@@ -67,7 +67,7 @@ paths:
             format: date-time
         - name: query
           in: query
-          description: 'Full-text search query'
+          description: "Full-text search query"
           schema:
             type: string
         - name: page
@@ -231,10 +231,45 @@ paths:
               schema:
                 $ref: "../schemas/docs/event.yaml#/Event"
         $ref: "../schemas/responses/errors.yaml#/Errors"
+  /all:
+    get:
+      tags:
+        - All
+      summary: /all
+      description: Returns a paginated list of our non-catalogue content, i.e. (articles, books, events, exhibitions, exhibition texts, exhibition highlight tours (BSL), exhibition highlight tours (audio), pages, projects, seasons, and visual stories)
+      operationId: TODO
+      parameters:
+        - name: query
+          in: query
+          description: "Full-text search query"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page to return from the result list
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+            default: 1
+        - name: pageSize
+          in: query
+          description: The number of articles to return per page
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int64
+            default: 10
+      responses:
+        "200":
+          description: The TODO
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "../schemas/lists/all-list.yaml#/AllResultsList"
+        $ref: "../schemas/responses/errors.yaml#/Errors"
 tags:
   - name: Articles
   - name: Events
+  - name: All
