@@ -7,6 +7,6 @@ ArticleResultList:
     results:
       type: array
       items:
-        $ref: "#/components/schemas/Article"
+        $ref: "../docs/article.yaml#/Article"
     aggregations:
-      - $ref: "#/components/schemas/ArticleAggregations"
+      - $ref: "../components.yaml#/ArticleAggregations"

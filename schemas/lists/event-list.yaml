@@ -9,4 +9,4 @@ EventResultList:
       items:
         $ref: "../docs/event.yaml#/Event"
     aggregations:
-      - $ref: "../../reference/content.yaml#/components/schemas/EventAggregations"
+      - $ref: "../components.yaml#/EventAggregations"
