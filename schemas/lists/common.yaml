@@ -1,0 +1,16 @@
+ResultListProperties:
+  type:
+    type: string
+  pageSize:
+    type: integer
+    format: int32
+  totalPages:
+    type: integer
+    format: int32
+  totalResults:
+    type: integer
+    format: int32
+  prevPage:
+    type: string
+  nextPage:
+    type: string

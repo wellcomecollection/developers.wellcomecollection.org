@@ -3,21 +3,7 @@ EventResultList:
   type: object
   description: A paginated list of events.
   properties:
-    type:
-      type: string
-    pageSize:
-      type: integer
-      format: int32
-    totalPages:
-      type: integer
-      format: int32
-    totalResults:
-      type: integer
-      format: int32
-    prevPage:
-      type: string
-    nextPage:
-      type: string
+    $ref: "./common.yaml#/ResultListProperties"
     results:
       type: array
       items:
