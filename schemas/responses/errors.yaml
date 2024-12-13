@@ -1,0 +1,47 @@
+Errors:
+  "400":
+    description: Bad Request Error
+    content:
+      "*/*":
+        schema:
+          $ref: "#/Error"
+  "404":
+    description: Not Found Error
+    content:
+      "*/*":
+        schema:
+          $ref: "#/Error"
+  "410":
+    description: Gone Error
+    content:
+      "*/*":
+        schema:
+          $ref: "#/Error"
+  "500":
+    description: Internal Server Error
+    content:
+      "*/*":
+        schema:
+          $ref: "#/Error"
+
+Error:
+  title: Error
+  type: object
+  properties:
+    errorType:
+      type: string
+      description: The type of error
+      enum:
+        - http
+    httpStatus:
+      type: integer
+      description: The HTTP response status code
+      format: int32
+    label:
+      type: string
+      description: The title or other short name of the error
+    description:
+      type: string
+      description: The specific error
+    type:
+      type: string
