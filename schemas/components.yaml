@@ -173,3 +173,19 @@ ArticleAggregations:
     type:
       type: string
 EventAggregations:
+  title: EventAggregations
+  type: object
+  description: A map containing the requested aggregations.
+  properties:
+    audience:
+      $ref: "#/Aggregation"
+    interpretation:
+      $ref: "#/Aggregation"
+    format:
+      $ref: "#/Aggregation"
+    isAvailableOnline:
+      $ref: "#/Aggregation"
+    location:
+      $ref: "#/Aggregation"
+    type:
+      type: string
