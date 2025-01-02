@@ -1056,7 +1056,7 @@ components:
         properties:
           type:
             type: "Season"
-            description:
+            description: A reduced piece of editorial content, limited to the parts necessary to render a summary
           id:
             type: string
             description: The identifier of the season
