@@ -787,7 +787,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Article"
             description:
           id:
             type: string
@@ -813,7 +813,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Book"
             description:
           id:
             type: string
@@ -842,7 +842,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Event"
             description:
           id:
             type: string
@@ -880,7 +880,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Exhibition"
             description:
           id:
             type: string
@@ -919,7 +919,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Exhibition highlight tour"
             description:
           id:
             type: string
@@ -945,7 +945,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Exhibition highlight tour"
             description:
           id:
             type: string
@@ -971,7 +971,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Exhibition text"
             description:
           id:
             type: string
@@ -997,7 +997,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Page"
             description:
           id:
             type: string
@@ -1026,7 +1026,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Project"
             description:
           id:
             type: string
@@ -1055,7 +1055,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Season"
             description:
           id:
             type: string
@@ -1081,7 +1081,7 @@ components:
         type: object
         properties:
           type:
-            type: string
+            type: "Visual story"
             description:
           id:
             type: string
