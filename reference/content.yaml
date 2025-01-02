@@ -874,7 +874,6 @@ components:
           - uid
           - title
           - description
-          - times
       Exhibition:
         title: Exhibition
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
