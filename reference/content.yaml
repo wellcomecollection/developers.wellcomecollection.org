@@ -5,7 +5,7 @@ info:
   version: v0
   contact: {}
 servers:
-  - url: 'https://api.wellcomecollection.org/content/v0'
+  - url: "https://api.wellcomecollection.org/content/v0"
 paths:
   /articles:
     get:
@@ -67,7 +67,7 @@ paths:
             format: date-time
         - name: query
           in: query
-          description: 'Full-text search query'
+          description: "Full-text search query"
           schema:
             type: string
         - name: page
@@ -88,41 +88,41 @@ paths:
             format: int64
             default: 10
       responses:
-        '200':
+        "200":
           description: The articles
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/ArticleResultList'
-        '400':
+                $ref: "#/components/schemas/ArticleResultList"
+        "400":
           description: Bad Request Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '410':
+                $ref: "#/components/schemas/Error"
+        "410":
           description: Gone Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal Server Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-  '/articles/{id}':
+                $ref: "#/components/schemas/Error"
+  "/articles/{id}":
     get:
       tags:
         - Articles
-      summary: '/articles/{id}'
+      summary: "/articles/{id}"
       description: Returns a single article
       operationId: getArticle
       parameters:
@@ -133,37 +133,37 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The article
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Article'
-        '400':
+                $ref: "#/components/schemas/Article"
+        "400":
           description: Bad Request Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '410':
+                $ref: "#/components/schemas/Error"
+        "410":
           description: Gone Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal Server Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-  /events:  
+                $ref: "#/components/schemas/Error"
+  /events:
     get:
       tags:
         - Events
@@ -227,7 +227,7 @@ paths:
               - desc
         - name: query
           in: query
-          description: 'Full-text search query'
+          description: "Full-text search query"
           schema:
             type: string
         - name: page
@@ -248,41 +248,41 @@ paths:
             format: int64
             default: 10
       responses:
-        '200':
+        "200":
           description: The events
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/EventResultList'
-        '400':
+                $ref: "#/components/schemas/EventResultList"
+        "400":
           description: Bad Request Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '410':
+                $ref: "#/components/schemas/Error"
+        "410":
           description: Gone Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal Server Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-  '/events/{id}':
+                $ref: "#/components/schemas/Error"
+  "/events/{id}":
     get:
       tags:
         - Events
-      summary: '/events/{id}'
+      summary: "/events/{id}"
       description: Returns a single event
       operationId: getEvent
       parameters:
@@ -293,36 +293,97 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The event
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Event'
-        '400':
+                $ref: "#/components/schemas/Event"
+        "400":
           description: Bad Request Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Not Found Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '410':
+                $ref: "#/components/schemas/Error"
+        "410":
           description: Gone Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal Server Error
           content:
-            '*/*':
+            "*/*":
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
+  /all:
+    get:
+      tags:
+        - All
+      summary: /all
+      description: Returns a paginated list of our non-catalogue content, i.e. (articles, books, events, exhibitions, exhibition texts, exhibition highlight tours (BSL), exhibition highlight tours (audio), pages, projects, seasons, and visual stories)
+      operationId: getAll
+      parameters:
+        - name: query
+          in: query
+          description: "Full-text search query"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page to return from the result list
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+            default: 1
+        - name: pageSize
+          in: query
+          description: The number of articles to return per page
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int64
+            default: 10
+      responses:
+        "200":
+          description: The editorial content
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AllResultsList"
+        "400":
+          description: Bad Request Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not Found Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
+        "410":
+          description: Gone Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Aggregation:
@@ -333,7 +394,7 @@ components:
         buckets:
           type: array
           items:
-            $ref: '#/components/schemas/AggregationBucket'
+            $ref: "#/components/schemas/AggregationBucket"
         type:
           type: string
     AggregationBucket:
@@ -345,8 +406,8 @@ components:
           discriminator:
             propertyName: type
           oneOf:
-            - $ref: '#/components/schemas/ContributorAgent'
-            - $ref: '#/components/schemas/ArticleFormat'
+            - $ref: "#/components/schemas/ContributorAgent"
+            - $ref: "#/components/schemas/ArticleFormat"
         count:
           type: integer
           description: The count of how often this data occurs in this set of results.
@@ -375,14 +436,14 @@ components:
           type: array
           description: Relates an article to its author, editor, and any other contributors
           items:
-            $ref: '#/components/schemas/Contributor'
+            $ref: "#/components/schemas/Contributor"
         format:
-          $ref: '#/components/schemas/ArticleFormat'
+          $ref: "#/components/schemas/ArticleFormat"
         caption:
           type: string
           description: A short description of the article's content
         image:
-          $ref: '#/components/schemas/Image'
+          $ref: "#/components/schemas/Image"
         type:
           type: string
       required:
@@ -410,9 +471,9 @@ components:
       type: object
       properties:
         contributor:
-          $ref: '#/components/schemas/ContributorAgent'
+          $ref: "#/components/schemas/ContributorAgent"
         role:
-          $ref: '#/components/schemas/ContributorRole'
+          $ref: "#/components/schemas/ContributorRole"
     ContributorRole:
       title: ContributorRole
       type: object
@@ -485,7 +546,7 @@ components:
           type: string
           description: The title of the event
         image:
-          $ref: '#/components/schemas/Image'
+          $ref: "#/components/schemas/Image"
         format:
           title: EventFormat
           type: object
@@ -500,7 +561,7 @@ components:
             type:
               type: EventFormat
         locations:
-          $ref: '#/components/schemas/EventLocations'
+          $ref: "#/components/schemas/EventLocations"
         interpretations:
           type: array
           items:
@@ -540,7 +601,7 @@ components:
               id:
                 type: string
                 description: The identifier of the series
-              title: 
+              title:
                 type: string
                 description: The title of the series
               contributors:
@@ -568,7 +629,7 @@ components:
       properties:
         dimensions:
           description: The intrinsic dimensions of an image
-          $ref: '#/components/schemas/Dimensions'
+          $ref: "#/components/schemas/Dimensions"
         alt:
           type: string
           description: Alternative text to display in place of the image if it cannot be rendered
@@ -581,13 +642,13 @@ components:
           description: The URL of the image
         "32:15":
           description: Dimensions of the image for 32:15 aspect ratio
-          $ref: '#/components/schemas/Dimensions'
+          $ref: "#/components/schemas/Dimensions"
         "16:9":
           description: Dimensions of the image for 16:9 aspect ratio
-          $ref: '#/components/schemas/Dimensions'
+          $ref: "#/components/schemas/Dimensions"
         square:
           description: Dimensions of the image for a square aspect ratio
-          $ref: '#/components/schemas/Dimensions'
+          $ref: "#/components/schemas/Dimensions"
         type:
           type: string
       required:
@@ -617,7 +678,7 @@ components:
               label:
                 type: string
                 description: The short label of the place
-                enum: 
+                enum:
                   - In our building
                   - Online
               type:
@@ -645,13 +706,13 @@ components:
       description: A map containing the requested aggregations.
       properties:
         format:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         contributors.contributor:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         type:
           type: string
     ArticleResultList:
-      title:  ArticleResultList
+      title: ArticleResultList
       type: object
       description: A paginated list of articles.
       properties:
@@ -669,28 +730,28 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/Article'
+            $ref: "#/components/schemas/Article"
         prevPage:
           type: string
         nextPage:
           type: string
         aggregations:
-          - $ref: '#/components/schemas/ArticleAggregations'
+          - $ref: "#/components/schemas/ArticleAggregations"
     EventAggregations:
       title: EventAggregations
       type: object
       description: A map containing the requested aggregations.
       properties:
         audience:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         interpretation:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         format:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         isAvailableOnline:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         location:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         type:
           type: string
     EventResultList:
@@ -712,13 +773,369 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/Event'
+            $ref: "#/components/schemas/Event"
         prevPage:
           type: string
         nextPage:
           type: string
         aggregations:
-          - $ref: '#/components/schemas/EventAggregations'
+          - $ref: "#/components/schemas/EventAggregations"
+    Addressables:
+      Article:
+        title: Article
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Article"
+            description:
+          id:
+            type: string
+            description: The identifier of the article
+          uid:
+            type: string
+            description: The human-readable identifier of the article
+          title:
+            type: string
+            description: The title of the article
+          description:
+            type: string
+            description: A short description of the article's content
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      Book:
+        title: Book
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Book"
+            description:
+          id:
+            type: string
+            description: The identifier of the book
+          uid:
+            type: string
+            description: The human-readable identifier of the book
+          title:
+            type: string
+            description: The title of the book
+          description:
+            type: string
+            description: A short description of the book's content
+          contributors:
+            type: string
+            description: The name or other short label of the contributor
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      Event:
+        title: Event
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Event"
+            description:
+          id:
+            type: string
+            description: The identifier of the event
+          uid:
+            type: string
+            description: The human-readable identifier of the event
+          title:
+            type: string
+            description: The title of the event
+          description:
+            type: string
+            description: A short description of the event's content
+          format:
+            type: string
+            description: The short label of the format
+          times:
+            type: object
+            properties:
+              start:
+                type: date-time
+                description: The date and time of the start of the event
+              end:
+                type: date-time
+                description: The date and time of the end of the event
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      Exhibition:
+        title: Exhibition
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Exhibition"
+            description:
+          id:
+            type: string
+            description: The identifier of the exhibition
+          uid:
+            type: string
+            description: The human-readable identifier of the exhibition
+          title:
+            type: string
+            description: The title of the exhibition
+          description:
+            type: string
+            description: A short description of the exhibition's content
+          format:
+            type: string
+            description: The short label of the format
+          times:
+            type: object
+            properties:
+              start:
+                type: date-time
+                description: The date and time of the start of the exhibition
+              end:
+                type: date-time
+                description: The date and time of the end of the exhibition
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+          - times
+      ExhibitionHightlightTour(audio):
+        title: Exhibition Hightlight Tour (audio)
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Exhibition highlight tour"
+            description:
+          id:
+            type: string
+            description: The identifier of the exhibition hightlight tour
+          uid:
+            type: string
+            description: The human-readable identifier of the exhibition hightlight tour
+          title:
+            type: string
+            description: The title of the exhibition hightlight tour
+          description:
+            type: string
+            description: A short description of the exhibition hightlight tour's content
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      ExhibitionHighlightTour(BSL):
+        title: Exhibition Hightlight Tour (BSL)
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Exhibition highlight tour"
+            description:
+          id:
+            type: string
+            description: The identifier of the exhibition hightlight tour
+          uid:
+            type: string
+            description: The human-readable identifier of the exhibition hightlight tour
+          title:
+            type: string
+            description: The title of the exhibition hightlight tour
+          description:
+            type: string
+            description: A short description of the exhibition hightlight tour's content
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      ExhibitionText:
+        title: Exhibition Text
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Exhibition text"
+            description:
+          id:
+            type: string
+            description: The identifier of the exhibition text
+          uid:
+            type: string
+            description: The human-readable identifier of the exhibition text
+          title:
+            type: string
+            description: The title of the exhibition text
+          description:
+            type: string
+            description: A short description of the exhibition text's content
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      Page:
+        title: Page
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Page"
+            description:
+          id:
+            type: string
+            description: The identifier of the page
+          uid:
+            type: string
+            description: The human-readable identifier of the page
+          title:
+            type: string
+            description: The title of the page
+          description:
+            type: string
+            description: A short description of the page's content
+          tags:
+            type: array<string>
+            description: A list of document tags
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      Project:
+        title: Project
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Project"
+            description:
+          id:
+            type: string
+            description: The identifier of the project
+          uid:
+            type: string
+            description: The human-readable identifier of the project
+          title:
+            type: string
+            description: The title of the project
+          format:
+            type: string
+            description: The short label of the format
+          description:
+            type: string
+            description: A short description of the project's content
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      Season:
+        title: Season
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Season"
+            description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+          id:
+            type: string
+            description: The identifier of the season
+          uid:
+            type: string
+            description: The human-readable identifier of the season
+          title:
+            type: string
+            description: The title of the season
+          description:
+            type: string
+            description: A short description of the season's content
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+      VisualStory:
+        title: Visual Story
+        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
+        type: object
+        properties:
+          type:
+            type: "Visual story"
+            description:
+          id:
+            type: string
+            description: The identifier of the visual story
+          uid:
+            type: string
+            description: The human-readable identifier of the visual story
+          title:
+            type: string
+            description: The title of the visual story
+          description:
+            type: string
+            description: A short description of the visual story's content
+        required:
+          - type
+          - id
+          - uid
+          - title
+          - description
+    AllResultsList:
+      title: AllResultList
+      type: object
+      description: A paginated list of various types of editorial content
+      properties:
+        type:
+          type: string
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        prevPage:
+          type: string
+        nextPage:
+          type: string
+        results:
+          type: array
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/Addressables/Article"
+              - $ref: "#/components/schemas/Addressables/Book"
+              - $ref: "#/components/schemas/Addressables/Event"
+              - $ref: "#/components/schemas/Addressables/Exhibition"
+              - $ref: "#/components/schemas/Addressables/ExhibitionText"
+              - $ref: "#/components/schemas/Addressables/ExhibitionHighlightTour(BSL)"
+              - $ref: "#/components/schemas/Addressables/ExhibitionHightlightTour(audio)"
+              - $ref: "#/components/schemas/Addressables/Page"
+              - $ref: "#/components/schemas/Addressables/Project"
+              - $ref: "#/components/schemas/Addressables/Season"
+              - $ref: "#/components/schemas/Addressables/VisualStory"
 tags:
   - name: Articles
   - name: Events
