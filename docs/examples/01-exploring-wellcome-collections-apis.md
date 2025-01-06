@@ -1,6 +1,6 @@
 # 1. Exploring Wellcome Collection's APIs
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/add-all-endpoint/notebooks/01-exploring-wellcome-collections-apis.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/add-all-endpoint/notebooks/01-exploring-wellcome-collections-apis.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/01-exploring-wellcome-collections-apis.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/01-exploring-wellcome-collections-apis.ipynb)
 
 Wellcome collection has a few public APIs which can be used to fetch things like works, images, and concepts. They all live behind the following base URL
 
