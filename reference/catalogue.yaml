@@ -62,9 +62,12 @@ paths:
             enum:
               - workType
               - genres.label
+              - genres
               - production.dates
               - subjects.label
+              - subjects
               - contributors.agent.label
+              - contributors.agent
               - items.locations.license
               - languages
               - availabilities
@@ -78,7 +81,7 @@ paths:
           description: Filter the work by genre.
           schema:
             type: string
-        - name: genres.concepts
+        - name: genres
           in: query
           description: Filter works by canonical IDs of genre concepts.
           schema:
@@ -88,7 +91,7 @@ paths:
           description: Filter works by subject label (e.g. <a href="https://api.wellcomecollection.org/catalogue/v2/works?include=subjects&subjects.label=World%20history%20-%20Early%20works%20to%201800">World history - Early works to 1800</a>).
           schema:
             type: string
-        - name: subjects.concepts
+        - name: subjects
           in: query
           description: Filter works by canonical IDs of subject concepts.
           schema:
@@ -98,7 +101,7 @@ paths:
           description: Filter the work by contributor.
           schema:
             type: string
-        - name: contributors.concepts
+        - name: contributors.agent
           in: query
           description: Filter works by canonical IDs of contributor concepts.
           schema:
