@@ -384,6 +384,62 @@ paths:
             "*/*":
               schema:
                 $ref: "#/components/schemas/Error"
+  "/all/{id}":
+    get:
+      tags:
+        - All
+      summary: "/all/{id}"
+      description: Returns a single piece of our non-catalogue content
+      operationId: getAllById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the content to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The content
+          content:
+            "*/*":
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Addressables/Article"
+                  - $ref: "#/components/schemas/Addressables/Book"
+                  - $ref: "#/components/schemas/Addressables/Event"
+                  - $ref: "#/components/schemas/Addressables/Exhibition"
+                  - $ref: "#/components/schemas/Addressables/ExhibitionText"
+                  - $ref: "#/components/schemas/Addressables/ExhibitionHighlightTour(BSL)"
+                  - $ref: "#/components/schemas/Addressables/ExhibitionHightlightTour(audio)"
+                  - $ref: "#/components/schemas/Addressables/Page"
+                  - $ref: "#/components/schemas/Addressables/Project"
+                  - $ref: "#/components/schemas/Addressables/Season"
+                  - $ref: "#/components/schemas/Addressables/VisualStory"
+        "400":
+          description: Bad Request Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not Found Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
+        "410":
+          description: Gone Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Aggregation:
@@ -1139,3 +1195,4 @@ components:
 tags:
   - name: Articles
   - name: Events
+  - name: All
