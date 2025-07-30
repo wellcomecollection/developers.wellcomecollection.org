@@ -836,6 +836,39 @@ components:
           type: string
         aggregations:
           - $ref: "#/components/schemas/EventAggregations"
+    LinkedWork:
+      title: LinkedWork
+      type: object
+      description: A Catalogue Work linked to from the content
+      properties:
+        id:
+          type: string
+          description: The identifier of the linked work
+        title:
+          type: string
+          description: The title of the linked work
+        type:
+          type: string
+          description: The type of the linked work
+        thumbnailUrl:
+          type: string
+          description: URL of the thumbnail image for the linked work
+        date:
+          type: string
+          description: The date associated with the linked work
+        mainContributor:
+          type: string
+          description: The main contributor of the linked work
+        labels:
+          type: array
+          items:
+            type: string
+          description: Labels associated with the linked work
+      required:
+        - id
+        - title
+        - type
+        - labels
     Addressables:
       Article:
         title: Article
