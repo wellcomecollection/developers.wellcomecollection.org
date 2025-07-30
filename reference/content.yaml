@@ -890,12 +890,18 @@ components:
           description:
             type: string
             description: A short description of the article's content
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       Book:
         title: Book
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -919,12 +925,18 @@ components:
           contributors:
             type: string
             description: The name or other short label of the contributor
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       Event:
         title: Event
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -957,12 +969,18 @@ components:
               end:
                 type: date-time
                 description: The date and time of the end of the event
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       Exhibition:
         title: Exhibition
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -995,6 +1013,11 @@ components:
               end:
                 type: date-time
                 description: The date and time of the end of the exhibition
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
@@ -1002,6 +1025,7 @@ components:
           - title
           - description
           - times
+          - linkedWorks
       ExhibitionHightlightTour(audio):
         title: Exhibition Hightlight Tour (audio)
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -1022,12 +1046,18 @@ components:
           description:
             type: string
             description: A short description of the exhibition hightlight tour's content
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       ExhibitionHighlightTour(BSL):
         title: Exhibition Hightlight Tour (BSL)
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -1048,12 +1078,18 @@ components:
           description:
             type: string
             description: A short description of the exhibition hightlight tour's content
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       ExhibitionText:
         title: Exhibition Text
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -1074,12 +1110,18 @@ components:
           description:
             type: string
             description: A short description of the exhibition text's content
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       Page:
         title: Page
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -1103,12 +1145,18 @@ components:
           tags:
             type: array<string>
             description: A list of document tags
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       Project:
         title: Project
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -1132,12 +1180,18 @@ components:
           description:
             type: string
             description: A short description of the project's content
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       Season:
         title: Season
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -1158,12 +1212,18 @@ components:
           description:
             type: string
             description: A short description of the season's content
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
       VisualStory:
         title: Visual Story
         description: A reduced piece of editorial content, limited to the parts necessary to render a summary
@@ -1184,12 +1244,18 @@ components:
           description:
             type: string
             description: A short description of the visual story's content
+          linkedWorks:
+            type: array
+            items:
+              $ref: "#/components/schemas/LinkedWork"
+            description: An array of Catalogue Works linked to from the content
         required:
           - type
           - id
           - uid
           - title
           - description
+          - linkedWorks
     AllResultsList:
       title: AllResultList
       type: object
