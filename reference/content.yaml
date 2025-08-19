@@ -859,16 +859,14 @@ components:
         mainContributor:
           type: string
           description: The main contributor of the linked work
-        labels:
-          type: array
-          items:
-            type: string
-          description: Labels associated with the linked work
+        workType:
+          type: string
+          description: The type of the work, e.g. Books, Digital Images
       required:
         - id
         - title
         - type
-        - labels
+        - mainContributor
     Addressables:
       Article:
         title: Article
@@ -1293,5 +1291,7 @@ components:
               - $ref: "#/components/schemas/Addressables/VisualStory"
 tags:
   - name: Articles
+  - name: Events
+  - name: All
   - name: Events
   - name: All
