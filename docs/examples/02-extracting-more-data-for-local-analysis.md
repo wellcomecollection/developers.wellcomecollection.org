@@ -1,6 +1,6 @@
 # 2. Extracting more data for local analysis
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/tar-fs-3.1.1/notebooks/02-extracting-more-data-for-local-analysis.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/dependabot/npm_and_yarn/tar-fs-3.1.1/notebooks/02-extracting-more-data-for-local-analysis.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/02-extracting-more-data-for-local-analysis.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/02-extracting-more-data-for-local-analysis.ipynb)
 
 In the last notebook, we saw that the `/works` API can do some clever querying and filtering. However, we often have questions which can't be answered by the API by itself. In those cases, it's useful to collect a load of data from the API and then analyse it locally.
 
