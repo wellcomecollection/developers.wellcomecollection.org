@@ -31,6 +31,13 @@ paths:
         - name: contributors.contributor
           in: query
           description: Filter the articles by contributor.
+        - name: linkedWork
+          in: query
+          description: Filter articles by linked catalogue work IDs. Accepts multiple work IDs via comma-separated values or repeated parameters.
+          schema:
+            type: string
+          style: form
+          explode: true
         - name: sort
           in: query
           description: Which field to sort the results on
@@ -209,6 +216,13 @@ paths:
           description: Filter the articles by location.
           schema:
             type: string
+        - name: linkedWork
+          in: query
+          description: Filter events by linked catalogue work IDs. Accepts multiple work IDs via comma-separated values or repeated parameters.
+          schema:
+            type: string
+          style: form
+          explode: true
         - name: sort
           in: query
           description: Which field to sort the results on
@@ -336,6 +350,13 @@ paths:
           description: "Full-text search query"
           schema:
             type: string
+        - name: linkedWork
+          in: query
+          description: Filter content by linked catalogue work IDs. Accepts multiple work IDs via comma-separated values or repeated parameters.
+          schema:
+            type: string
+          style: form
+          explode: true
         - name: page
           in: query
           description: The page to return from the result list
@@ -1291,7 +1312,5 @@ components:
               - $ref: "#/components/schemas/Addressables/VisualStory"
 tags:
   - name: Articles
-  - name: Events
-  - name: All
   - name: Events
   - name: All
