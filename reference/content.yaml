@@ -201,7 +201,33 @@ paths:
             type: string
         - name: format
           in: query
-          description: Filter the events by format.
+          description: |-
+            Filter events by format. Supports both inclusion and exclusion.
+            
+            - To include specific formats, pass their IDs or aliases: `?format=workshop` or `?format=WcKmiysAACx_A8NR`
+            - To exclude formats, prefix with `!`: `?format=!exhibitions` or `?format=!W7uQkiAAALBgpMqd`
+            - Multiple values can be comma-separated: `?format=workshop,screening` or `?format=!exhibitions,!shopping`
+            
+            Supported format aliases (case-insensitive):
+            - `exhibitions` - Exhibition events
+            - `workshop` - Workshop events
+            - `gallery-tour` - Gallery tour events
+            - `screening` - Screening events
+            - `performance` - Performance events
+            - `discussion` - Discussion events
+            - `festival` - Festival events
+            - `late` - Late events
+            - `shopping` - Shopping events
+            - `walking-tour` - Walking tour events
+            - `study-day` - Study day events
+            - `send-workshop` - Send workshop events
+            - `seminar` - Seminar events
+            - `symposium` - Symposium events
+            - `chill-out` - Chill out events
+            - `installation` - Installation events
+            - `game` - Game events
+            - `session` - Session events
+            - `relaxed-opening` - Relaxed opening events
           schema:
             type: string
         - name: isAvailableOnline
