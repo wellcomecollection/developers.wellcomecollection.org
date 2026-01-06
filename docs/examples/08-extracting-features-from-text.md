@@ -1,6 +1,6 @@
 # 8. Extracting features from text
 
-[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/content-api-format/notebooks/08-extracting-features-from-text.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/content-api-format/notebooks/08-extracting-features-from-text.ipynb)
+[View on GitHub](https://github.com/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/08-extracting-features-from-text.ipynb) | [Run in Google Colab](https://colab.research.google.com/github/wellcomecollection/developers.wellcomecollection.org/blob/main/notebooks/08-extracting-features-from-text.ipynb)
 
 In the last notebook, we saw that using a pre-trained network allowed us to extract features from images, and train a classifier for new categories on top of those features. We can do the same thing with text, using a pre-trained network to extract features from text. In this notebook, we'll use those features the visualise the similarities and differences between works in the collection, and try to find clusters of related material.
 
