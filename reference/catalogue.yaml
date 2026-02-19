@@ -186,7 +186,7 @@ paths:
         - name: production.dates.to
           in: query
           description: |-
-            Return all works with a production date before and including this date.
+            Return all works with a production date before this date.
             Dates should be specified as YYYY-MM-DD, e.g. `2001-12-31` for everything created up to the end of 2001.
 
             Can be used in conjunction with `production.dates.from` to create a range.
@@ -199,6 +199,24 @@ paths:
             Dates should be specified as YYYY-MM-DD, e.g. `1939-01-01` for everything in or after 1939.
 
             Can be used in conjunction with `production.dates.to` to create a range.
+          schema:
+            type: string
+        - name: items.locations.createdDate.to
+          in: query
+          description: |-
+            Return all works with a digital item that was created before this date.
+            Dates should be specified as YYYY-MM-DD, e.g. `2001-12-31` for everything created up midnight on 2001-12-31.
+
+            Can be used in conjunction with `items.locations.createdDate.from` to create a range.
+          schema:
+            type: string
+        - name: items.locations.createdDate.from
+          in: query
+          description: |-
+            Return all works with a digital item that was created after and including this date.
+            Dates should be specified as YYYY-MM-DD, e.g. `1939-01-01` for everything on or after midnight on January 1st, 1939.
+
+            Can be used in conjunction with `items.locations.createdDate.to` to create a range.
           schema:
             type: string
         - name: query
