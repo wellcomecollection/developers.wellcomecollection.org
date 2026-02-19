@@ -186,7 +186,7 @@ paths:
         - name: production.dates.to
           in: query
           description: |-
-            Return all works with a production date before this date.
+            Return all works with a production date before and including this date.
             Dates should be specified as YYYY-MM-DD, e.g. `2001-12-31` for everything created up to the end of 2001.
 
             Can be used in conjunction with `production.dates.from` to create a range.
