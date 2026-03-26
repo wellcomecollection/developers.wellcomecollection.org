@@ -19,7 +19,7 @@ x-tagGroups:
   - name: APIs
     tags:
       - IIIF Image API
-      - IIIF Search API
+      - IIIF Content Search API
   - name: Models
     tags:
       - Image

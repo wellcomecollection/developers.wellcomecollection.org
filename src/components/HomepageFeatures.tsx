@@ -1,12 +1,12 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import React from 'react';
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
 type FeatureItem = {
   title: string;
   image: string;
-  description: JSX.Element;
+  description: ReactNode;
   link: string;
 };
 
@@ -51,7 +51,7 @@ function Feature({title, image, description, link}: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function HomepageFeatures(): ReactNode {
   return (
     <section className={styles.features}>
       <div className="container">

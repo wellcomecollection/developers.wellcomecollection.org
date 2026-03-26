@@ -1,7 +1,7 @@
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
-import React from "react";
+import type { ReactNode } from "react";
 import clsx from "clsx";
 import styles from "./index.module.css";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -43,7 +43,7 @@ function HomepageHeader({ description }) {
   );
 }
 
-export default function Home(): JSX.Element {
+export default function Home(): ReactNode {
   const siteDescription =
     "Wellcome Collection is a free museum and library that aims to challenge how we all think and feel about health. Find out how you can use open APIs to access our collections.";
   return (
