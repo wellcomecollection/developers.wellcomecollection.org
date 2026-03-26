@@ -11,7 +11,11 @@ const config = {
   favicon: "/icons/favicon.ico",
   trailingSlash: false,
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
   organizationName: "wellcomecollection",
   projectName: "developers.wellcomecollection.org",
   deploymentBranch: "gh-pages",

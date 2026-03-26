@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import clsx from 'clsx';
 import styles from './ApiDocCard.module.css';
@@ -9,7 +9,7 @@ type CardOptions = {
   description: string;
 }
 
-export default function ApiDocCard({href, title, description}: CardOptions): JSX.Element {
+export default function ApiDocCard({href, title, description}: CardOptions): ReactNode {
   return (
     <Link href={href} className={clsx(
       'card margin-bottom--lg padding--lg',
