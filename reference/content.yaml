@@ -5,95 +5,1697 @@ info:
   version: v0
   contact: {}
 servers:
-  - url: "https://api.wellcomecollection.org/content/v0"
+  - url: https://api.wellcomecollection.org/content/v0
+tags:
+  - name: Articles
+  - name: Events
+  - name: All
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        errorType:
+          type: string
+          enum:
+            - http
+          description: The type of error
+        httpStatus:
+          type: integer
+          description: The HTTP response status code
+          format: int32
+        label:
+          type: string
+          description: The title or other short name of the error
+        description:
+          type: string
+          description: The specific error
+        type:
+          type: string
+          enum:
+            - Error
+      required:
+        - errorType
+        - httpStatus
+        - label
+        - type
+      title: Error
+    Dimensions:
+      type: object
+      properties:
+        width:
+          type: integer
+        height:
+          type: integer
+      required:
+        - width
+        - height
+    Image:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - PrismicImage
+        dimensions:
+          type: object
+          properties:
+            width:
+              type: integer
+            height:
+              type: integer
+          required:
+            - width
+            - height
+        alt:
+          type:
+            - string
+            - "null"
+        copyright:
+          type:
+            - string
+            - "null"
+        url:
+          type: string
+        32:15:
+          type: object
+          properties:
+            dimensions:
+              type: object
+              properties:
+                width:
+                  type: integer
+                height:
+                  type: integer
+              required:
+                - width
+                - height
+            alt:
+              type:
+                - string
+                - "null"
+            copyright:
+              type:
+                - string
+                - "null"
+            url:
+              type: string
+          required:
+            - dimensions
+            - url
+        16:9:
+          type: object
+          properties:
+            dimensions:
+              type: object
+              properties:
+                width:
+                  type: integer
+                height:
+                  type: integer
+              required:
+                - width
+                - height
+            alt:
+              type:
+                - string
+                - "null"
+            copyright:
+              type:
+                - string
+                - "null"
+            url:
+              type: string
+          required:
+            - dimensions
+            - url
+        square:
+          type: object
+          properties:
+            dimensions:
+              type: object
+              properties:
+                width:
+                  type: integer
+                height:
+                  type: integer
+              required:
+                - width
+                - height
+            alt:
+              type:
+                - string
+                - "null"
+            copyright:
+              type:
+                - string
+                - "null"
+            url:
+              type: string
+          required:
+            - dimensions
+            - url
+      required:
+        - type
+        - dimensions
+        - url
+      title: Image
+      description: Information regarding the location, dimensions, alt-text, and
+        copyright of an image
+    ArticleFormat:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - ArticleFormat
+        id:
+          type: string
+        label:
+          type: string
+      required:
+        - type
+        - id
+        - label
+      title: ArticleFormat
+      description: The format of an article (eg article, comic)
+    ContributorRole:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+          enum:
+            - EditorialContributorRole
+      required:
+        - id
+        - type
+      title: ContributorRole
+      description: A role of a contributor (eg. author, editor)
+    ContributorAgent:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+          enum:
+            - Person
+            - Organisation
+      required:
+        - id
+        - type
+      title: Contributor
+      description: A contributor
+    Contributor:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Contributor
+        contributor:
+          type: object
+          properties:
+            id:
+              type: string
+            label:
+              type: string
+            type:
+              type: string
+              enum:
+                - Person
+                - Organisation
+          required:
+            - id
+            - type
+        role:
+          type: object
+          properties:
+            id:
+              type: string
+            label:
+              type: string
+            type:
+              type: string
+              enum:
+                - EditorialContributorRole
+          required:
+            - id
+            - type
+      required:
+        - type
+    Article:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Article
+        id:
+          type: string
+        uid:
+          type: string
+        title:
+          type: string
+        publicationDate:
+          type: string
+        contributors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                  - Contributor
+              contributor:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  label:
+                    type: string
+                  type:
+                    type: string
+                    enum:
+                      - Person
+                      - Organisation
+                required:
+                  - id
+                  - type
+              role:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  label:
+                    type: string
+                  type:
+                    type: string
+                    enum:
+                      - EditorialContributorRole
+                required:
+                  - id
+                  - type
+            required:
+              - type
+        format:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - ArticleFormat
+            id:
+              type: string
+            label:
+              type: string
+          required:
+            - type
+            - id
+            - label
+        image:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - PrismicImage
+            dimensions:
+              type: object
+              properties:
+                width:
+                  type: integer
+                height:
+                  type: integer
+              required:
+                - width
+                - height
+            alt:
+              type:
+                - string
+                - "null"
+            copyright:
+              type:
+                - string
+                - "null"
+            url:
+              type: string
+            32:15:
+              type: object
+              properties:
+                dimensions:
+                  type: object
+                  properties:
+                    width:
+                      type: integer
+                    height:
+                      type: integer
+                  required:
+                    - width
+                    - height
+                alt:
+                  type:
+                    - string
+                    - "null"
+                copyright:
+                  type:
+                    - string
+                    - "null"
+                url:
+                  type: string
+              required:
+                - dimensions
+                - url
+            16:9:
+              type: object
+              properties:
+                dimensions:
+                  type: object
+                  properties:
+                    width:
+                      type: integer
+                    height:
+                      type: integer
+                  required:
+                    - width
+                    - height
+                alt:
+                  type:
+                    - string
+                    - "null"
+                copyright:
+                  type:
+                    - string
+                    - "null"
+                url:
+                  type: string
+              required:
+                - dimensions
+                - url
+            square:
+              type: object
+              properties:
+                dimensions:
+                  type: object
+                  properties:
+                    width:
+                      type: integer
+                    height:
+                      type: integer
+                  required:
+                    - width
+                    - height
+                alt:
+                  type:
+                    - string
+                    - "null"
+                copyright:
+                  type:
+                    - string
+                    - "null"
+                url:
+                  type: string
+              required:
+                - dimensions
+                - url
+          required:
+            - type
+            - dimensions
+            - url
+        caption:
+          type: string
+        seriesTitle:
+          type: string
+      required:
+        - type
+        - id
+        - title
+        - publicationDate
+        - contributors
+        - format
+      title: Article
+      description: A piece of editorial content
+    LinkedWork:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        workType:
+          type: string
+        thumbnailUrl:
+          type: string
+        date:
+          type: string
+        mainContributor:
+          type: string
+      required:
+        - id
+        - title
+        - type
+      title: LinkedWork
+      description: A Catalogue Work linked to from the content
+    EventLocations:
+      type: object
+      properties:
+        isOnline:
+          type: boolean
+        places:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                  - EventPlace
+              id:
+                type: string
+              label:
+                type: string
+            required:
+              - type
+              - id
+        attendance:
+          type: array
+          items:
+            anyOf:
+              - type: object
+                properties:
+                  id:
+                    type: string
+                    enum:
+                      - online
+                  label:
+                    type: string
+                    enum:
+                      - Online
+                  type:
+                    type: string
+                    enum:
+                      - EventAttendance
+                required:
+                  - id
+                  - label
+                  - type
+              - type: object
+                properties:
+                  id:
+                    type: string
+                    enum:
+                      - in-our-building
+                  label:
+                    type: string
+                    enum:
+                      - In our building
+                  type:
+                    type: string
+                    enum:
+                      - EventAttendance
+                required:
+                  - id
+                  - label
+                  - type
+        type:
+          type: string
+          enum:
+            - EventLocations
+      required:
+        - isOnline
+        - attendance
+        - type
+      description: Where the event takes place
+    Event:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Event
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        image:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - PrismicImage
+            dimensions:
+              type: object
+              properties:
+                width:
+                  type: integer
+                height:
+                  type: integer
+              required:
+                - width
+                - height
+            alt:
+              type:
+                - string
+                - "null"
+            copyright:
+              type:
+                - string
+                - "null"
+            url:
+              type: string
+            32:15:
+              type: object
+              properties:
+                dimensions:
+                  type: object
+                  properties:
+                    width:
+                      type: integer
+                    height:
+                      type: integer
+                  required:
+                    - width
+                    - height
+                alt:
+                  type:
+                    - string
+                    - "null"
+                copyright:
+                  type:
+                    - string
+                    - "null"
+                url:
+                  type: string
+              required:
+                - dimensions
+                - url
+            16:9:
+              type: object
+              properties:
+                dimensions:
+                  type: object
+                  properties:
+                    width:
+                      type: integer
+                    height:
+                      type: integer
+                  required:
+                    - width
+                    - height
+                alt:
+                  type:
+                    - string
+                    - "null"
+                copyright:
+                  type:
+                    - string
+                    - "null"
+                url:
+                  type: string
+              required:
+                - dimensions
+                - url
+            square:
+              type: object
+              properties:
+                dimensions:
+                  type: object
+                  properties:
+                    width:
+                      type: integer
+                    height:
+                      type: integer
+                  required:
+                    - width
+                    - height
+                alt:
+                  type:
+                    - string
+                    - "null"
+                copyright:
+                  type:
+                    - string
+                    - "null"
+                url:
+                  type: string
+              required:
+                - dimensions
+                - url
+          required:
+            - type
+            - dimensions
+            - url
+        times:
+          type: array
+          items:
+            type: object
+            properties:
+              startDateTime:
+                type: string
+                format: date-time
+              endDateTime:
+                type: string
+                format: date-time
+              isFullyBooked:
+                type: object
+                properties:
+                  inVenue:
+                    type: boolean
+                  online:
+                    type: boolean
+                required:
+                  - inVenue
+                  - online
+            required:
+              - isFullyBooked
+        isExhibition:
+          type: boolean
+        format:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - EventFormat
+                - ExhibitionFormat
+            id:
+              type: string
+            label:
+              type: string
+          required:
+            - type
+            - id
+        locations:
+          type: object
+          properties:
+            isOnline:
+              type: boolean
+            places:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - EventPlace
+                  id:
+                    type: string
+                  label:
+                    type: string
+                required:
+                  - type
+                  - id
+            attendance:
+              type: array
+              items:
+                anyOf:
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        enum:
+                          - online
+                      label:
+                        type: string
+                        enum:
+                          - Online
+                      type:
+                        type: string
+                        enum:
+                          - EventAttendance
+                    required:
+                      - id
+                      - label
+                      - type
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        enum:
+                          - in-our-building
+                      label:
+                        type: string
+                        enum:
+                          - In our building
+                      type:
+                        type: string
+                        enum:
+                          - EventAttendance
+                    required:
+                      - id
+                      - label
+                      - type
+            type:
+              type: string
+              enum:
+                - EventLocations
+          required:
+            - isOnline
+            - attendance
+            - type
+        interpretations:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                  - EventInterpretation
+              id:
+                type: string
+              label:
+                type: string
+            required:
+              - type
+              - id
+        audiences:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                  - EventAudience
+              id:
+                type: string
+              label:
+                type: string
+            required:
+              - type
+              - id
+        series:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              contributors:
+                type: array
+                items:
+                  type: string
+            required:
+              - id
+        isAvailableOnline:
+          type: boolean
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - times
+        - isExhibition
+        - format
+        - locations
+        - interpretations
+        - audiences
+        - series
+        - isAvailableOnline
+      title: Event
+      description: A Wellcome Collection event (on location or online)
+    AggregationBucket:
+      type: object
+      properties:
+        data:
+          anyOf:
+            - $ref: "#/components/schemas/ContributorAgent"
+            - $ref: "#/components/schemas/ArticleFormat"
+          discriminator:
+            propertyName: type
+        count:
+          type: integer
+          description: The count of how often this data occurs in this set of results.
+          format: int32
+        type:
+          type: string
+      required:
+        - data
+        - count
+        - type
+      title: AggregationBucket
+      description: An individual bucket within an aggregation.
+    Aggregation:
+      type: object
+      properties:
+        buckets:
+          type: array
+          items:
+            $ref: "#/components/schemas/AggregationBucket"
+        type:
+          type: string
+      required:
+        - buckets
+        - type
+      title: Aggregation
+      description: An aggregation over the results.
+    ArticleAggregations:
+      type: object
+      properties:
+        format:
+          $ref: "#/components/schemas/Aggregation"
+        contributors.contributor:
+          $ref: "#/components/schemas/Aggregation"
+        type:
+          type: string
+      required:
+        - type
+      title: ArticleAggregations
+      description: A map containing the requested aggregations.
+    ArticleResultList:
+      type: object
+      properties:
+        type:
+          type: string
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Article"
+        prevPage:
+          type: string
+        nextPage:
+          type: string
+        aggregations:
+          $ref: "#/components/schemas/ArticleAggregations"
+      required:
+        - type
+        - pageSize
+        - totalPages
+        - totalResults
+        - results
+      title: ArticleResultList
+      description: A paginated list of articles.
+    EventAggregations:
+      type: object
+      properties:
+        audience:
+          $ref: "#/components/schemas/Aggregation"
+        interpretation:
+          $ref: "#/components/schemas/Aggregation"
+        format:
+          $ref: "#/components/schemas/Aggregation"
+        isAvailableOnline:
+          $ref: "#/components/schemas/Aggregation"
+        location:
+          $ref: "#/components/schemas/Aggregation"
+        type:
+          type: string
+      required:
+        - type
+      title: EventAggregations
+      description: A map containing the requested aggregations.
+    EventResultList:
+      type: object
+      properties:
+        type:
+          type: string
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+        prevPage:
+          type: string
+        nextPage:
+          type: string
+        aggregations:
+          $ref: "#/components/schemas/EventAggregations"
+      required:
+        - type
+        - pageSize
+        - totalPages
+        - totalResults
+        - results
+      title: EventResultList
+      description: A paginated list of events.
+    AddressablesArticle:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Article
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Article
+    AddressablesBook:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Book
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+        contributors:
+          type: string
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Book
+    AddressablesEvent:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Event
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+        format:
+          type: string
+        times:
+          type: object
+          properties:
+            start:
+              type: string
+              format: date-time
+            end:
+              type: string
+              format: date-time
+          required:
+            - start
+            - end
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Event
+    AddressablesExhibition:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Exhibition
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+        format:
+          type: string
+        dates:
+          type: object
+          properties:
+            start:
+              type:
+                - string
+                - "null"
+            end:
+              type:
+                - string
+                - "null"
+          required:
+            - start
+            - end
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Exhibition
+    AddressablesExhibitionText:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Exhibition text
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Exhibition text
+    AddressablesExhibitionHighlightTourBSL:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Exhibition highlight tour
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+        highlightTourType:
+          type: string
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Exhibition highlight tour
+    AddressablesExhibitionHighlightTourAudio:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Exhibition highlight tour
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+        highlightTourType:
+          type: string
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Exhibition highlight tour
+    AddressablesPage:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Page
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Page
+    AddressablesProject:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Project
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+        format:
+          type: string
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Project
+    AddressablesSeason:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Season
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Season
+    AddressablesVisualStory:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Visual story
+        id:
+          type: string
+        uid:
+          type:
+            - string
+            - "null"
+        title:
+          type: string
+        description:
+          type: string
+        linkedWorks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              workType:
+                type: string
+              thumbnailUrl:
+                type: string
+              date:
+                type: string
+              mainContributor:
+                type: string
+            required:
+              - id
+              - title
+              - type
+      required:
+        - type
+        - id
+        - uid
+        - title
+        - linkedWorks
+      title: Visual story
+    AllResultsList:
+      type: object
+      properties:
+        type:
+          type: string
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int32
+        prevPage:
+          type: string
+        nextPage:
+          type: string
+        results:
+          type: array
+          items:
+            oneOf: &a1
+              - $ref: "#/components/schemas/AddressablesArticle"
+              - $ref: "#/components/schemas/AddressablesBook"
+              - $ref: "#/components/schemas/AddressablesEvent"
+              - $ref: "#/components/schemas/AddressablesExhibition"
+              - $ref: "#/components/schemas/AddressablesExhibitionText"
+              - $ref: "#/components/schemas/AddressablesExhibitionHighlightTourBSL"
+              - $ref: "#/components/schemas/AddressablesExhibitionHighlightTourAudio"
+              - $ref: "#/components/schemas/AddressablesPage"
+              - $ref: "#/components/schemas/AddressablesProject"
+              - $ref: "#/components/schemas/AddressablesSeason"
+              - $ref: "#/components/schemas/AddressablesVisualStory"
+      required:
+        - type
+        - pageSize
+        - totalPages
+        - totalResults
+        - results
+      title: AllResultList
+      description: A paginated list of various types of editorial content
+  parameters: {}
 paths:
   /articles:
     get:
+      operationId: getArticles
       tags:
         - Articles
       summary: /articles
       description: Returns a paginated list of articles
-      operationId: getArticles
       parameters:
-        - name: aggregations
-          in: query
-          description: What aggregated data in relation to the results should we return.
-          schema:
+        - schema:
             type: string
+            description: Full-text search query
+          required: false
+          description: Full-text search query
+          name: query
+          in: query
+        - schema:
+            type: string
+            description: Which field to sort the results on
             enum:
-              - format
-              - contributors.contributor
-        - name: format
-          in: query
-          description: Filter the articles by format.
-          schema:
-            type: string
-        - name: contributors.contributor
-          in: query
-          description: Filter the articles by contributor.
-        - name: linkedWork
-          in: query
-          description: Filter articles by linked catalogue work IDs. Accepts multiple work IDs via comma-separated values or repeated parameters.
-          schema:
-            type: string
-          style: form
-          explode: true
-        - name: sort
-          in: query
-          description: Which field to sort the results on
-          schema:
-            type: string
-            enum:
-              - productionDate
               - relevance
-        - name: sortOrder
+              - publicationDate
+          required: false
+          description: Which field to sort the results on
+          name: sort
           in: query
-          description: The order that the results should be returned in.
-          schema:
+        - schema:
             type: string
+            description: The order that the results should be returned in
             enum:
               - asc
               - desc
-        - name: publicationDate.to
+          required: false
+          description: The order that the results should be returned in
+          name: sortOrder
           in: query
-          description: |-
-            Return all articles with a publication date before and including this date.
+        - schema:
+            type: string
+            description: What aggregated data in relation to the results should we return
+            enum:
+              - contributors.contributor
+              - format
+          required: false
+          description: What aggregated data in relation to the results should we return
+          name: aggregations
+          in: query
+        - schema:
+            type: string
+            description: Filter the articles by contributor
+          required: false
+          description: Filter the articles by contributor
+          name: contributors.contributor
+          in: query
+        - schema:
+            type: string
+            description: Filter the articles by format
+          required: false
+          description: Filter the articles by format
+          name: format
+          in: query
+        - schema:
+            type: string
+            format: date
+            description: >-
+              Return all articles with a publication date after and including
+              this date.
 
-            Can be used in conjunction with `publicationDate.from` to create a range.
-          schema:
-            type: string
-            format: date-time
-        - name: publicationDate.from
-          in: query
-          description: |-
-            Return all articles with a publication date after and including this date.
 
-            Can be used in conjunction with `publicationDate.to` to create a range.
-          schema:
-            type: string
-            format: date-time
-        - name: query
+              Can be used in conjunction with `publicationDate.to` to create a
+              range.
+          required: false
+          description: >-
+            Return all articles with a publication date after and including this
+            date.
+
+
+            Can be used in conjunction with `publicationDate.to` to create a
+            range.
+          name: publicationDate.from
           in: query
-          description: "Full-text search query"
-          schema:
+        - schema:
             type: string
-        - name: page
+            format: date
+            description: >-
+              Return all articles with a publication date before and including
+              this date.
+
+
+              Can be used in conjunction with `publicationDate.from` to create a
+              range.
+          required: false
+          description: >-
+            Return all articles with a publication date before and including
+            this date.
+
+
+            Can be used in conjunction with `publicationDate.from` to create a
+            range.
+          name: publicationDate.to
           in: query
-          description: The page to return from the result list
-          schema:
-            minimum: 1
+        - schema:
+            anyOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+            description: Filter by linked catalogue work IDs. Accepts multiple work IDs via
+              comma-separated values or repeated parameters.
+          required: false
+          description: Filter by linked catalogue work IDs. Accepts multiple work IDs via
+            comma-separated values or repeated parameters.
+          name: linkedWork
+          in: query
+        - schema:
             type: integer
-            format: int64
+            minimum: 1
             default: 1
-        - name: pageSize
+            description: The page to return from the result list
+          required: false
+          description: The page to return from the result list
+          name: page
           in: query
-          description: The number of articles to return per page
-          schema:
-            maximum: 100
-            minimum: 1
+        - schema:
             type: integer
-            format: int64
+            minimum: 1
+            maximum: 100
             default: 10
+            description: The number of results to return per page
+          required: false
+          description: The number of results to return per page
+          name: pageSize
+          in: query
       responses:
         "200":
           description: The articles
@@ -125,20 +1727,21 @@ paths:
             "*/*":
               schema:
                 $ref: "#/components/schemas/Error"
-  "/articles/{id}":
+  /articles/{id}:
     get:
+      operationId: getArticle
       tags:
         - Articles
-      summary: "/articles/{id}"
+      summary: /articles/{id}
       description: Returns a single article
-      operationId: getArticle
       parameters:
-        - name: id
-          in: path
-          description: The article to return
-          required: true
-          schema:
+        - schema:
             type: string
+            description: The article to return
+          required: true
+          description: The article to return
+          name: id
+          in: path
       responses:
         "200":
           description: The article
@@ -172,121 +1775,179 @@ paths:
                 $ref: "#/components/schemas/Error"
   /events:
     get:
+      operationId: getEvents
       tags:
         - Events
       summary: /events
       description: Returns a paginated list of events
-      operationId: getEvents
       parameters:
-        - name: aggregations
-          in: query
-          description: What aggregated data in relation to the results should we return.
-          schema:
+        - schema:
             type: string
+            description: Full-text search query
+          required: false
+          description: Full-text search query
+          name: query
+          in: query
+        - schema:
+            type: string
+            description: Which field to sort the results on
             enum:
-              - audience
-              - interpretation
-              - format
-              - isAvailableOnline
-              - location
-        - name: audience
-          in: query
-          description: Filter the events by audience.
-          schema:
-            type: string
-        - name: interpretation
-          in: query
-          description: Filter the events by interpretation.
-          schema:
-            type: string
-        - name: format
-          in: query
-          description: |-
-            Filter events by format. Supports both inclusion and exclusion.
-            
-            - To include specific formats, pass their IDs or aliases: `?format=workshop` or `?format=WcKmiysAACx_A8NR`
-            - To exclude formats, prefix with `!`: `?format=!exhibitions` or `?format=!W7uQkiAAALBgpMqd`
-            - Multiple values can be comma-separated: `?format=workshop,screening` or `?format=!exhibitions,!shopping`
-            
-            Supported format aliases (case-insensitive):
-            - `exhibitions` - Exhibition events
-            - `workshop` - Workshop events
-            - `gallery-tour` - Gallery tour events
-            - `screening` - Screening events
-            - `performance` - Performance events
-            - `discussion` - Discussion events
-            - `festival` - Festival events
-            - `late` - Late events
-            - `shopping` - Shopping events
-            - `walking-tour` - Walking tour events
-            - `study-day` - Study day events
-            - `send-workshop` - Send workshop events
-            - `seminar` - Seminar events
-            - `symposium` - Symposium events
-            - `chill-out` - Chill out events
-            - `installation` - Installation events
-            - `game` - Game events
-            - `session` - Session events
-            - `relaxed-opening` - Relaxed opening events
-          schema:
-            type: string
-        - name: isAvailableOnline
-          in: query
-          description: Filter the events by catch-up events.
-          schema:
-            type: string
-            enum:
-              - true
-        - name: location
-          in: query
-          description: Filter the articles by location.
-          schema:
-            type: string
-        - name: linkedWork
-          in: query
-          description: Filter events by linked catalogue work IDs. Accepts multiple work IDs via comma-separated values or repeated parameters.
-          schema:
-            type: string
-          style: form
-          explode: true
-        - name: sort
-          in: query
-          description: Which field to sort the results on
-          schema:
-            type: string
-            enum:
-              - times.startDateTime
               - relevance
-        - name: sortOrder
+              - times.startDateTime
+          required: false
+          description: Which field to sort the results on
+          name: sort
           in: query
-          description: The order that the results should be returned in.
-          schema:
+        - schema:
             type: string
+            description: The order that the results should be returned in
             enum:
               - asc
               - desc
-        - name: query
+          required: false
+          description: The order that the results should be returned in
+          name: sortOrder
           in: query
-          description: "Full-text search query"
-          schema:
+        - schema:
             type: string
-        - name: page
+            description: What aggregated data in relation to the results should we return
+            enum:
+              - format
+              - audience
+              - interpretation
+              - location
+              - isAvailableOnline
+              - timespan
+          required: false
+          description: What aggregated data in relation to the results should we return
+          name: aggregations
           in: query
-          description: The page to return from the result list
-          schema:
-            minimum: 1
+        - schema:
+            type: string
+            description: >-
+              Filter events by format. Supports both inclusion and exclusion.
+
+
+              - To include: `?format=workshop` or `?format=WcKmiysAACx_A8NR`
+
+              - To exclude: `?format=!exhibitions`
+
+              - Multiple values: `?format=workshop,screening`
+
+
+              Supported aliases: exhibitions, workshop, gallery-tour, screening,
+              performance, discussion, festival, late, shopping, walking-tour,
+              study-day, send-workshop, seminar, symposium, chill-out,
+              installation, game, session, relaxed-opening
+          required: false
+          description: >-
+            Filter events by format. Supports both inclusion and exclusion.
+
+
+            - To include: `?format=workshop` or `?format=WcKmiysAACx_A8NR`
+
+            - To exclude: `?format=!exhibitions`
+
+            - Multiple values: `?format=workshop,screening`
+
+
+            Supported aliases: exhibitions, workshop, gallery-tour, screening,
+            performance, discussion, festival, late, shopping, walking-tour,
+            study-day, send-workshop, seminar, symposium, chill-out,
+            installation, game, session, relaxed-opening
+          name: format
+          in: query
+        - schema:
+            type: string
+            description: Filter the events by audience
+          required: false
+          description: Filter the events by audience
+          name: audience
+          in: query
+        - schema:
+            type: string
+            description: Filter the events by interpretation
+          required: false
+          description: Filter the events by interpretation
+          name: interpretation
+          in: query
+        - schema:
+            type: string
+            description: Filter the events by location
+            enum:
+              - online
+              - in-our-building
+          required: false
+          description: Filter the events by location
+          name: location
+          in: query
+        - schema:
+            type: string
+            enum:
+              - "true"
+            description: Filter to catch-up events only
+          required: false
+          description: Filter to catch-up events only
+          name: isAvailableOnline
+          in: query
+        - schema:
+            type: string
+            description: Filter events by timespan
+            enum:
+              - today
+              - this-week
+              - this-weekend
+              - this-month
+              - future
+              - past
+              - january
+              - february
+              - march
+              - april
+              - may
+              - june
+              - july
+              - august
+              - september
+              - october
+              - november
+              - december
+          required: false
+          description: Filter events by timespan
+          name: timespan
+          in: query
+        - schema:
+            anyOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+            description: Filter by linked catalogue work IDs. Accepts multiple work IDs via
+              comma-separated values or repeated parameters.
+          required: false
+          description: Filter by linked catalogue work IDs. Accepts multiple work IDs via
+            comma-separated values or repeated parameters.
+          name: linkedWork
+          in: query
+        - schema:
             type: integer
-            format: int64
+            minimum: 1
             default: 1
-        - name: pageSize
+            description: The page to return from the result list
+          required: false
+          description: The page to return from the result list
+          name: page
           in: query
-          description: The number of events to return per page
-          schema:
-            maximum: 100
-            minimum: 1
+        - schema:
             type: integer
-            format: int64
+            minimum: 1
+            maximum: 100
             default: 10
+            description: The number of results to return per page
+          required: false
+          description: The number of results to return per page
+          name: pageSize
+          in: query
       responses:
         "200":
           description: The events
@@ -318,20 +1979,21 @@ paths:
             "*/*":
               schema:
                 $ref: "#/components/schemas/Error"
-  "/events/{id}":
+  /events/{id}:
     get:
+      operationId: getEvent
       tags:
         - Events
-      summary: "/events/{id}"
+      summary: /events/{id}
       description: Returns a single event
-      operationId: getEvent
       parameters:
-        - name: id
-          in: path
-          description: The event to return
-          required: true
-          schema:
+        - schema:
             type: string
+            description: The event to return
+          required: true
+          description: The event to return
+          name: id
+          in: path
       responses:
         "200":
           description: The event
@@ -365,41 +2027,54 @@ paths:
                 $ref: "#/components/schemas/Error"
   /all:
     get:
+      operationId: getAll
       tags:
         - All
       summary: /all
-      description: Returns a paginated list of our non-catalogue content, i.e. (articles, books, events, exhibitions, exhibition texts, exhibition highlight tours (BSL), exhibition highlight tours (audio), pages, projects, seasons, and visual stories)
-      operationId: getAll
+      description: Returns a paginated list of our non-catalogue content, i.e.
+        (articles, books, events, exhibitions, exhibition texts, exhibition
+        highlight tours (BSL), exhibition highlight tours (audio), pages,
+        projects, seasons, and visual stories)
       parameters:
-        - name: query
-          in: query
-          description: "Full-text search query"
-          schema:
+        - schema:
             type: string
-        - name: linkedWork
+            description: Full-text search query
+          required: false
+          description: Full-text search query
+          name: query
           in: query
-          description: Filter content by linked catalogue work IDs. Accepts multiple work IDs via comma-separated values or repeated parameters.
-          schema:
-            type: string
-          style: form
-          explode: true
-        - name: page
+        - schema:
+            anyOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+            description: Filter by linked catalogue work IDs. Accepts multiple work IDs via
+              comma-separated values or repeated parameters.
+          required: false
+          description: Filter by linked catalogue work IDs. Accepts multiple work IDs via
+            comma-separated values or repeated parameters.
+          name: linkedWork
           in: query
-          description: The page to return from the result list
-          schema:
-            minimum: 1
+        - schema:
             type: integer
-            format: int64
+            minimum: 1
             default: 1
-        - name: pageSize
+            description: The page to return from the result list
+          required: false
+          description: The page to return from the result list
+          name: page
           in: query
-          description: The number of articles to return per page
-          schema:
-            maximum: 100
-            minimum: 1
+        - schema:
             type: integer
-            format: int64
+            minimum: 1
+            maximum: 100
             default: 10
+            description: The number of results to return per page
+          required: false
+          description: The number of results to return per page
+          name: pageSize
+          in: query
       responses:
         "200":
           description: The editorial content
@@ -431,38 +2106,28 @@ paths:
             "*/*":
               schema:
                 $ref: "#/components/schemas/Error"
-  "/all/{id}":
+  /all/{id}:
     get:
+      operationId: getAllById
       tags:
         - All
-      summary: "/all/{id}"
+      summary: /all/{id}
       description: Returns a single piece of our non-catalogue content
-      operationId: getAllById
       parameters:
-        - name: id
-          in: path
-          description: The id of the content to return
-          required: true
-          schema:
+        - schema:
             type: string
+            description: The id of the content to return
+          required: true
+          description: The id of the content to return
+          name: id
+          in: path
       responses:
         "200":
           description: The content
           content:
             "*/*":
               schema:
-                oneOf:
-                  - $ref: "#/components/schemas/Addressables/Article"
-                  - $ref: "#/components/schemas/Addressables/Book"
-                  - $ref: "#/components/schemas/Addressables/Event"
-                  - $ref: "#/components/schemas/Addressables/Exhibition"
-                  - $ref: "#/components/schemas/Addressables/ExhibitionText"
-                  - $ref: "#/components/schemas/Addressables/ExhibitionHighlightTour(BSL)"
-                  - $ref: "#/components/schemas/Addressables/ExhibitionHightlightTour(audio)"
-                  - $ref: "#/components/schemas/Addressables/Page"
-                  - $ref: "#/components/schemas/Addressables/Project"
-                  - $ref: "#/components/schemas/Addressables/Season"
-                  - $ref: "#/components/schemas/Addressables/VisualStory"
+                oneOf: *a1
         "400":
           description: Bad Request Error
           content:
@@ -487,856 +2152,4 @@ paths:
             "*/*":
               schema:
                 $ref: "#/components/schemas/Error"
-components:
-  schemas:
-    Aggregation:
-      title: Aggregation
-      type: object
-      description: An aggregation over the results.
-      properties:
-        buckets:
-          type: array
-          items:
-            $ref: "#/components/schemas/AggregationBucket"
-        type:
-          type: string
-    AggregationBucket:
-      title: AggregationBucket
-      type: object
-      description: An individual bucket within an aggregation.
-      properties:
-        data:
-          discriminator:
-            propertyName: type
-          oneOf:
-            - $ref: "#/components/schemas/ContributorAgent"
-            - $ref: "#/components/schemas/ArticleFormat"
-        count:
-          type: integer
-          description: The count of how often this data occurs in this set of results.
-          format: int32
-        type:
-          type: string
-    Article:
-      title: Article
-      description: A piece of editorial content
-      type: object
-      properties:
-        id:
-          type: string
-          description: The identifier of the article
-        uid:
-          type: string
-          description: The human-readable identifier of the article
-        title:
-          type: string
-          description: The title of the article
-        publicationDate:
-          type: string
-          format: date-time
-          description: The date on which the article was published
-        contributors:
-          type: array
-          description: Relates an article to its author, editor, and any other contributors
-          items:
-            $ref: "#/components/schemas/Contributor"
-        format:
-          $ref: "#/components/schemas/ArticleFormat"
-        caption:
-          type: string
-          description: A short description of the article's content
-        image:
-          $ref: "#/components/schemas/Image"
-        type:
-          type: string
-      required:
-        - id
-        - title
-        - publicationDate
-        - contributors
-        - format
-        - type
-    ArticleFormat:
-      title: ArticleFormat
-      type: object
-      description: The format of an article (eg article, comic)
-      properties:
-        id:
-          type: string
-          description: The identifier of the format
-        label:
-          type: string
-          description: The short label of the format
-        type:
-          type: string
-    Contributor:
-      title: Contributor
-      type: object
-      properties:
-        contributor:
-          $ref: "#/components/schemas/ContributorAgent"
-        role:
-          $ref: "#/components/schemas/ContributorRole"
-    ContributorRole:
-      title: ContributorRole
-      type: object
-      description: A role of a contributor (eg. author, editor)
-      properties:
-        id:
-          type: string
-          description: The identifier of the contributor role
-        label:
-          type: string
-          description: The short label of the contributor role
-        type:
-          type: string
-    ContributorAgent:
-      title: Contributor
-      type: object
-      description: A contributor
-      properties:
-        id:
-          type: string
-          description: The identifier of the contributor
-        label:
-          type: string
-          description: The name or other short label of the contributor
-        type:
-          type: enum
-          oneOf:
-            - "Person"
-            - "Organisation"
-    Dimensions:
-      type: object
-      properties:
-        width:
-          type: integer
-        height:
-          type: integer
-    Error:
-      title: Error
-      type: object
-      properties:
-        errorType:
-          type: string
-          description: The type of error
-          enum:
-            - http
-        httpStatus:
-          type: integer
-          description: The HTTP response status code
-          format: int32
-        label:
-          type: string
-          description: The title or other short name of the error
-        description:
-          type: string
-          description: The specific error
-        type:
-          type: string
-    Event:
-      title: Event
-      description: A Wellcome Collection event (on location or online)
-      type: object
-      properties:
-        id:
-          type: string
-          description: The identifier of the event
-        uid:
-          type: string
-          description: The human-readable identifier of the event
-        title:
-          type: string
-          description: The title of the event
-        image:
-          $ref: "#/components/schemas/Image"
-        format:
-          title: EventFormat
-          type: object
-          description: The format of an event (eg discussion)
-          properties:
-            id:
-              type: string
-              description: The identifier of the format
-            label:
-              type: string
-              description: The short label of the format
-            type:
-              type: EventFormat
-        locations:
-          $ref: "#/components/schemas/EventLocations"
-        interpretations:
-          type: array
-          items:
-            title: EventInterpretation
-            type: object
-            description: Which accessibility features the event offers
-            properties:
-              id:
-                type: string
-                description: The identifier of the format
-              label:
-                type: string
-                description: The short label of the format
-              type:
-                type: EventInterpretation
-        audiences:
-          type: array
-          description: Which audiences the event is for
-          items:
-            type: object
-            title: EventAudience
-            properties:
-              id:
-                type: string
-                description: The identifier of the audience
-              label:
-                type: string
-                description: The short label of the audience
-              type:
-                type: EventAudience
-        series:
-          type: array
-          description: Which series the event is part of
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: The identifier of the series
-              title:
-                type: string
-                description: The title of the series
-              contributors:
-                type: array<string>
-        isAvailableOnline:
-          type: boolean
-          description: Whether or not it is a catch-up event
-        type:
-          type: string
-      required:
-        - id
-        - title
-        - format
-        - times
-        - locations
-        - interpretations
-        - audiences
-        - series
-        - isAvailableOnline
-        - type
-    Image:
-      title: Image
-      description: Information regarding the location, dimensions, alt-text, and copyright of an image
-      type: object
-      properties:
-        dimensions:
-          description: The intrinsic dimensions of an image
-          $ref: "#/components/schemas/Dimensions"
-        alt:
-          type: string
-          description: Alternative text to display in place of the image if it cannot be rendered
-        copyright:
-          type: string
-          description: Copyright information about the image, including the copyright holder
-        url:
-          type: string
-          format: uri
-          description: The URL of the image
-        "32:15":
-          description: Dimensions of the image for 32:15 aspect ratio
-          $ref: "#/components/schemas/Dimensions"
-        "16:9":
-          description: Dimensions of the image for 16:9 aspect ratio
-          $ref: "#/components/schemas/Dimensions"
-        square:
-          description: Dimensions of the image for a square aspect ratio
-          $ref: "#/components/schemas/Dimensions"
-        type:
-          type: string
-      required:
-        - dimensions
-        - type
-        - url
-    EventLocations:
-      type: object
-      description: Where the event takes place
-      properties:
-        isOnline:
-          type: boolean
-          description: Whether or not the event takes place online
-        attendance:
-          type: array
-          description: The general location (e.g. in our building or online)
-          items:
-            type: object
-            title: Attendance
-            properties:
-              id:
-                type: string
-                description: The identifier of the place
-                enum:
-                  - in-our-building
-                  - online
-              label:
-                type: string
-                description: The short label of the place
-                enum:
-                  - In our building
-                  - Online
-              type:
-                type: EventAttendance
-        places:
-          type: array
-          description: The physical location of the event
-          items:
-            title: Place
-            type: object
-            properties:
-              id:
-                type: string
-                description: The identifier of the place
-              label:
-                type: string
-                description: The short label of the place
-              type:
-                type: EventPlace
-        type:
-          type: EventLocations
-    ArticleAggregations:
-      title: ArticleAggregations
-      type: object
-      description: A map containing the requested aggregations.
-      properties:
-        format:
-          $ref: "#/components/schemas/Aggregation"
-        contributors.contributor:
-          $ref: "#/components/schemas/Aggregation"
-        type:
-          type: string
-    ArticleResultList:
-      title: ArticleResultList
-      type: object
-      description: A paginated list of articles.
-      properties:
-        type:
-          type: string
-        pageSize:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        totalResults:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/Article"
-        prevPage:
-          type: string
-        nextPage:
-          type: string
-        aggregations:
-          - $ref: "#/components/schemas/ArticleAggregations"
-    EventAggregations:
-      title: EventAggregations
-      type: object
-      description: A map containing the requested aggregations.
-      properties:
-        audience:
-          $ref: "#/components/schemas/Aggregation"
-        interpretation:
-          $ref: "#/components/schemas/Aggregation"
-        format:
-          $ref: "#/components/schemas/Aggregation"
-        isAvailableOnline:
-          $ref: "#/components/schemas/Aggregation"
-        location:
-          $ref: "#/components/schemas/Aggregation"
-        type:
-          type: string
-    EventResultList:
-      title: EventResultList
-      type: object
-      description: A paginated list of events.
-      properties:
-        type:
-          type: string
-        pageSize:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        totalResults:
-          type: integer
-          format: int32
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/Event"
-        prevPage:
-          type: string
-        nextPage:
-          type: string
-        aggregations:
-          - $ref: "#/components/schemas/EventAggregations"
-    LinkedWork:
-      title: LinkedWork
-      type: object
-      description: A Catalogue Work linked to from the content
-      properties:
-        id:
-          type: string
-          description: The identifier of the linked work
-        title:
-          type: string
-          description: The title of the linked work
-        type:
-          type: string
-          description: The type of the linked work
-        thumbnailUrl:
-          type: string
-          description: URL of the thumbnail image for the linked work
-        date:
-          type: string
-          description: The date associated with the linked work
-        mainContributor:
-          type: string
-          description: The main contributor of the linked work
-        workType:
-          type: string
-          description: The type of the work, e.g. Books, Digital Images
-      required:
-        - id
-        - title
-        - type
-        - mainContributor
-    Addressables:
-      Article:
-        title: Article
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Article"
-            description:
-          id:
-            type: string
-            description: The identifier of the article
-          uid:
-            type: string
-            description: The human-readable identifier of the article
-          title:
-            type: string
-            description: The title of the article
-          description:
-            type: string
-            description: A short description of the article's content
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      Book:
-        title: Book
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Book"
-            description:
-          id:
-            type: string
-            description: The identifier of the book
-          uid:
-            type: string
-            description: The human-readable identifier of the book
-          title:
-            type: string
-            description: The title of the book
-          description:
-            type: string
-            description: A short description of the book's content
-          contributors:
-            type: string
-            description: The name or other short label of the contributor
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      Event:
-        title: Event
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Event"
-            description:
-          id:
-            type: string
-            description: The identifier of the event
-          uid:
-            type: string
-            description: The human-readable identifier of the event
-          title:
-            type: string
-            description: The title of the event
-          description:
-            type: string
-            description: A short description of the event's content
-          format:
-            type: string
-            description: The short label of the format
-          times:
-            type: object
-            properties:
-              start:
-                type: date-time
-                description: The date and time of the start of the event
-              end:
-                type: date-time
-                description: The date and time of the end of the event
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      Exhibition:
-        title: Exhibition
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Exhibition"
-            description:
-          id:
-            type: string
-            description: The identifier of the exhibition
-          uid:
-            type: string
-            description: The human-readable identifier of the exhibition
-          title:
-            type: string
-            description: The title of the exhibition
-          description:
-            type: string
-            description: A short description of the exhibition's content
-          format:
-            type: string
-            description: The short label of the format
-          times:
-            type: object
-            properties:
-              start:
-                type: date-time
-                description: The date and time of the start of the exhibition
-              end:
-                type: date-time
-                description: The date and time of the end of the exhibition
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - times
-          - linkedWorks
-      ExhibitionHightlightTour(audio):
-        title: Exhibition Hightlight Tour (audio)
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Exhibition highlight tour"
-            description:
-          id:
-            type: string
-            description: The identifier of the exhibition hightlight tour
-          uid:
-            type: string
-            description: The human-readable identifier of the exhibition hightlight tour
-          title:
-            type: string
-            description: The title of the exhibition hightlight tour
-          description:
-            type: string
-            description: A short description of the exhibition hightlight tour's content
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      ExhibitionHighlightTour(BSL):
-        title: Exhibition Hightlight Tour (BSL)
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Exhibition highlight tour"
-            description:
-          id:
-            type: string
-            description: The identifier of the exhibition hightlight tour
-          uid:
-            type: string
-            description: The human-readable identifier of the exhibition hightlight tour
-          title:
-            type: string
-            description: The title of the exhibition hightlight tour
-          description:
-            type: string
-            description: A short description of the exhibition hightlight tour's content
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      ExhibitionText:
-        title: Exhibition Text
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Exhibition text"
-            description:
-          id:
-            type: string
-            description: The identifier of the exhibition text
-          uid:
-            type: string
-            description: The human-readable identifier of the exhibition text
-          title:
-            type: string
-            description: The title of the exhibition text
-          description:
-            type: string
-            description: A short description of the exhibition text's content
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      Page:
-        title: Page
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Page"
-            description:
-          id:
-            type: string
-            description: The identifier of the page
-          uid:
-            type: string
-            description: The human-readable identifier of the page
-          title:
-            type: string
-            description: The title of the page
-          description:
-            type: string
-            description: A short description of the page's content
-          tags:
-            type: array<string>
-            description: A list of document tags
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      Project:
-        title: Project
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Project"
-            description:
-          id:
-            type: string
-            description: The identifier of the project
-          uid:
-            type: string
-            description: The human-readable identifier of the project
-          title:
-            type: string
-            description: The title of the project
-          format:
-            type: string
-            description: The short label of the format
-          description:
-            type: string
-            description: A short description of the project's content
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      Season:
-        title: Season
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Season"
-            description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-          id:
-            type: string
-            description: The identifier of the season
-          uid:
-            type: string
-            description: The human-readable identifier of the season
-          title:
-            type: string
-            description: The title of the season
-          description:
-            type: string
-            description: A short description of the season's content
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-      VisualStory:
-        title: Visual Story
-        description: A reduced piece of editorial content, limited to the parts necessary to render a summary
-        type: object
-        properties:
-          type:
-            type: "Visual story"
-            description:
-          id:
-            type: string
-            description: The identifier of the visual story
-          uid:
-            type: string
-            description: The human-readable identifier of the visual story
-          title:
-            type: string
-            description: The title of the visual story
-          description:
-            type: string
-            description: A short description of the visual story's content
-          linkedWorks:
-            type: array
-            items:
-              $ref: "#/components/schemas/LinkedWork"
-            description: An array of Catalogue Works linked to from the content
-        required:
-          - type
-          - id
-          - uid
-          - title
-          - description
-          - linkedWorks
-    AllResultsList:
-      title: AllResultList
-      type: object
-      description: A paginated list of various types of editorial content
-      properties:
-        type:
-          type: string
-        pageSize:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        totalResults:
-          type: integer
-          format: int32
-        prevPage:
-          type: string
-        nextPage:
-          type: string
-        results:
-          type: array
-          items:
-            oneOf:
-              - $ref: "#/components/schemas/Addressables/Article"
-              - $ref: "#/components/schemas/Addressables/Book"
-              - $ref: "#/components/schemas/Addressables/Event"
-              - $ref: "#/components/schemas/Addressables/Exhibition"
-              - $ref: "#/components/schemas/Addressables/ExhibitionText"
-              - $ref: "#/components/schemas/Addressables/ExhibitionHighlightTour(BSL)"
-              - $ref: "#/components/schemas/Addressables/ExhibitionHightlightTour(audio)"
-              - $ref: "#/components/schemas/Addressables/Page"
-              - $ref: "#/components/schemas/Addressables/Project"
-              - $ref: "#/components/schemas/Addressables/Season"
-              - $ref: "#/components/schemas/Addressables/VisualStory"
-tags:
-  - name: Articles
-  - name: Events
-  - name: All
+webhooks: {}
