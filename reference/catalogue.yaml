@@ -1,11 +1,26 @@
 openapi: 3.1.0
 info:
   title: Catalogue
-  description: Search our collections
+  description: |
+    Search our collections.
+
+    The Catalogue API exposes Wellcome Collection's catalogue of works, the images
+    derived from them, and the concepts used to describe them.
+
+    Unrecognised query parameters are ignored rather than rejected, so a misspelled
+    filter silently returns unfiltered results. Check your parameter names against
+    this document.
   version: v2
   contact: {}
 servers:
-  - url: 'https://api.wellcomecollection.org/catalogue/v2'
+  - url: "https://api.wellcomecollection.org/catalogue/v2"
+tags:
+  - name: Works
+    description: "Individual works: books, archives, pictures, and groupings of them."
+  - name: Images
+    description: Images derived from the works in our collections.
+  - name: Concepts
+    description: The people, places, subjects and genres used to describe works.
 paths:
   /works:
     get:
@@ -15,34 +30,17 @@ paths:
       description: Returns a paginated list of works
       operationId: getWorks
       parameters:
-        - name: include
-          in: query
-          description: A comma-separated list of extra fields to include
-          schema:
-            type: string
-            enum:
-              - identifiers
-              - items
-              - holdings
-              - subjects
-              - genres
-              - contributors
-              - production
-              - languages
-              - notes
-              - images
-              - succeededBy
-              - precededBy
-              - partOf
-              - parts
-        - name: items.locations.locationType
-          in: query
-          description: Filter by the LocationType of items on the retrieved works
-          schema:
-            type: string
+        - $ref: "#/components/parameters/Query"
+        - $ref: "#/components/parameters/WorksInclude"
+        - $ref: "#/components/parameters/WorksAggregations"
+        - $ref: "#/components/parameters/WorksSort"
+        - $ref: "#/components/parameters/SortOrder"
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
+        - $ref: "#/components/parameters/WorksAccessStatusFilter"
         - name: workType
           in: query
-          description: Filter by the format of the searched works
+          description: "Filter by the format of the searched works. A comma-separated list of Format ids, e.g. `a,k`."
           schema:
             type: string
         - name: type
@@ -54,289 +52,154 @@ paths:
               - Collection
               - Series
               - Section
-        - name: aggregations
-          in: query
-          description: What aggregated data in correlation to the results should we return.
-          schema:
-            type: string
-            enum:
-              - workType
-              - genres.label
-              - genres
-              - production.dates
-              - subjects.label
-              - subjects
-              - contributors.agent.label
-              - contributors.agent
-              - items.locations.license
-              - languages
-              - availabilities
         - name: languages
           in: query
-          description: Filter the work by language.
+          description: "Filter by language. A comma-separated list of ISO 639-2 language ids."
           schema:
             type: string
         - name: genres.label
           in: query
-          description: Filter the work by genre.
+          description: "Filter by genre label. A comma-separated list of labels."
           schema:
             type: string
         - name: genres
           in: query
-          description: Filter works by canonical IDs of genre concepts.
+          description: "Filter by genre id. A comma-separated list of concept ids."
           schema:
             type: string
         - name: subjects.label
           in: query
-          description: Filter works by subject label (e.g. <a href="https://api.wellcomecollection.org/catalogue/v2/works?include=subjects&subjects.label=World%20history%20-%20Early%20works%20to%201800">World history - Early works to 1800</a>).
+          description: "Filter by subject label. A comma-separated list of labels."
           schema:
             type: string
         - name: subjects
           in: query
-          description: Filter works by canonical IDs of subject concepts.
+          description: "Filter by subject id. A comma-separated list of concept ids."
           schema:
             type: string
         - name: contributors.agent.label
           in: query
-          description: Filter the work by contributor.
+          description: "Filter by contributor label. A comma-separated list of labels."
           schema:
             type: string
         - name: contributors.agent
           in: query
-          description: Filter works by canonical IDs of contributor concepts.
+          description: "Filter by contributor id. A comma-separated list of concept ids."
           schema:
             type: string
         - name: identifiers
           in: query
-          description: Filter the work by identifiers.
-          schema:
-            type: string
-        - name: items
-          in: query
-          description: Filter for works with items with a given canonical ID.
-          schema:
-            type: string
-        - name: items.identifiers
-          in: query
-          description: Filter for works with items with a given identifier.
-          schema:
-            type: string
-        - name: partOf
-          in: query
-          description: Filter the work by partOf relation.
-          schema:
-            type: string
-        - name: partOf.title
-          in: query
-          description: Filter the work by the title of a partOf relation.
+          description: "Filter by identifier value. A comma-separated list of identifiers."
           schema:
             type: string
         - name: availabilities
           in: query
-          description: Filter the work by availabilities.
+          description: "Filter by availability. A comma-separated list of Availability ids, e.g. `online,open-shelves`."
           schema:
             type: string
-        - name: items.locations.accessConditions.status
+        - name: partOf
           in: query
-          description: Filter the work by access status.
+          description: Filter by the id of an ancestor work.
           schema:
             type: string
-            enum:
-              - open
-              - open-with-advisory
-              - restricted
-              - closed
-              - licensed-resources
-              - unavailable
-              - temporarily-unavailable
-              - by-appointment
-              - permission-required
+        - name: partOf.title
+          in: query
+          description: Filter by the title of an ancestor work.
+          schema:
+            type: string
+        - name: items
+          in: query
+          description: "Filter by item id. A comma-separated list of item ids."
+          schema:
+            type: string
+        - name: items.identifiers
+          in: query
+          description: "Filter by item identifier value. A comma-separated list of identifiers."
+          schema:
+            type: string
+        - name: items.locations.locationType
+          in: query
+          description: "Filter by the LocationType of items on the retrieved works. A comma-separated list of LocationType ids."
+          schema:
+            type: string
         - name: items.locations.license
           in: query
-          description: Filter the work by license.
-          schema:
-            type: string
-            enum:
-              - cc-by
-              - cc-by-nc
-              - cc-by-nc-nd
-              - cc-0
-              - pdm
-              - cc-by-nd
-              - cc-by-sa
-              - cc-by-nc-sa
-              - ogl
-              - opl
-              - inc
-        - name: sort
-          in: query
-          description: Which field to sort the results on
-          schema:
-            type: string
-            enum:
-              - production.dates
-        - name: sortOrder
-          in: query
-          description: The order that the results should be returned in.
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-        - name: production.dates.to
-          in: query
-          description: |-
-            Return all works with a production date before and including this date.
-            Dates should be specified as YYYY-MM-DD, e.g. `2001-12-31` for everything created up to the end of 2001.
-
-            Can be used in conjunction with `production.dates.from` to create a range.
+          description: "Filter by the license of items on the retrieved works. A comma-separated list of License ids."
           schema:
             type: string
         - name: production.dates.from
           in: query
-          description: |-
-            Return all works with a production date after and including this date.
-            Dates should be specified as YYYY-MM-DD, e.g. `1939-01-01` for everything in or after 1939.
-
-            Can be used in conjunction with `production.dates.to` to create a range.
+          description: "Return works produced on or after this date, in `YYYY-MM-DD` format."
           schema:
             type: string
-        - name: items.locations.createdDate.to
+            format: date
+        - name: production.dates.to
           in: query
-          description: |-
-            Return all works with a digital item that was created before this date.
-            Dates should be specified as YYYY-MM-DD, e.g. `2001-12-31` for everything created up midnight on 2001-12-31.
-
-            Can be used in conjunction with `items.locations.createdDate.from` to create a range.
+          description: "Return works produced on or before this date, in `YYYY-MM-DD` format."
           schema:
             type: string
+            format: date
         - name: items.locations.createdDate.from
           in: query
-          description: |-
-            Return all works with a digital item that was created after and including this date.
-            Dates should be specified as YYYY-MM-DD, e.g. `1939-01-01` for everything on or after midnight on January 1st, 1939.
-
-            Can be used in conjunction with `items.locations.createdDate.to` to create a range.
+          description: "Return works with an item location created on or after this date, in `YYYY-MM-DD` format."
           schema:
             type: string
-        - name: query
+            format: date
+        - name: items.locations.createdDate.to
           in: query
-          description: 'Full-text search query'
+          description: "Return works with an item location created on or before this date, in `YYYY-MM-DD` format."
           schema:
             type: string
-        - name: page
-          in: query
-          description: The page to return from the result list
-          schema:
-            minimum: 1
-            type: integer
-            format: int64
-            default: 1
-        - name: pageSize
-          in: query
-          description: The number of works to return per page
-          schema:
-            maximum: 100
-            minimum: 1
-            type: integer
-            format: int64
-            default: 10
+            format: date
       responses:
-        '200':
+        "200":
           description: The works
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/WorkResultList'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/works/{id}':
+                $ref: "#/components/schemas/WorkResultList"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  "/works/{id}":
     get:
       tags:
         - Works
-      summary: '/works/{id}'
+      summary: "/works/{id}"
       description: Returns a single work
       operationId: getWork
       parameters:
-        - name: id
-          in: path
-          description: The work to return
-          required: true
-          schema:
-            type: string
-        - name: include
-          in: query
-          description: A comma-separated list of extra fields to include
-          schema:
-            type: string
-            enum:
-              - identifiers
-              - items
-              - holdings
-              - subjects
-              - genres
-              - contributors
-              - production
-              - languages
-              - notes
-              - images
-              - succeededBy
-              - precededBy
-              - partOf
-              - parts
+        - $ref: "#/components/parameters/Id"
+        - $ref: "#/components/parameters/WorksInclude"
       responses:
-        '200':
+        "200":
           description: The work
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/Work'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
+                $ref: "#/components/schemas/Work"
+        "302":
+          description: |
+            The work has been redirected to another work. The `Location` header contains
+            the path of the work that replaces it. No response body is returned.
+          headers:
+            Location:
+              description: The path of the work that this work redirects to.
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "410":
+          $ref: "#/components/responses/Gone"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
   /images:
     get:
       tags:
@@ -345,206 +208,106 @@ paths:
       description: Returns a paginated list of images
       operationId: getImages
       parameters:
-        - name: query
+        - $ref: "#/components/parameters/Query"
+        - $ref: "#/components/parameters/ImagesInclude"
+        - $ref: "#/components/parameters/ImagesAggregations"
+        - $ref: "#/components/parameters/ImagesSort"
+        - $ref: "#/components/parameters/SortOrder"
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
+        - name: color
           in: query
-          description: Full-text search query
+          description: |
+            Filter by the colours of the image, given as a single hex colour without a
+            leading `#`, e.g. `ff6700`.
           schema:
             type: string
+            pattern: "^[0-9a-fA-F]{6}$"
         - name: locations.license
           in: query
-          description: Filter the images by license.
+          description: "Filter by the license of the image. A comma-separated list of License ids."
           schema:
             type: string
-            enum:
-              - cc-by
-              - cc-by-nc
-              - cc-by-nc-nd
-              - cc-0
-              - pdm
-              - cc-by-nd
-              - cc-by-sa
-              - cc-by-nc-sa
-              - ogl
-              - opl
-              - inc
         - name: source.contributors.agent.label
           in: query
-          description: Filter the images by the source works' contributors
+          description: "Filter by the label of a contributor to the source work. A comma-separated list of labels."
+          schema:
+            type: string
+        - name: source.contributors.agent
+          in: query
+          description: "Filter by the id of a contributor to the source work. A comma-separated list of concept ids."
           schema:
             type: string
         - name: source.genres.label
           in: query
-          description: Filter the images by the source works' genres
+          description: "Filter by the genre label of the source work. A comma-separated list of labels."
+          schema:
+            type: string
+        - name: source.genres
+          in: query
+          description: "Filter by the genre id of the source work. A comma-separated list of concept ids."
           schema:
             type: string
         - name: source.subjects.label
           in: query
-          description: Filter the images by the source works' subjects
+          description: "Filter by the subject label of the source work. A comma-separated list of labels."
           schema:
             type: string
-        - name: sort
+        - name: source.subjects
           in: query
-          description: Which field to sort the results on
-          schema:
-            type: string
-            enum:
-              - source.production.dates
-        - name: sortOrder
-          in: query
-          description: The order that the results should be returned in.
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-        - name: source.production.dates.to
-          in: query
-          description: |-
-            Return all images with a production date before and including this date.
-
-            Can be used in conjunction with `production.dates.from` to create a range.
+          description: "Filter by the subject id of the source work. A comma-separated list of concept ids."
           schema:
             type: string
         - name: source.production.dates.from
           in: query
-          description: |-
-            Return all images with a production date after and including this date.
-
-            Can be used in conjunction with `production.dates.to` to create a range.
+          description: "Return images whose source work was produced on or after this date, in `YYYY-MM-DD` format."
           schema:
             type: string
-
-        - name: colors
+            format: date
+        - name: source.production.dates.to
           in: query
-          description: Filter the images by colors.
+          description: "Return images whose source work was produced on or before this date, in `YYYY-MM-DD` format."
           schema:
             type: string
-        - name: include
-          in: query
-          description: A comma-separated list of extra fields to include
-          schema:
-            type: string
-            enum:
-              - source.contributors
-              - source.languages
-              - source.genres
-              - source.subjects
-        - name: aggregations
-          in: query
-          description: What aggregated data in correlation to the results should we return.
-          schema:
-            type: string
-            enum:
-              - locations.license
-              - source.contributors.agent.label
-              - source.genres.label
-              - source.subjects.label
-        - name: page
-          in: query
-          description: The page to return from the result list
-          schema:
-            minimum: 1
-            type: integer
-            format: int64
-            default: 1
-        - name: pageSize
-          in: query
-          description: The number of images to return per page
-          schema:
-            maximum: 100
-            minimum: 1
-            type: integer
-            format: int64
-            default: 10
+            format: date
       responses:
-        '200':
+        "200":
           description: The images
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/ImageResultList'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/images/{id}':
+                $ref: "#/components/schemas/ImageResultList"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  "/images/{id}":
     get:
       tags:
         - Images
-      summary: '/images/{id}'
+      summary: "/images/{id}"
       description: Returns a single image
       operationId: getImage
       parameters:
-        - name: id
-          in: path
-          description: The image to return
-          required: true
-          schema:
-            type: string
-        - name: include
-          in: query
-          description: A comma-separated list of extra fields to include
-          schema:
-            type: string
-            enum:
-              - visuallySimilar
-              - withSimilarFeatures
-              - withSimilarColors
-              - source.contributors
-              - source.languages
-              - source.genres
-              - source.subjects
+        - $ref: "#/components/parameters/Id"
+        - $ref: "#/components/parameters/ImagesIncludeSingle"
       responses:
-        '200':
+        "200":
           description: The image
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/Image'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '410':
-          description: Gone Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Image"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
   /concepts:
     get:
       tags:
@@ -553,92 +316,291 @@ paths:
       description: Returns a paginated list of concepts
       operationId: getConcepts
       parameters:
-        - name: query
-          in: query
-          description: Full-text search query
-          schema:
-            type: string
+        - $ref: "#/components/parameters/Query"
         - name: identifiers.identifierType
           in: query
           description: Filter the concepts by IdentifierType ID
           schema:
             type: string
-        - name: page
+        - name: id
           in: query
-          description: The page to return from the result list
+          description: |
+            A comma-separated list of concept ids to fetch directly.
+
+            When supplied, all other filters and pagination parameters are ignored: the
+            concepts are fetched in a single batch, returned in the order requested, and
+            ids that do not exist are silently omitted. The response has `totalPages: 1`
+            and no `prevPage` or `nextPage`.
           schema:
-            minimum: 1
-            type: integer
-            format: int64
-            default: 1
-        - name: pageSize
-          in: query
-          description: The number of concepts to return per page
-          schema:
-            maximum: 100
-            minimum: 1
-            type: integer
-            format: int64
-            default: 10
+            type: string
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
       responses:
-        '200':
+        "200":
           description: The concepts
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/ConceptResultList'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  /concepts/{id}:
+                $ref: "#/components/schemas/ConceptResultList"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  "/concepts/{id}":
     get:
       tags:
         - Concepts
-      summary: '/concepts/{id}'
+      summary: "/concepts/{id}"
       description: Returns a single concept
       operationId: getConcept
       parameters:
-        - name: id
-          in: path
-          description: The concept to return
-          required: true
-          schema:
-            type: string
+        - $ref: "#/components/parameters/Id"
       responses:
-        '200':
+        "200":
           description: The concept
           content:
-            '*/*':
+            application/json:
               schema:
-                $ref: '#/components/schemas/Concept'
-        '400':
-          description: Bad Request Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not Found Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal Server Error
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Concept"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      description: The canonical identifier of the record to return.
+      required: true
+      schema:
+        type: string
+    Query:
+      name: query
+      in: query
+      description: Full-text search query
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      description: The page to return from the result list
+      schema:
+        type: integer
+        format: int64
+        minimum: 1
+        default: 1
+    PageSize:
+      name: pageSize
+      in: query
+      description: The number of results to return per page
+      schema:
+        type: integer
+        format: int64
+        minimum: 1
+        maximum: 100
+        default: 10
+    SortOrder:
+      name: sortOrder
+      in: query
+      description: The order in which to return the results
+      schema:
+        type: string
+        default: asc
+        enum:
+          - asc
+          - desc
+    WorksInclude:
+      name: include
+      in: query
+      description: A comma-separated list of extra fields to include
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - identifiers
+            - items
+            - holdings
+            - subjects
+            - genres
+            - contributors
+            - production
+            - languages
+            - notes
+            - formerFrequency
+            - designation
+            - images
+            - parts
+            - partOf
+            - precededBy
+            - succeededBy
+    WorksAggregations:
+      name: aggregations
+      in: query
+      description: |
+        What aggregated data in correlation to the results should we return.
+
+        The id-based variants (`genres`, `subjects`, `contributors.agent`) are returned
+        under the same response key as their label-based counterparts
+        (`genres.label`, `subjects.label`, `contributors.agent.label`); requesting the
+        id variant populates the `id` field of each bucket's `data`.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - workType
+            - genres.label
+            - genres
+            - production.dates
+            - subjects.label
+            - subjects
+            - languages
+            - contributors.agent.label
+            - contributors.agent
+            - items.locations.license
+            - availabilities
+    WorksSort:
+      name: sort
+      in: query
+      description: Which field to sort the results on
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - production.dates
+            - items.locations.createdDate
+    WorksAccessStatusFilter:
+      name: items.locations.accessConditions.status
+      in: query
+      description: |
+        Filter by the access status of items on the retrieved works. A comma-separated
+        list of AccessStatus ids. Prefix a value with `!` to exclude it instead, e.g.
+        `!closed`.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - open
+            - open-with-advisory
+            - restricted
+            - closed
+            - licensed-resources
+            - unavailable
+            - permission-required
+    ImagesInclude:
+      name: include
+      in: query
+      description: A comma-separated list of extra fields to include
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - source.contributors
+            - source.languages
+            - source.genres
+            - source.subjects
+    ImagesIncludeSingle:
+      name: include
+      in: query
+      description: |
+        A comma-separated list of extra fields to include. `withSimilarFeatures` is only
+        available on this endpoint, not on `/images`.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - withSimilarFeatures
+            - source.contributors
+            - source.languages
+            - source.genres
+            - source.subjects
+    ImagesAggregations:
+      name: aggregations
+      in: query
+      description: |
+        What aggregated data in correlation to the results should we return.
+
+        `locations.license` is returned under the response key `license`. The id-based
+        variants (`source.genres`, `source.subjects`, `source.contributors.agent`) are
+        returned under the same response key as their label-based counterparts;
+        requesting the id variant populates the `id` field of each bucket's `data`.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - locations.license
+            - source.contributors.agent.label
+            - source.contributors.agent
+            - source.genres.label
+            - source.genres
+            - source.subjects.label
+            - source.subjects
+    ImagesSort:
+      name: sort
+      in: query
+      description: Which field to sort the results on
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - source.production.dates
+  responses:
+    BadRequest:
+      description: Bad Request Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Not Found Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Gone:
+      description: Gone Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    ServiceUnavailable:
+      description: Service Unavailable Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
   schemas:
     AccessCondition:
       title: AccessCondition
@@ -646,9 +608,9 @@ components:
       description: Information about any access restrictions placed on the work
       properties:
         method:
-          $ref: '#/components/schemas/AccessMethod'
+          $ref: "#/components/schemas/AccessMethod"
         status:
-          $ref: '#/components/schemas/AccessStatus'
+          $ref: "#/components/schemas/AccessStatus"
         terms:
           type: string
         note:
@@ -686,6 +648,10 @@ components:
     AccessStatus:
       title: AccessStatus
       type: object
+      description: |
+        The access status of an item. Note that this can carry statuses which the
+        `items.locations.accessConditions.status` filter does not accept, such as
+        `temporarily-unavailable`.
       properties:
         id:
           type: string
@@ -696,15 +662,24 @@ components:
           default: AccessStatus
     Agent:
       title: Agent
+      type: object
+      description: "A person, organisation, meeting or other entity that can act on a work."
       properties:
         id:
           type: string
         label:
           type: string
+        identifiers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Identifier"
         type:
           type: string
-      type: object
-      description: What are the actual available types here?
+          enum:
+            - Agent
+            - Person
+            - Organisation
+            - Meeting
     Aggregation:
       title: Aggregation
       type: object
@@ -713,38 +688,42 @@ components:
         buckets:
           type: array
           items:
-            $ref: '#/components/schemas/AggregationBucket'
+            $ref: "#/components/schemas/AggregationBucket"
         type:
           type: string
+          default: Aggregation
     AggregationBucket:
       title: AggregationBucket
       type: object
       description: An individual bucket within an aggregation.
       properties:
         data:
-          discriminator:
-            propertyName: type
-          oneOf:
-            - $ref: '#/components/schemas/Format'
-            - $ref: '#/components/schemas/Period'
-            - $ref: '#/components/schemas/Genre'
-            - $ref: '#/components/schemas/Subject'
-            - $ref: '#/components/schemas/Agent'
-            - $ref: '#/components/schemas/Language'
-            - $ref: '#/components/schemas/License'
-            - $ref: '#/components/schemas/Availability'
+          type: object
+          description: |
+            The thing being aggregated over. `id` is only populated when the aggregation
+            was requested by its id-based name.
+          properties:
+            id:
+              type: string
+            label:
+              type: string
         count:
           type: integer
           description: The count of how often this data occurs in this set of results.
           format: int32
         type:
           type: string
+          default: AggregationBucket
     Availability:
       title: Availability
       type: object
       properties:
         id:
           type: string
+          enum:
+            - open-shelves
+            - closed-stores
+            - online
         label:
           type: string
         type:
@@ -760,25 +739,133 @@ components:
           type: string
         label:
           type: string
+        displayLabel:
+          type: string
+          description: The label to show to users. May differ from `label`.
         alternativeLabels:
           type: array
           description: Alternative labels for the concept.
           items:
             type: string
+        description:
+          $ref: "#/components/schemas/ConceptDescription"
         identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/Identifier'
+            $ref: "#/components/schemas/Identifier"
+        relatedConcepts:
+          $ref: "#/components/schemas/RelatedConcepts"
+        sameAs:
+          type: array
+          description: The ids of other concepts that refer to the same thing.
+          items:
+            type: string
+        displayImages:
+          type: array
+          description: Locations of images used to illustrate the concept.
+          items:
+            $ref: "#/components/schemas/DigitalLocation"
         type:
           type: string
           enum:
+            - Agent
             - Concept
+            - Genre
             - Meeting
             - Organisation
             - Period
             - Person
             - Place
             - Subject
+    ConceptStub:
+      title: ConceptStub
+      type: object
+      description: |
+        A concept as it appears nested inside a work's subjects, genres or production
+        events. Unlike the `Concept` returned by `/concepts`, this carries only enough
+        to identify and label the concept.
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        identifiers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Identifier"
+        type:
+          type: string
+          enum:
+            - Agent
+            - Concept
+            - Genre
+            - Meeting
+            - Organisation
+            - Period
+            - Person
+            - Place
+            - Subject
+    ConceptDescription:
+      title: ConceptDescription
+      type: object
+      description: A short description of a concept, drawn from an external source.
+      properties:
+        text:
+          type: string
+        sourceLabel:
+          type: string
+          description: "The source the description was taken from, e.g. `wikidata`."
+        sourceUrl:
+          type: string
+          description: A link to the description in its source.
+    RelatedConcept:
+      title: RelatedConcept
+      type: object
+      description: A stub representing a concept related to another concept.
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        conceptType:
+          type: string
+    RelatedConcepts:
+      title: RelatedConcepts
+      type: object
+      description: Concepts related to this one, grouped by the nature of the relationship.
+      properties:
+        relatedTo:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
+        fieldsOfWork:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
+        narrowerThan:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
+        broaderThan:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
+        people:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
+        frequentCollaborators:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
+        relatedTopics:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
+        foundedBy:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedConcept"
     ConceptResultList:
       title: ConceptResultList
       type: object
@@ -786,6 +873,7 @@ components:
       properties:
         type:
           type: string
+          default: ResultList
         pageSize:
           type: integer
           format: int32
@@ -798,7 +886,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/Concept'
+            $ref: "#/components/schemas/Concept"
         prevPage:
           type: string
         nextPage:
@@ -818,11 +906,14 @@ components:
       description: A contributor
       properties:
         agent:
-          $ref: '#/components/schemas/Agent'
+          $ref: "#/components/schemas/Agent"
         roles:
           type: array
           items:
-            $ref: '#/components/schemas/ContributionRole'
+            $ref: "#/components/schemas/ContributionRole"
+        primary:
+          type: boolean
+          description: Whether this is the primary contributor to the work.
         type:
           type: string
     DigitalLocation:
@@ -831,7 +922,7 @@ components:
       description: A digital location that provides access to an item
       properties:
         locationType:
-          $ref: '#/components/schemas/LocationType'
+          $ref: "#/components/schemas/LocationType"
         url:
           type: string
           description: The URL of the digital asset.
@@ -840,15 +931,17 @@ components:
           description: Who to credit the image to
         linkText:
           type: string
-          description: 'Text that can be used when linking to the item - for example, ''View this journal'' rather than the raw URL'
+          description: "Text that can be used when linking to the item - for example, 'View this journal' rather than the raw URL"
         license:
-          $ref: '#/components/schemas/License'
+          $ref: "#/components/schemas/License"
         accessConditions:
           type: array
           items:
-            $ref: '#/components/schemas/AccessCondition'
+            $ref: "#/components/schemas/AccessCondition"
         type:
-          type: string
+          const: DigitalLocation
+      required:
+        - type
     Error:
       title: Error
       type: object
@@ -870,6 +963,7 @@ components:
           description: The specific error
         type:
           type: string
+          default: Error
     Format:
       title: Format
       type: object
@@ -880,7 +974,7 @@ components:
           type: string
         type:
           type: string
-      description: 'A broad, top-level description of the form of a work: namely, whether it is a printed book, archive, painting, photograph, moving image, etc.'
+      description: "A broad, top-level description of the form of a work: namely, whether it is a printed book, archive, painting, photograph, moving image, etc."
     Genre:
       title: Genre
       type: object
@@ -892,7 +986,7 @@ components:
         concepts:
           type: array
           items:
-            $ref: '#/components/schemas/Concept'
+            $ref: "#/components/schemas/ConceptStub"
         type:
           type: string
     Holdings:
@@ -910,11 +1004,11 @@ components:
             description: A list of individual issues or parts that make up the holdings.
         location:
           description: The location of the holdings
+          oneOf:
+            - $ref: "#/components/schemas/DigitalLocation"
+            - $ref: "#/components/schemas/PhysicalLocation"
           discriminator:
             propertyName: type
-          oneOf:
-            - $ref: '#/components/schemas/DigitalLocation'
-            - $ref: '#/components/schemas/PhysicalLocation'
         type:
           type: string
     Identifier:
@@ -923,7 +1017,7 @@ components:
       description: A unique system-generated identifier that governs interaction between systems and is regarded as canonical within the Wellcome data ecosystem.
       properties:
         identifierType:
-          $ref: '#/components/schemas/IdentifierType'
+          $ref: "#/components/schemas/IdentifierType"
         value:
           type: string
           description: The value of the thing. e.g. an identifier
@@ -939,7 +1033,7 @@ components:
           type: string
         type:
           type: string
-      description: 'Relates a Identifier to a particular authoritative source identifier scheme: for example, if the identifier is MS.49 this property might indicate that this identifier has its origins in the Wellcome Library''s CALM archive management system.'
+      description: "Relates a Identifier to a particular authoritative source identifier scheme: for example, if the identifier is MS.49 this property might indicate that this identifier has its origins in the Wellcome Library's CALM archive management system."
     Image:
       title: Image
       type: object
@@ -950,48 +1044,71 @@ components:
           description: The canonical identifier given to a thing.
           readOnly: true
         thumbnail:
-          $ref: '#/components/schemas/DigitalLocation'
+          $ref: "#/components/schemas/DigitalLocation"
         locations:
           type: array
           description: The locations which provide access to the image
           items:
-            $ref: '#/components/schemas/DigitalLocation'
+            $ref: "#/components/schemas/DigitalLocation"
         aspectRatio:
           type: number
           format: float
           description: Calculated aspect ratio of the image
+        averageColor:
+          type: string
+          description: "The average colour of the image, as a hex string."
         source:
-          description: The entity from which an image was sourced
-          $ref: '#/components/schemas/Work'
-        visuallySimilar:
-          type: array
-          description: A list of visually similar images
-          items:
-            $ref: '#/components/schemas/Image'
-        withSimilarColors:
-          type: array
-          description: A list of images with similar color palettes
-          items:
-            $ref: '#/components/schemas/Image'
+          $ref: "#/components/schemas/ImageSource"
         withSimilarFeatures:
           type: array
-          description: A list of images with similar features
+          description: |
+            A list of images with similar features. Only returned by `/images/{id}`, when
+            requested with `?include=withSimilarFeatures`.
           items:
-            $ref: '#/components/schemas/Image'
+            $ref: "#/components/schemas/Image"
         type:
           type: string
+          default: Image
+    ImageSource:
+      title: ImageSource
+      type: object
+      description: The work from which an image was sourced.
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        contributors:
+          type: array
+          items:
+            $ref: "#/components/schemas/Contributor"
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+        subjects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Subject"
+        languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Language"
+        type:
+          type: string
+          default: Work
     ImageAggregations:
       title: ImageAggregations
       type: object
       properties:
+        license:
+          $ref: "#/components/schemas/Aggregation"
         source.genres.label:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         source.subjects.label:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         source.contributors.agent.label:
-          $ref: '#/components/schemas/Aggregation'
-        locations.license:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         type:
           type: string
       description: A map containing the requested aggregations.
@@ -1002,6 +1119,7 @@ components:
       properties:
         type:
           type: string
+          default: ResultList
         pageSize:
           type: integer
           format: int32
@@ -1014,13 +1132,13 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/Image'
+            $ref: "#/components/schemas/Image"
         prevPage:
           type: string
         nextPage:
           type: string
         aggregations:
-          - $ref: '#/components/schemas/ImageAggregations'
+          $ref: "#/components/schemas/ImageAggregations"
     Item:
       title: Item
       type: object
@@ -1032,7 +1150,7 @@ components:
         identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/Identifier'
+            $ref: "#/components/schemas/Identifier"
         title:
           type: string
           description: A human readable title.
@@ -1043,26 +1161,13 @@ components:
           type: array
           items:
             description: A location that provides access to an item
+            oneOf:
+              - $ref: "#/components/schemas/DigitalLocation"
+              - $ref: "#/components/schemas/PhysicalLocation"
             discriminator:
               propertyName: type
-            oneOf:
-              - $ref: '#/components/schemas/DigitalLocation'
-              - $ref: '#/components/schemas/PhysicalLocation'
-        status:
-          $ref: '#/components/schemas/ItemStatus'
         type:
           type: string
-    ItemStatus:
-      title: ItemStatus
-      type: object
-      properties:
-        id:
-          type: string
-        label:
-          type: string
-        type:
-          type: string
-      description: Item availability status
     Language:
       title: Language
       type: object
@@ -1087,7 +1192,14 @@ components:
             - cc-by
             - cc-by-nc
             - cc-by-nc-nd
-            - 'cc-0, pdm'
+            - cc-0
+            - pdm
+            - cc-by-nd
+            - cc-by-sa
+            - cc-by-nc-sa
+            - ogl
+            - opl
+            - inc
         label:
           type: string
           description: The title or other short name of a license
@@ -1096,7 +1208,7 @@ components:
           description: URL to the full text of a license
         type:
           type: string
-      description: 'The specific license under which the work in question is released to the public - for example, one of the forms of Creative Commons - if it is a precise license to which a link can be made.'
+      description: "The specific license under which the work in question is released to the public - for example, one of the forms of Creative Commons - if it is a precise license to which a link can be made."
     LocationType:
       title: LocationType
       type: object
@@ -1118,7 +1230,7 @@ components:
             type: string
             description: The note contents.
         noteType:
-          $ref: '#/components/schemas/NoteType'
+          $ref: "#/components/schemas/NoteType"
         type:
           type: string
       description: A note associated with the work.
@@ -1144,7 +1256,7 @@ components:
         identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/Identifier'
+            $ref: "#/components/schemas/Identifier"
         type:
           type: string
       description: A period of time
@@ -1154,21 +1266,23 @@ components:
       description: A physical location that provides access to an item
       properties:
         locationType:
-          $ref: '#/components/schemas/LocationType'
+          $ref: "#/components/schemas/LocationType"
         label:
           type: string
           description: The title or other short name of the location.
         license:
-          $ref: '#/components/schemas/License'
+          $ref: "#/components/schemas/License"
         shelfmark:
           type: string
           description: The specific shelf where this item can be found
         accessConditions:
           type: array
           items:
-            $ref: '#/components/schemas/AccessCondition'
+            $ref: "#/components/schemas/AccessCondition"
         type:
-          type: string
+          const: PhysicalLocation
+      required:
+        - type
     Place:
       title: Place
       type: object
@@ -1180,31 +1294,31 @@ components:
         identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/Identifier'
+            $ref: "#/components/schemas/Identifier"
         type:
           type: string
       description: A place
     ProductionEvent:
       title: ProductionEvent
       type: object
-      description: 'An event contributing to the production, publishing or distribution of a work.'
+      description: "An event contributing to the production, publishing or distribution of a work."
       properties:
         label:
           type: string
         places:
           type: array
           items:
-            $ref: '#/components/schemas/Place'
+            $ref: "#/components/schemas/Place"
         agents:
           type: array
           items:
-            $ref: '#/components/schemas/Agent'
+            $ref: "#/components/schemas/Agent"
         dates:
           type: array
           items:
-            $ref: '#/components/schemas/Period'
+            $ref: "#/components/schemas/Period"
         function:
-          $ref: '#/components/schemas/Concept'
+          $ref: "#/components/schemas/ConceptStub"
         type:
           type: string
     RelatedImage:
@@ -1228,14 +1342,14 @@ components:
           readOnly: true
         title:
           type: string
-          description: 'The title or other short label of a work, including labels not present in the actual work or item but applied by the cataloguer for the purposes of search or description.'
+          description: "The title or other short label of a work, including labels not present in the actual work or item but applied by the cataloguer for the purposes of search or description."
         referenceNumber:
           type: string
           description: The identifier used by researchers to cite or refer to a work.
         partOf:
           type: array
           items:
-            $ref: '#/components/schemas/RelatedWork'
+            $ref: "#/components/schemas/RelatedWork"
         totalParts:
           type: integer
           description: Number of child works.
@@ -1256,28 +1370,20 @@ components:
         identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/Identifier'
+            $ref: "#/components/schemas/Identifier"
         label:
           type: string
           description: A label given to a thing.
         concepts:
           type: array
           items:
-            discriminator:
-              propertyName: type
-            oneOf:
-              - $ref: '#/components/schemas/Concept'
-              - $ref: '#/components/schemas/Agent'
-              - $ref: '#/components/schemas/Place'
-              - $ref: '#/components/schemas/Period'
+            $ref: "#/components/schemas/ConceptStub"
         type:
           type: string
     Work:
       title: Work
       type: object
       description: 'An individual work such as a text, archive item or picture; or a grouping of individual works (so, for instance, an archive collection counts as a work, as do all the series and individual files within it).  Each work may exist in multiple instances (e.g. copies of the same book).  N.B. this is not synonymous with \"work\" as that is understood in the International Federation of Library Associations and Institutions'' Functional Requirements for Bibliographic Records model (FRBR) but represents something lower down the FRBR hierarchy, namely manifestation. Groups of related items are also included as works because they have similar properties to the individual ones.'
-      examples:
-        - {}
       properties:
         id:
           type: string
@@ -1285,7 +1391,7 @@ components:
           readOnly: true
         title:
           type: string
-          description: 'The title or other short label of a work, including labels not present in the actual work or item but applied by the cataloguer for the purposes of search or description.'
+          description: "The title or other short label of a work, including labels not present in the actual work or item but applied by the cataloguer for the purposes of search or description."
         alternativeTitles:
           type: array
           items:
@@ -1301,120 +1407,121 @@ components:
           type: string
           description: A description of specific physical characteristics of the work.
         workType:
-          $ref: '#/components/schemas/Format'
+          $ref: "#/components/schemas/Format"
         lettering:
           type: string
           description: Recording written text on a (usually visual) work.
         createdDate:
-          $ref: '#/components/schemas/Period'
+          $ref: "#/components/schemas/Period"
         contributors:
           type: array
-          description: 'Relates a work to its author, compiler, editor, artist or other entity responsible for its coming into existence in the form that it has.'
+          description: "Relates a work to its author, compiler, editor, artist or other entity responsible for its coming into existence in the form that it has."
           items:
-            $ref: '#/components/schemas/Contributor'
+            $ref: "#/components/schemas/Contributor"
         identifiers:
           type: array
           items:
-            $ref: '#/components/schemas/Identifier'
+            $ref: "#/components/schemas/Identifier"
         subjects:
           type: array
           items:
-            $ref: '#/components/schemas/Subject'
+            $ref: "#/components/schemas/Subject"
         genres:
           type: array
           items:
-            $ref: '#/components/schemas/Genre'
+            $ref: "#/components/schemas/Genre"
         thumbnail:
-          $ref: '#/components/schemas/DigitalLocation'
+          $ref: "#/components/schemas/DigitalLocation"
         items:
           type: array
           items:
-            $ref: '#/components/schemas/Item'
+            $ref: "#/components/schemas/Item"
         holdings:
           type: array
           items:
-            $ref: '#/components/schemas/Holdings'
+            $ref: "#/components/schemas/Holdings"
         availabilities:
           type: array
           items:
-            $ref: '#/components/schemas/Availability'
+            $ref: "#/components/schemas/Availability"
         production:
           type: array
           items:
-            $ref: '#/components/schemas/ProductionEvent'
+            $ref: "#/components/schemas/ProductionEvent"
         languages:
           type: array
           items:
-            $ref: '#/components/schemas/Language'
+            $ref: "#/components/schemas/Language"
         edition:
           type: string
           description: Information relating to the edition of a work.
         notes:
           type: array
           items:
-            $ref: '#/components/schemas/Note'
+            $ref: "#/components/schemas/Note"
         duration:
           type: integer
-          description: 'The playing time for audiovisual works, in seconds.'
+          description: "The playing time for audiovisual works, in seconds."
         currentFrequency:
           type: string
-          description: 'The current stated publication frequency, e.g. of a serial or journal.'
+          description: "The current stated publication frequency, e.g. of a serial or journal."
         formerFrequency:
           type: array
           items:
             type: string
-            description: 'The former publication frequency, e.g. of a serial or journal.'
+            description: "The former publication frequency, e.g. of a serial or journal."
         designation:
           type: array
           items:
             type: string
-            description: 'Beginning/ending date(s) of an item and/or the sequential designations used on each part.'
+            description: "Beginning/ending date(s) of an item and/or the sequential designations used on each part."
         images:
           type: array
           items:
-            $ref: '#/components/schemas/RelatedImage'
+            $ref: "#/components/schemas/RelatedImage"
         parts:
           type: array
           description: Child works.
           items:
-            $ref: '#/components/schemas/RelatedWork'
+            $ref: "#/components/schemas/RelatedWork"
         partOf:
           type: array
           description: Ancestor works.
           items:
-            $ref: '#/components/schemas/RelatedWork'
+            $ref: "#/components/schemas/RelatedWork"
         precededBy:
           type: array
           description: Sibling works earlier in a series.
           items:
-            $ref: '#/components/schemas/RelatedWork'
+            $ref: "#/components/schemas/RelatedWork"
         succeededBy:
           type: array
           description: Sibling works later in a series.
           items:
-            $ref: '#/components/schemas/RelatedWork'
+            $ref: "#/components/schemas/RelatedWork"
         type:
           type: string
+          default: Work
     WorkAggregations:
       title: WorkAggregations
       type: object
       properties:
         workType:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         production.dates:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         genres.label:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         subjects.label:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         contributors.agent.label:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         languages:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         items.locations.license:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         availabilities:
-          $ref: '#/components/schemas/Aggregation'
+          $ref: "#/components/schemas/Aggregation"
         type:
           type: string
       description: A map containing the requested aggregations.
@@ -1425,6 +1532,7 @@ components:
       properties:
         type:
           type: string
+          default: ResultList
         pageSize:
           type: integer
           format: int32
@@ -1437,14 +1545,10 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/Work'
+            $ref: "#/components/schemas/Work"
         prevPage:
           type: string
         nextPage:
           type: string
         aggregations:
-          - $ref: '#/components/schemas/WorkAggregations'
-tags:
-  - name: Works
-  - name: Images
-  - name: Concepts
+          $ref: "#/components/schemas/WorkAggregations"
