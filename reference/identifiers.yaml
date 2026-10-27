@@ -1,0 +1,385 @@
+openapi: 3.0.3
+info:
+  title: Wellcome Collection Identifiers API
+  version: 1.0.0
+  description: |
+    Translates between Wellcome Collection's public catalogue ids and the ids our
+    source systems use, in both directions.
+
+    ## This API needs a key
+
+    This is an integration API for services that work with our catalogue, not a
+    public API. Every request must carry an `x-api-key` header, and a request
+    without a valid key gets `403 {"message":"Forbidden"}`.
+
+    Keys are issued to integrating services by the Wellcome Collection digital
+    platform team. To ask for one, contact
+    [digital@wellcomecollection.org](mailto:digital@wellcomecollection.org). Each
+    consumer has its own key, and a consumer that goes over its rate limit gets
+    `429`.
+
+    ## Lookups
+
+    - **Canonical to source.** `GET /identifiers/v1/{canonicalId}` returns every
+      source identifier that shares a canonical id, most recent first.
+    - **Source to canonical.** `GET /identifiers/v1/by-source/{sourceSystem}/{value}`
+      returns the canonical id for a source identifier. Add `include=siblings` to
+      get the other source identifiers as well. `type` selects `Work` (the
+      default), `Image` or `Item`.
+    - `GET /identifiers/v1/source-systems` lists the source systems you can name
+      in a by-source lookup.
+
+    ## Errors
+
+    Errors from the API have a JSON body with a stable machine-readable `error`
+    code and a human-readable `message`. A `404` means there is no public mapping,
+    whether the id is unknown, not yet assigned, or not a Work, Image or Item.
+    Errors raised by the gateway itself, such as a missing key or a throttled
+    request, have a `message` only.
+
+    ## Caching
+
+    Every successful response carries `Cache-Control`. The forward lookup and
+    `include=siblings` may be cached for 5 minutes, because a canonical id can gain
+    source identifiers while records migrate between systems. The bare reverse
+    lookup never changes once assigned, and it and the source systems list may be
+    cached for a day. Responses other than the bare reverse lookup also carry an
+    `ETag`: send it back in `If-None-Match` to get a `304` when nothing has
+    changed.
+servers:
+  - url: https://api.wellcomecollection.org
+    description: Production edge
+paths:
+  /identifiers/v1/{canonicalId}:
+    get:
+      security:
+        - ApiKeyAuth: []
+      operationId: getByCanonicalId
+      summary: Resolve a canonical id to its source identifiers
+      description: Returns the source identifiers that share this canonical id, ordered by createdAt descending so the most recent is always first. Identifiers whose ontology type is not Work, Image or Item are omitted. The original is the row with `isAlias` false, which is last. The set can grow during a source-system migration as aliases are inherited, so responses are cached with a bounded TTL and revalidated via ETag.
+      parameters:
+        - $ref: '#/components/parameters/CanonicalId'
+      responses:
+        '200':
+          description: Canonical id is assigned and its original identifier is a Work, Image or Item.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/CacheControl'
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierSet'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /identifiers/v1/by-source/{sourceSystem}/{value}:
+    get:
+      security:
+        - ApiKeyAuth: []
+      operationId: getBySourceIdentifier
+      summary: Resolve a source identifier to its canonical id
+      description: |-
+        Point lookup on the (OntologyType, SourceSystem, SourceId) primary key. By default returns only the canonical id. With include=siblings it also returns the source identifiers sharing that canonical id, as the forward lookup does (the same element shape, and the same omission of identifiers whose ontology type is not Work, Image or Item). The queried tuple is included in that set.
+
+        Freshness differs by variant: the bare lookup is immutable once minted and cached hard; include=siblings carries the mutable canonical->sources set and inherits the bounded-TTL + ETag treatment.
+      parameters:
+        - $ref: '#/components/parameters/SourceSystem'
+        - $ref: '#/components/parameters/SourceValue'
+        - $ref: '#/components/parameters/TypeParam'
+        - $ref: '#/components/parameters/IncludeParam'
+      responses:
+        '200':
+          description: A mapping exists for the supplied tuple.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/CacheControl'
+            ETag:
+              $ref: '#/components/headers/ETag'
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/CanonicalIdRef'
+                  - $ref: '#/components/schemas/IdentifierSet'
+              examples:
+                default:
+                  summary: Default (no include)
+                  value:
+                    canonicalId: a2345bcd
+                siblings:
+                  summary: include=siblings
+                  value:
+                    canonicalId: a2345bcd
+                    type: Work
+                    sourceIdentifiers:
+                      - type: Work
+                        sourceSystem: axiell-collections-id
+                        value: '12345'
+                        isAlias: true
+                        createdAt: '2026-02-10T12:00:00Z'
+                      - type: Work
+                        sourceSystem: sierra-system-number
+                        value: b1161044x
+                        isAlias: false
+                        createdAt: '2019-03-04T10:14:22Z'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /identifiers/v1/source-systems:
+    get:
+      security:
+        - ApiKeyAuth: []
+      operationId: listSourceSystems
+      summary: List the source systems this API advertises
+      description: The source systems a consumer can name in a by-source lookup, with the ontology types each one identifies. Sorted by id. The list is curated to the systems the registry holds for Work, Image and Item, so the registry may hold others, and a by-source lookup naming a system not listed here still resolves to 404 rather than 400.
+      responses:
+        '200':
+          description: The advertised source systems.
+          headers:
+            Cache-Control:
+              description: Long TTL, since the list changes only when the API is deployed.
+              schema:
+                type: string
+              example: public, max-age=86400
+            ETag:
+              description: Strong validator derived from a hash of the response body, so it changes whenever the list does.
+              schema:
+                type: string
+              example: '"3b1f0c2a9d8e7f65"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceSystemList'
+        '304':
+          $ref: '#/components/responses/NotModified'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+  parameters:
+    CanonicalId:
+      name: canonicalId
+      in: path
+      required: true
+      description: 8-char public catalogue id. Alphabet a-z and 2-9, excluding o/i/l/1, first character a letter. Malformed ids are rejected at the gateway.
+      schema:
+        type: string
+        pattern: ^[a-hjkmnp-z][a-hjkmnp-z2-9]{7}$
+      example: a2345bcd
+    SourceSystem:
+      name: sourceSystem
+      in: path
+      required: true
+      description: Source system identifier type. GET /identifiers/v1/source-systems lists the advertised values.
+      schema:
+        type: string
+        example: sierra-system-number
+    SourceValue:
+      name: value
+      in: path
+      required: true
+      description: The identifier value within the source system. Must be a single, URL-encoded path segment. Source-id formats are heterogeneous, so this is not pattern-validated; unknown values resolve to 404 rather than 400.
+      schema:
+        type: string
+      example: b1161044x
+    TypeParam:
+      name: type
+      in: query
+      required: false
+      description: Ontology type. Part of the lookup key; defaults to Work.
+      schema:
+        type: string
+        enum:
+          - Work
+          - Image
+          - Item
+        default: Work
+    IncludeParam:
+      name: include
+      in: query
+      required: false
+      description: Set to "siblings" to also return all source identifiers sharing the resolved canonical id. Omit for the canonical id alone.
+      schema:
+        type: string
+        enum:
+          - siblings
+  headers:
+    CacheControl:
+      description: Bounded TTL during migration (alias set may grow); relaxed to a long TTL after source-system switchover. The bare reverse lookup is immutable and may carry a long TTL regardless.
+      schema:
+        type: string
+      example: public, max-age=300
+    ETag:
+      description: Weak validator derived from (row_count, max(createdAt)) of the returned identifiers. Changes exactly when a returned alias is added, enabling cheap 304 revalidation.
+      schema:
+        type: string
+      example: W/"2-2026-02-10T12:00:00Z"
+  responses:
+    NotModified:
+      description: Resource unchanged since the supplied ETag (conditional GET).
+    BadRequest:
+      description: Request failed gateway-level validation (e.g. canonicalId format, or an unsupported type enum value).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: badRequest
+            message: canonicalId does not match the required format
+    NotFound:
+      description: No mapping exists. Covers an unknown id, an unknown source tuple, a canonical id that is pre-generated but not yet assigned, and a canonical id whose original identifier has an ontology type other than Work, Image or Item. All are opaque to the consumer as "no public identifier".
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: notFound
+            message: no mapping found
+    InternalServerError:
+      description: The lookup could not be completed. The message is fixed, so no registry or infrastructure detail reaches the consumer.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internalServerError
+            message: the request could not be completed
+  schemas:
+    SourceIdentifier:
+      type: object
+      description: A single source identifier mapped to a canonical id.
+      required:
+        - type
+        - sourceSystem
+        - value
+        - isAlias
+        - createdAt
+      properties:
+        type:
+          type: string
+          description: Ontology type for this row. Kept per-row because a canonical id can carry rows of differing types (cross-type predecessors are allowed).
+          enum:
+            - Work
+            - Image
+            - Item
+          example: Work
+        sourceSystem:
+          type: string
+          example: sierra-system-number
+        value:
+          type: string
+          example: b1161044x
+        isAlias:
+          type: boolean
+          description: False for the original (earliest createdAt), true for inherited predecessor aliases.
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+          example: '2019-03-04T10:14:22Z'
+    IdentifierSet:
+      type: object
+      description: A canonical id and the source identifiers sharing it. Identifiers whose ontology type is not Work, Image or Item are omitted.
+      required:
+        - canonicalId
+        - type
+        - sourceIdentifiers
+      properties:
+        canonicalId:
+          type: string
+          pattern: ^[a-hjkmnp-z][a-hjkmnp-z2-9]{7}$
+          example: a2345bcd
+        type:
+          type: string
+          description: Ontology type of the canonical id, taken from the original row (the single isAlias=false row), so consumers need not scan the set. A convenience copy of that row's per-row type; with cross-type predecessors it reflects the original and may differ from a later alias.
+          enum:
+            - Work
+            - Image
+            - Item
+          example: Work
+        sourceIdentifiers:
+          type: array
+          description: Ordered by createdAt descending; most recent first. Always includes the original identifier.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/SourceIdentifier'
+    CanonicalIdRef:
+      type: object
+      description: Bare canonical id reference (default reverse-lookup response).
+      additionalProperties: false
+      required:
+        - canonicalId
+      properties:
+        canonicalId:
+          type: string
+          pattern: ^[a-hjkmnp-z][a-hjkmnp-z2-9]{7}$
+          example: a2345bcd
+    SourceSystem:
+      type: object
+      description: A source system that can be named in a by-source lookup.
+      additionalProperties: false
+      required:
+        - id
+        - label
+        - types
+      properties:
+        id:
+          type: string
+          description: The value to use as sourceSystem in a by-source lookup.
+          example: sierra-system-number
+        label:
+          type: string
+          example: Sierra system number
+        types:
+          type: array
+          description: The ontology types this system identifies, ordered Work, Image, Item. Use one as the type parameter of a by-source lookup.
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - Work
+              - Image
+              - Item
+          example:
+            - Work
+            - Item
+    SourceSystemList:
+      type: object
+      description: The advertised source systems, sorted by id.
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceSystem'
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Stable machine-readable code.
+          example: notFound
+        message:
+          type: string
+          description: Human-readable detail.
+          example: no mapping found

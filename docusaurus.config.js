@@ -59,6 +59,12 @@ const config = {
             spec: "reference/text.yaml",
             layout: { title: "Text API" },
           },
+          // Keyed integration API, so left out of the navbar and the API Reference cards
+          {
+            route: "api/identifiers",
+            spec: "reference/identifiers.yaml",
+            layout: { title: "Identifiers API" },
+          },
         ],
         theme: {
           primaryColor: "#007868",
