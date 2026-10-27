@@ -68,7 +68,7 @@ for file in $root/docs/examples/*.md; do
 done
 
 # add a link to github and colab for each notebook
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+GIT_BRANCH=main
 
 for file in $root/notebooks/*.ipynb; do
   filename=$(basename -- "$file")
