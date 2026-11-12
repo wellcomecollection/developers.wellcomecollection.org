@@ -1,0 +1,10 @@
+apiVersion: backplane/v1
+kind: Component
+metadata:
+  name: developers-wellcomecollection-org
+  title: developers.wellcomecollection.org
+  description: Developer documentation for Wellcome Collection's public APIs and datasets.
+spec:
+  type: website
+  owner: team:digital-platform
+  lifecycle: production
